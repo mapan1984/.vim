@@ -24,8 +24,19 @@ Plugin 'Lokaltog/vim-powerline'
  set guifont=PowerlineSymbols\ for\ Powerline
  set t_Co=256                 "设置256色显示
  let g:Powerline_symbols = 'fancy'
+ let g:Powerline_colorscheme = 'solarized256'
 
-Plugin 'scrooloose/nerdtree'
+Plugin 'nathanaelkane/vim-indent-guides'
+ " 随vim自启动
+ let g:indent_guides_enable_on_vim_startup=1
+ " 从第二层开始可视化显示缩进
+ let g:indent_guides_start_level=2
+ " 色块宽度
+ let g:indent_guides_guide_size=1
+ " 快捷键i开/关缩进可视化
+ nnoremap <silent> <Leader>i <Plug>IndentGuidesToggle
+
+ Plugin 'scrooloose/nerdtree'
  nnoremap tr :NERDTreeToggle<cr>
  " 设置相对行号
  nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
@@ -40,6 +51,10 @@ Plugin 'scrooloose/nerdtree'
  let NERDTreeIgnore=['\.$','\~$']
  "let NERDTreeShowLineNumbers=1
  let NERDTreeWinPos=0
+
+Plugin 'kshenoy/vim-signature'
+ nnoremap <silent> <Leader>; :SignatureToggle<cr>
+ nnoremap <silent> <leader>r :SignatureRefresh<cr>
 
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
@@ -72,10 +87,13 @@ filetype plugin indent on    " required enables filetype plugin
 
 " ================ Basic Settings ===================={{{
 filetype on                     " enables filetype detection
-syntax on                       " support syntax highlight
+syntax enable                   " 开启语法高亮功能
+syntax on                       " 允许用指定语法高亮配色方案替换默认方案
 set laststatus=2                " 启动显示状态行(1),总是显示状态行(2)
+set ruler                       " 显示光标当前位置
 set showmode                    " show the mode
 set showcmd                     " 显示输入命令
+set wildmenu                    " vim自身命令行模式智能补全
 set history=1000                " 历史记录数
 "set undofile                    " 无限undo
 set mouse=a                     " enable using the mouse if terminal emulator
@@ -123,10 +141,10 @@ set textwidth=0                 " maximum width in a line
 " Default Indentation
  set autoindent                  " indent automatically
  set smartindent
- set tabstop=4                   " Tab键的宽度
- set softtabstop=4               " 统一缩进为4
- set shiftwidth=4                "
  set expandtab                   " 使用空格代替制表符
+ set tabstop=4                   " 插入模式下Tab键的宽度
+ set shiftwidth=4                " 格式化时Tab的宽度
+ set softtabstop=4               " 将连续的空格视为Tab(方便删除)
  set smarttab                    " insert tabs on the start of a line according to
 
  set whichwrap=b,s,<,>,[,]       " 让退格，空格，上下箭头遇到行首行尾时自动移到下一行（包括insert模式）
