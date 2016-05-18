@@ -25,6 +25,7 @@ augroup filetype_markdown
     autocmd FileType markdown onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
     " cah(change around heading)
     autocmd FileType markdown onoremap ah :<c-u>execute "normal! ?^==\\+\r:nohlsearch\rg_vk0"<cr>
+    " 缩写
     autocmd FileType markdown :iabbrev <buffer> @@ mapan1984@outlook.com
     autocmd FileType markdown :iabbrev <buffer> link []()<esc>2hi
     autocmd FileType markdown :iabbrev <buffer> kbd <kbd></kbd><esc>b2hi
@@ -35,7 +36,8 @@ augroup coding
     autocmd!
     " 自动加#!
     autocmd BufNewFile *.sh :normal! i#!/bin/bash\<esc>o
-    autocmd BufNewFile *.py execute "normal! i#!/usr/bin/env python3\<esc>o# -*- coding: utf-8 -*-\<esc>o"
+    autocmd BufNewFile *.py execute "normal! i#!/usr/bin/env python3\<esc>o".
+                                            \"# -*- coding: utf-8 -*-\<esc>o"
     "在末尾加分号
     autocmd FileType c,cpp,javascript noremap <leader>; A;<esc>
     "自动扩展if

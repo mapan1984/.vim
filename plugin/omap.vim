@@ -3,6 +3,7 @@
 onoremap ( i(
 onoremap { i{
 onoremap < i<
+onoremap [ i[
 onoremap " i"
 onoremap ' i'
 onoremap ` i`
