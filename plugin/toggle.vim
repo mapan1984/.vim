@@ -1,3 +1,4 @@
+" ===== 切换Colum =====
 nnoremap <leader>f :call FoldColumToggle()<cr>
 
 function! FoldColumToggle()
@@ -9,7 +10,7 @@ function! FoldColumToggle()
     endif
 endfunction
 
-" 切换Quickfix
+" ===== 切换Quickfix =====
 nnoremap <leader>q :call QuickfixToggle()<cr>
 
 let g:quickfix_is_open = 0
@@ -26,3 +27,6 @@ function! QuickfixToggle()
         let g:quickfix_is_open = 1
     endif
 endfunction
+
+" 切换wrap
+nnoremap <leader>wr :setlocal wrap!<cr>

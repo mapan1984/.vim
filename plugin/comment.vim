@@ -1,4 +1,4 @@
-" ========= 加注释 取消注释 ================= {{{
+" ========= 加注释 取消注释 =========
 func! Add_Comment()
     if &filetype ==# "c" || &filetype ==# "cpp" || &filetype ==# "javascript"
         exec "normal! I//" . "\<esc>"
@@ -29,4 +29,3 @@ vnoremap <leader>ac <ESC>:call Add_Comment()<CR>
 vnoremap <leader>cc <ESC>:call Clean_Comment()<CR>
 nnoremap <leader>ac :call Add_Comment()<CR>
 nnoremap <leader>cc :call Clean_Comment()<CR>
-"}}}

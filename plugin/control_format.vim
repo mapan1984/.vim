@@ -1,4 +1,5 @@
-" ========= 格式控制 ==================== {{{
+" ========= 格式控制 ==========
+
 " rt 将tab替换为空格
 inoremap <leader>rt <ESC>:%s/\t/    /g<CR>
 vnoremap <leader>rt <ESC>:%s/\t/    /g<CR>
@@ -11,4 +12,3 @@ nnoremap <leader>rb :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " rl 去空行
 nnoremap <leader>rl :g/^\s*$/d<CR>
-"}}}
