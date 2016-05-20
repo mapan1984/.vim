@@ -105,21 +105,21 @@ syntax enable                   " 开启语法高亮功能
 syntax on                       " 允许用指定语法高亮配色方案替换默认方案
 set showmode                    " show the mode
 set showcmd                     " 显示输入命令在屏幕底部
-set wildmenu                    " vim自身命令行模式智能补全
 set history=1000                " 历史记录数
-set mouse=a                     " enable using the mouse if terminal emulator
-set mousehide                   " 在输入时隐藏鼠标指针
+set wildmenu                    " vim自身命令行模式智能补全
 set autoread                    " 文件在Vim之外修改过，自动重新读入
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
-
 "set pastetoggle=<F2>           " when in insert mode, press <F2> to go to
                                 " paste mode, where you can paste mass data
                                 " that won't be autoindented
 
+set mouse=a                     " enable using the mouse if terminal emulator
+set mousehide                   " 在输入时隐藏鼠标指针
+
 " ===== encoding ===== {{{
 set helplang=cn                 " 帮助系统设置为中文
 set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
-"set spelllang=en               " spell checking
+" set spelllang=en               " spell checking
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1
 "}}}
@@ -135,16 +135,16 @@ endif
 " ===== 禁止临时文件 ===== {{{
 set nobackup                    " 禁止生成临时文件
 set noswapfile                  " do not write annoying intermediate swap files,
-                            "    who did ever restore from swap files anyway?
+                                "   who did ever restore from swap files anyway?
 set directory=~/.vim/.tmp
                                 " store swap files in one of these directories
-                                "    (in case swapfile is ever turned on)
+                                "   (in case swapfile is ever turned on)
 "}}}
 
 " ===== 外观 ===== {{{
 set number                      " 显示行号
 set numberwidth=4               " 行号栏的宽度
-"set relativenumber             " 相对行号,要想相对行号起作用要放在显示行号后面
+" set relativenumber             " 相对行号,要想相对行号起作用要放在显示行号后面
 set cursorline                  " 设置光标高亮显示
 set colorcolumn=85              " 彩色显示第85行
 set laststatus=2                " 启动显示状态行(1),总是显示状态行(2)
@@ -173,19 +173,20 @@ set hidden                      " hide buffers instead of closing them this
 
 " ===== Indentation ===== {{{
  set autoindent                  " indent automatically
- set smartindent
+ set smartindent                 " 设置smartindent为默认值
  set expandtab                   " 使用空格代替制表符
  set tabstop=4                   " 插入模式下Tab键的宽度
- set shiftwidth=4                " 格式化时Tab的宽度
+ set shiftwidth=4                " vim格式化时Tab的宽度
  set softtabstop=4               " 将连续的空格视为Tab(方便删除)
- set smarttab                    " insert tabs on the start of a line according to
+ set smarttab                    " insert tabs on the start of a line
+                                 " in makefile
 "}}}
 
 set whichwrap=b,s,<,>,[,]       " 让退格，空格，上下箭头遇到行首行尾时自动移到下一行（包括insert模式）
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
 "}}}
 
-" ========= Map ===========
+" ========= Map =========== {{{
 "设置leader键
 let mapleader=","
 let maplocalleader="\<Space>"
@@ -249,9 +250,10 @@ augroup END
 nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
 "}}}
+"}}}
 
 " 打开新文件保存
-"autocmd BufNewFile * :write
+" autocmd BufNewFile * :write
 
 " Input method 
 set iminsert=0 
