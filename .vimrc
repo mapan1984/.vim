@@ -101,10 +101,10 @@ filetype plugin indent on    " required enables filetype plugin
 
 " ========= Basic Settings ========= {{{
 filetype on                     " enables filetype detection
+filetype indent on              " 不同文件采用不同缩进
+filetype plugin on              " 允许插件
 syntax enable                   " 开启语法高亮功能
 syntax on                       " 允许用指定语法高亮配色方案替换默认方案
-set showmode                    " show the mode
-set showcmd                     " 显示输入命令在屏幕底部
 set history=1000                " 历史记录数
 set wildmenu                    " vim自身命令行模式智能补全
 set autoread                    " 文件在Vim之外修改过，自动重新读入
@@ -116,40 +116,14 @@ set confirm                     " 在处理未保存或只读文件的时候，�
 set mouse=a                     " enable using the mouse if terminal emulator
 set mousehide                   " 在输入时隐藏鼠标指针
 
-" ===== encoding ===== {{{
-set helplang=cn                 " 帮助系统设置为中文
-set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
-" set spelllang=en               " spell checking
-set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1
-"}}}
-
-" ===== 无限undo ===== {{{
-set undolevels=1000             " use many muchos levels of undo
-if v:version >= 704
-    set undofile                " keep a persistent backup file
-    set undodir=~/.vim/.undo
-endif
-"}}}
-
-" ===== 禁止临时文件 ===== {{{
-set nobackup                    " 禁止生成临时文件
-set noswapfile                  " do not write annoying intermediate swap files,
-                                "   who did ever restore from swap files anyway?
-set directory=~/.vim/.tmp
-                                " store swap files in one of these directories
-                                "   (in case swapfile is ever turned on)
-"}}}
-
-" ===== 外观 ===== {{{
+" ===== UI ===== {{{
 set number                      " 显示行号
 set numberwidth=4               " 行号栏的宽度
 " set relativenumber             " 相对行号,要想相对行号起作用要放在显示行号后面
 set cursorline                  " 设置光标高亮显示
 set colorcolumn=85              " 彩色显示第85行
-set laststatus=2                " 启动显示状态行(1),总是显示状态行(2)
-set ruler                       " 显示光标当前位置
-set scrolloff=3                 " 光标移动到buffer的顶部和底部时保持3行距离
+set scrolloff=7                 " 光标移动到buffer的顶部和底部时保持7行距离
+set foldenable                  " 代码折叠
 set foldmethod=syntax           " folds are created manually
 set nowrap                      " 禁止自动换行
 set textwidth=0                 " maximum width in a line
@@ -157,29 +131,57 @@ set hidden                      " hide buffers instead of closing them this
                                 "    means that the current buffer can be put
                                 "    to background without being written; and
                                 "    that marks and undo history are preserved
+set laststatus=2                " 启动显示状态行(1),总是显示状态行(2)
+set showcmd                     " 显示输入命令在状态栏
+set showmode                    " show the mode of vim
+"}}}
+"
+" ===== encoding ===== {{{
+set encoding=utf-8              " 设置新文件的编码为 UTF-8
+" 自动判断编码，依次尝试以下顺序
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1
+
+set helplang=cn                 " 帮助系统设置为中文
+set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
+" set spell spelllang=en_us       " spell checking
+"}}}
+
+" ===== 无限undo ===== {{{
+set undolevels=1000             " use many much levels of undo
+if v:version >= 704
+    set undofile                " keep a persistent backup file
+    set undodir=~/.vim/.undo
+endif
+"}}}
+
+" ===== 禁止临时文件 ===== {{{
+set nobackup                    " 禁止生成备份文件
+set noswapfile                  " do not write annoying intermediate swap files,
+                                "   who did ever restore from swap files anyway?
+set directory=~/.vim/.tmp
+                                " store swap files in one of these directories
+                                "   (in case swapfile is ever turned on)
 "}}}
 
 " ===== Searching ===== {{{
- set hlsearch                    " highlight the words match the search pattern
- set incsearch                   " show the pattern as it was typed so far
- set ignorecase                  " 设置大小写敏感和聪明感知(小写全搜，大写完全匹配)
- set smartcase                   " the case of normal letters is ignored
- set showmatch                   " jump to the matching bracket
- " 取消搜索高亮
- noremap nh :nohl<cr>
- " 搜索替换
- nnoremap <leader>s :1,%s///cg<left><left><left><left>
+set hlsearch                    " highlight the words match the search pattern
+set incsearch                   " show the pattern as it was typed so far
+set ignorecase                  " 设置大小写敏感和聪明感知(小写全搜，大写完全匹配)
+set smartcase                   " the case of normal letters is ignored
+set showmatch                   " jump to the matching bracket
+" 取消搜索高亮
+noremap nh :nohl<cr>
 "}}}
 
-" ===== Indentation ===== {{{
- set autoindent                  " indent automatically
- set smartindent                 " 设置smartindent为默认值
- set expandtab                   " 使用空格代替制表符
- set tabstop=4                   " 插入模式下Tab键的宽度
- set shiftwidth=4                " vim格式化时Tab的宽度
- set softtabstop=4               " 将连续的空格视为Tab(方便删除)
- set smarttab                    " insert tabs on the start of a line
-                                 " in makefile
+" ===== Default Indentation ===== {{{
+set autoindent                  " indent automatically
+set smartindent                 " 设置smartindent为默认值
+set expandtab                   " 使用空格代替制表符
+set tabstop=4                   " 插入模式下Tab键的宽度
+set shiftwidth=4                " vim格式化时Tab的宽度
+set softtabstop=4               " 将连续的空格视为Tab(方便删除)
+set smarttab                    " insert tabs on the start of a line
+                                " in makefile
 "}}}
 
 set whichwrap=b,s,<,>,[,]       " 让退格，空格，上下箭头遇到行首行尾时自动移到下一行（包括insert模式）
@@ -198,6 +200,7 @@ vnoremap jk <ESC>
 noremap j gj
 noremap k gk
 
+inoremap zz <c-o>zz
 nnoremap ww :w<CR>
 nnoremap qq :q<CR>
 
@@ -205,17 +208,32 @@ nnoremap qq :q<CR>
 nnoremap <tab> %
 vnoremap <tab> %
 
-" ===== Brackets auto-complete ===== {{{
+" ===== Brackets ===== {{{
+" auto complete
+inoremap (p ()<ESC>i
+inoremap [p []<ESC>i
+inoremap {p {}<ESC>i
 inoremap {<cr> {<esc>o}<esc>O
+inoremap <p <><esc>i
 inoremap 'p ''<esc>i
 inoremap "p ""<esc>i
-inoremap <p <><esc>i
-inoremap (p ()<ESC>i
-inoremap {p {}<ESC>i
-inoremap [p []<ESC>i
-inoremap `p ``<esc>i
-" 为单词加<kbd>标签
-nnoremap <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
+
+" ( = i(
+onoremap ( i(
+onoremap { i{
+onoremap [ i[
+onoremap < i<
+onoremap " i"
+onoremap ' i'
+
+
+" 下一个括号的内容
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap in{ :<c-u>normal! f{vi{<cr>
+onoremap in[ :<c-u>normal! f[vi(<cr>
+onoremap in< :<c-u>normal! f<vi<<cr>
+onoremap in" :<c-u>normal! f"vi"<cr>
+onoremap in' :<c-u>normal! f'vi'<cr>
 "}}}
 
 " ===== 插入模式下移动 ===== {{{
@@ -237,19 +255,8 @@ vnoremap <leader>p "+p
 " Switch CWD to the directory of the open buffer:
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" ========= Vim脚本文件设置 ========= {{{
-" 为Vim脚本文件设置折叠
-augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-    "自动载入配置文件不需要重启
-    "autocmd! bufwritepost .vimrc source %
-augroup END
-
-" 编辑,重载.vimrc
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
-"}}}
+" 搜索替换
+nnoremap <leader>s :1,%s///cg<left><left><left><left>
 "}}}
 
 " 打开新文件保存
@@ -262,3 +269,9 @@ se imd
 au InsertEnter * se noimd 
 au InsertLeave * se imd 
 au FocusGained * se imd
+
+" 编辑,重载.vimrc
+nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
+"修改.vimrc后自动载入配置文件不需要重启
+"autocmd! bufwritepost .vimrc source %

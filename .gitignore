@@ -1,4 +1,5 @@
-*.un~
 .netrwhist
 .undo
 .temp
+*.un~
+*.swp
