@@ -22,8 +22,6 @@ augroup invisible_chars "{{{
     " Show invisible characters in all of these files
     autocmd filetype vim setlocal list
     autocmd filetype python setlocal list
-    autocmd filetype ruby setlocal list
-    autocmd filetype javascript,css setlocal list
 augroup end "}}}
 
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{

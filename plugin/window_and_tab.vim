@@ -1,5 +1,13 @@
+" ===== buffer =====
+" 切换前后buffer
+nnoremap [b :bprevious<cr>
+nnoremap ]b :bnext<cr>
+" 使用方向键切换buffer
+noremap <left> :bp<CR>
+noremap <right> :bn<CR>
+
 " ===== Window =====
-nnoremap <leader>ve :Vexplore<cr>
+nnoremap <leader>ve :Vexplore!<cr>
 nnoremap <leader>ws :split
 nnoremap <leader>wv :vsplit
 nnoremap <leader>wc <c-w>c
@@ -16,15 +24,11 @@ noremap <leader>tn :tabnew<cr>
 noremap <leader>tc :tabclose<cr>
 noremap <leader>to :tabonly<cr>
 noremap <leader>tm :tabmove<cr>
-
 " tab切换
-map <leader>th :tabfirst<cr>
+map <leader>tf :tabfirst<cr>
 map <leader>tl :tablast<cr>
-
 map <leader>tj :tabnext<cr>
 map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
 
 
 " normal模式下切换到确切的tab
@@ -40,10 +44,3 @@ noremap <silent>t9 :tabn 9<cr>
 noremap <silent>t0 :tabn 10<cr> 
 noremap <leader>0 :tablast<cr>
 "}}}
-" ===== buffer =====
-" 切换前后buffer
-nnoremap [b :bprevious<cr>
-nnoremap ]b :bnext<cr>
-" 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>

@@ -1,10 +1,4 @@
-" wrap at a character in the breakat option
-setlocal wrap linebreak
-
-" ===== Indentation =====
-setlocal tabstop=4
-setlocal shiftwidth=4
-setlocal softtabstop=4
+setlocal wrap
 
 " 在markdown中定位到' ^==+$\r '，使用cih(change inside heading)
 onoremap <buffer> ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
@@ -23,6 +17,8 @@ onoremap <buffer> in` :<c-u>normal! f`vi`<cr>
 nnoremap <buffer> <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
 
 " 缩写
-iabbrev <buffer> @@ mapan1984@outlook.com
-iabbrev <buffer> link []()<esc>2hi
-iabbrev <buffer> kbd <kbd></kbd><esc>b2hi
+iabbrev <buffer> mail <mapan1984@outlook.com>
+iabbrev <buffer> link []()<left><left><left>
+iabbrev <buffer> linkt <a target="_blank" href=""></a><esc>Bf"a
+iabbrev <buffer> kbd <kbd></kbd><left><left><left><left><left><left>
+iabbrev <buffer> ``` ```<cr><cr>```<up><left>
