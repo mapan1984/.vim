@@ -28,3 +28,6 @@ iabbrev <buffer> link []()<left><left><left>
 iabbrev <buffer> linkt <a target="_blank" href=""></a><esc>Bf"a
 iabbrev <buffer> kbd <kbd></kbd><left><left><left><left><left><left>
 iabbrev <buffer> ``` ```<cr><cr>```<up><left>
+" 空格
+iabbrev <buffer> sp &ensp;
+iabbrev <buffer> 2sp &emsp;
