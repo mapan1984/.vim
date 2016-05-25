@@ -9,7 +9,7 @@ augroup coding "{{{
     "保存文件前，读取前,格式化
     "autocmd BufWritePre,BufRead *.html :normal! gg=G
     "在末尾加分号
-    autocmd FileType c,cpp,javascript noremap <buffer> <leader>; A;<esc>
+    autocmd FileType c,cpp,javascript noremap <buffer> <leader>; A;<esc>o
     "自动扩展if
     autocmd FileType javascript,c,cpp :iabbrev <buffer> iff if ()<left>
     autocmd FileType python           :iabbrev <buffer> iff if:<left>

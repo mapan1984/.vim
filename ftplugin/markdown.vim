@@ -1,9 +1,15 @@
 setlocal wrap
+set colorcolumn=0              " 消除.vimrc中的默认彩色显示
 
 " 在markdown中定位到' ^==+$\r '，使用cih(change inside heading)
 onoremap <buffer> ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
 " cah(change around heading)
 onoremap <buffer> ah :<c-u>execute "normal! ?^==\\+\r:nohlsearch\rg_vk0"<cr>
+
+" 跳到下一个标题
+nnoremap <buffer> <leader>nh /^##\+<cr>:nohlsearch<cr>
+" 跳到下一个代码块
+nnoremap <buffer> <leader>nc /^``` [a-z]\+<cr>:nohlsearch<cr>
 
 " 对``的操作(代码) {{{
 inoremap <buffer> `p ``<esc>i

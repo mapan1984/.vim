@@ -44,17 +44,8 @@ endfunction
 nnoremap ,ha :call InsertHeadDefN()<CR>
 "}}}
 
-" 自动在运算符两侧加空格
-iabbrev <buffer> <= <space><=<space>
-iabbrev <buffer> *= <space>*=<space>
-iabbrev <buffer> /= <space>/=<space>
-iabbrev <buffer> >> <space>>><space>
-iabbrev <buffer> << <space><<<space>
-iabbrev <buffer> >= <space>>=<space>
-iabbrev <buffer> == <space>==<space>
-iabbrev <buffer> += <space>+=<space>
-iabbrev <buffer> && <space>&&<space>
-iabbrev <buffer> != <space>!=<space>
+noremap <buffer> <leader>; A;<esc>o
+noremap <buffer> <localleader>; A;<esc>
 
 " 删除到下一个return
 onoremap <buffer> r /return<cr>
