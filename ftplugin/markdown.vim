@@ -22,11 +22,11 @@ onoremap <buffer> in` :<c-u>normal! f`vi`<cr>
 " 为单词加<kbd>标签
 nnoremap <buffer> <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
 
-" 缩写
-iabbrev <buffer> mail <mapan1984@outlook.com>
-iabbrev <buffer> link []()<left><left><left>
-iabbrev <buffer> linkt <a target="_blank" href=""></a><esc>Bf"a
-iabbrev <buffer> kbd <kbd></kbd><left><left><left><left><left><left>
+" 缩写 e = expand
+iabbrev <buffer> maile <mapan1984@outlook.com>
+iabbrev <buffer> linke []()<left><left><left>
+iabbrev <buffer> linkte <a target="_blank" href=""></a><esc>Bf"a
+iabbrev <buffer> kbde <kbd></kbd><left><left><left><left><left><left>
 iabbrev <buffer> ``` ```<cr><cr>```<up><left>
 " 空格
 iabbrev <buffer> sp &ensp;

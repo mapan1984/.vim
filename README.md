@@ -1,10 +1,8 @@
 # My Vim Configuration
 
----
-
-1. [Manual](#manual)
-2. [Installation](#installation)
-3. [Last](#last)
+1. [Manual](#user-content-1manual)
+2. [Installation](#user-content-2installation)
+3. [Last](#user-content-3last)
 
 ## 1.Manual
 
@@ -24,18 +22,14 @@
 
     git clone http://github.com/mapan1984/vimrc.git ~/.vim 
 
-进入`.vim`目录，建立新目录`.undo`, `.tmp`
+进行软链接`-s`(symbolic link)(可以使用`-f`删除原有的`~/.vimrc`文件, **谨慎使用**) 
 
-    cd ~/.vim 
-    mkdir .undo .tmp
-
-进行软链接`-s`(symbolic link)(可以使用`-f`删除原有的‘~/.vimrc’文件, **谨慎使用**) 
-
-    ln -sf `pwd`/.vimrc ~/.vimrc
+    cd ~/.vim
+    ln -sf ./.vimrc ~/.vimrc
 
 或直接硬链接(hard link)
 
-    ln -f 'pwd'/.vimrc ~/.vimrc
+    ln -f ./.vimrc ~/.vimrc
 
 在`.vim`目录中新建`.undo`和`.tmp`目录，因为使用了`set undodir=~/.vim/.undo`和`set directory=~/.vim/.tmp`，来放置文件`*.un~`和`*.swp`文件(通常情况下禁止生成`*.swp`文件，但以防万一)
 
