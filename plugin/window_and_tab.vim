@@ -5,8 +5,8 @@ nnoremap ]b :bnext<cr>
 
 " ===== Window =====
 nnoremap <leader>wx :Vexplore!<cr>
-nnoremap <leader>ws :split
-nnoremap <leader>wv :vsplit
+nnoremap <leader>ws :split <c-r>=expand("%:p:h")<cr>/
+nnoremap <leader>wv :vsplit <c-r>=expand("%:p:h")<cr>/
 nnoremap <leader>wc <c-w>c
 nnoremap <leader>ww <c-w>w
 noremap wj <c-w>j
@@ -16,7 +16,7 @@ noremap wl <c-w>l
 
 " ===== Tab page ===== 
 nnoremap <leader>tx :Texplore<cr>
-noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/  
+noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 noremap <leader>tn :tabnew<cr>
 noremap <leader>tc :tabclose<cr>
 " 关闭所有其它的标签页
@@ -39,4 +39,3 @@ noremap <silent>t7 :tabn 7<cr>
 noremap <silent>t8 :tabn 8<cr> 
 noremap <silent>t9 :tabn 9<cr> 
 noremap <silent>t0 :tabn 10<cr> 
-noremap <leader>0 :tablast<cr>

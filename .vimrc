@@ -189,12 +189,11 @@ set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent,
 "}}}
 
 " ========= Map =========== {{{
-"设置leader键
+" 设置leader键
 let mapleader=","
 let maplocalleader="\<Space>"
 
 inoremap jk <ESC>
-vnoremap jk <ESC>
 
 " Treat long lines as break lines (useful when moving around in them)
 noremap j gj
@@ -226,7 +225,6 @@ onoremap < i<
 onoremap " i"
 onoremap ' i'
 
-
 " 下一个括号的内容
 onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap in{ :<c-u>normal! f{vi{<cr>
@@ -257,21 +255,32 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " 搜索替换
 nnoremap <leader>s :1,%s///cg<left><left><left><left>
-"}}}
-
-" 打开新文件保存
-" autocmd BufNewFile * :write
-
-" Input method 
-set iminsert=0 
-set imsearch=0 
-se imd 
-au InsertEnter * se noimd 
-au InsertLeave * se imd 
-au FocusGained * se imd
 
 " 编辑,重载.vimrc
 nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
+"}}}
+
+augroup coding "{{{
+    autocmd!
+    "保存文件前，读取前,格式化
+    "autocmd BufWritePre,BufRead *.html :normal! gg=G
+    "在末尾加分号
+    autocmd FileType c,cpp,javascript noremap <buffer> <leader>; A;<esc>o
+    "自动扩展if
+    autocmd FileType javascript,c,cpp :iabbrev <buffer> iff if()<left>
+    " 自动扩展for
+    autocmd filetype c,cpp :iabbrev <buffer> forr for()<left>
+augroup end "}}}
+
+" 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif " }}}
+
+" 打开新文件保存
+" autocmd BufNewFile * :write
+
 "修改.vimrc后自动载入配置文件不需要重启
 "autocmd! bufwritepost .vimrc source %

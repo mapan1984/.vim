@@ -13,9 +13,7 @@ nnoremap <buffer> <leader>nc /^``` [a-z]\+<cr>:nohlsearch<cr>
 
 " 对``的操作(代码) {{{
 inoremap <buffer> `p ``<esc>i
-" ` = i`
 onoremap <buffer> ` i`
-" 对下一个``
 onoremap <buffer> in` :<c-u>normal! f`vi`<cr>
 "}}}
 

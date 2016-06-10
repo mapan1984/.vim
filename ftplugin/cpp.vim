@@ -41,7 +41,7 @@ function InsertHeadDefN()
     call InsertHeadDef(firstLine, lastLine)
 endfunction
 
-nnoremap ,ha :call InsertHeadDefN()<CR>
+nnoremap <buffer> <leader>ha :call InsertHeadDefN()<CR>
 "}}}
 
 noremap <buffer> <leader>; A;<esc>o

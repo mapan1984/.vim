@@ -29,27 +29,26 @@ function! QuickfixToggle()
 endfunction "}}}
 
 " ===== 代码折叠 =====  {{{
-map <leader>zz :call ToggleFold()<cr>
+map <leader>zz :call FoldToggle()<cr>
 
-let g:FoldMethod = 0
-fun! ToggleFold()
-    if g:FoldMethod == 0
-        exe "normal! zM"
-        let g:FoldMethod = 1
+" 我开启了默认折叠，所以开始为1
+let g:have_folded = 1
+
+function! FoldToggle()
+    if g:have_folded
+        execute "normal! zR"
+        let g:have_folded = 0
     else
-        exe "normal! zR"
-        let g:FoldMethod = 0
+        execute "normal! zM"
+        let g:have_folded = 1
     endif
-endfun "}}}
+endfunction "}}}
 
-" 切换wrap =====
-nnoremap <leader>wr :setlocal wrap!<cr>
+" ===== 切换wrap =====
+nnoremap <leader>wr :setlocal wrap! wrap?<cr>
 
-" 显示可打印字符开关
-nnoremap <F3> :set list! list?<CR>
+" ===== 显示可打印字符开关 =====
+nnoremap <leader>ls :setlocal list! list?<CR>
 
-" 换行开关
-nnoremap <F4> :set wrap! wrap?<CR>
-
-" 语法开关，关闭语法可以加快大文件的展示
+" ===== 语法开关，关闭语法可以加快大文件的展示 =====
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>

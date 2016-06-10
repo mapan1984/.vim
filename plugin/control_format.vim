@@ -1,11 +1,11 @@
 " ========= 格式控制 ==========
 func! RemoveTabs()
-    if &shiftwidth == 2
-        exec '%s/\t/  /g'
-    elseif &shiftwidth == 4
-        exec '%s/\t/    /g'
+    if &shiftwidth ==# 2
+        execute '%s/\t/  /g'
+    elseif &shiftwidth ==# 4
+        execute '%s/\t/    /g'
     else
-        exec '%s/\t/ /g'
+        execute '%s/\t/ /g'
     endif
 endfunc
 
@@ -26,7 +26,7 @@ nnoremap <leader>rl :g/^\s*$/d<CR>
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
+        call setline(1, "\#!/bin/env bash")
     endif
     if &filetype == 'python'
         call setline(1, "\#!/usr/bin/env python3")
