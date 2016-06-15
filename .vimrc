@@ -252,8 +252,9 @@ vnoremap <leader>p "+p
 
 " Switch CWD to the directory of the open buffer:
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" 搜索替换
+" 在当前文件下寻找光标下的词，在quickfix中显示
+nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
+" 从第一个匹配词搜索替换
 nnoremap <leader>s :1,%s///cg<left><left><left><left>
 
 " 编辑,重载.vimrc
@@ -284,3 +285,4 @@ autocmd BufReadPost *
 
 "修改.vimrc后自动载入配置文件不需要重启
 "autocmd! bufwritepost .vimrc source %
+

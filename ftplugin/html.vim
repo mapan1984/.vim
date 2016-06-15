@@ -10,7 +10,7 @@ nnoremap <buffer> <localleader>it :call AutoInsertTemplate()
 
 function! AutoInsertTemplate()
     call setline(1, "\<!DOCTYPE HTML>")
-    call append(1, "\<html lang=\"en-US\">")
+    call append(1, "\<html lang=\"zh-CN\">")
     call append(2, "\<head>")
     call append(3, "\  <meta charset=\"UTF-8\">")
     call append(4, "\  <title></title>")
