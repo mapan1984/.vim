@@ -243,10 +243,10 @@ inoremap <c-f> <right>
 inoremap <c-b> <left>
 "}}}
 
-" ===== 系统剪切 ===== {{{
+" ===== 复制删除 ===== {{{
 nnoremap <leader>y "+y
-vnoremap <leader>y "+y
 nnoremap <leader>p "+p
+vnoremap <leader>y "+y
 vnoremap <leader>p "+p
 "}}}
 
@@ -285,4 +285,3 @@ autocmd BufReadPost *
 
 "修改.vimrc后自动载入配置文件不需要重启
 "autocmd! bufwritepost .vimrc source %
-
