@@ -6,7 +6,7 @@ setlocal foldmethod=marker
 nnoremap <buffer> <localleader>f Vatzf
 
 " ======== 自动插入html模板 =======
-nnoremap <buffer> <localleader>it :call AutoInsertTemplate()
+nnoremap <buffer> <localleader>it :call AutoInsertTemplate()<cr>
 
 function! AutoInsertTemplate()
     call setline(1, "\<!DOCTYPE HTML>")

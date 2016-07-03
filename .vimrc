@@ -62,11 +62,11 @@ Plugin 'scrooloose/nerdtree'
  let NERDTreeWinPos=0
 "}}}
 
-" ========= vim-signature ========= {{{
-Plugin 'kshenoy/vim-signature'
- nnoremap <silent> <Leader>; :SignatureToggle<cr>
- nnoremap <silent> <leader>r :SignatureRefresh<cr>
-"}}}
+" ========= taglist ========= {{{
+Plugin 'vim-scripts/taglist.vim'
+ set tag=tag;/
+ nnoremap <silent> <F8> :TlistToggle<cr>
+" }}}
 
 " ========= vim-markdown ========= {{{
 Plugin 'godlygeek/tabular'
