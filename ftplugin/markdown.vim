@@ -1,5 +1,5 @@
 setlocal wrap
-set colorcolumn=0              " 消除.vimrc中的默认彩色显示
+set colorcolumn=0              " 消除.vimrc中的默认彩色显示81列
 
 " 在markdown中向前定位' ^==+$ '，使用cih(change inside heading 包括标题标记===)
 onoremap <buffer> ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>

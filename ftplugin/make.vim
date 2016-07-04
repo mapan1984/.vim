@@ -1,1 +1,1 @@
-setlocal list  " 可以查看TAB
+setlocal list               " 可以查看TAB

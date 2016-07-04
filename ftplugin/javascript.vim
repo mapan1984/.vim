@@ -1,1 +1,1 @@
-setlocal syntax=jquery
+"setlocal syntax=jquery

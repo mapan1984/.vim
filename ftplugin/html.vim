@@ -1,5 +1,5 @@
 setlocal wrap
-set colorcolumn=0              " 消除.vimrc中的默认彩色显示
+set colorcolumn=0                    " 消除.vimrc中的默认彩色显示第81列
 
 " 创建折叠操作符 <vasual>zf 
 setlocal foldmethod=marker
@@ -21,8 +21,10 @@ function! AutoInsertTemplate()
 endfunc
 
 " css. js 链接
-iabbrev <buffer> linkcss <link rel="stylesheet" type="text/css" href="style.css" media="all">
-iabbrev <buffer> scriptsrc <script type="text/javascript" src=""></script>
+iabbrev <buffer> linkcss 
+                 \<link rel="stylesheet" type="text/css" href="style.css" media="all">
+iabbrev <buffer> scriptsrc 
+                 \<script type="text/javascript" src=""></script>
 
 " 特殊符号
 iabbrev <buffer> <e &ldquo;

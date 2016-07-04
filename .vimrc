@@ -55,16 +55,19 @@ Plugin 'scrooloose/nerdtree'
  " Store the bookmarks file
  " let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
  " let NERDTreeShowBookmarks=1
- let NERDTreeShowFiles=1
- let NERDTreeShowHidden=1
- let NERDTreeIgnore=['\.$','\~$']
+ let g:NERDTreeShowFiles=1
+ let g:NERDTreeShowHidden=1
+ let g:NERDTreeIgnore=['\.$','\~$']
  "let NERDTreeShowLineNumbers=1
- let NERDTreeWinPos=0
+ let g:NERDTreeWinPos=0
 "}}}
 
 " ========= taglist ========= {{{
 Plugin 'vim-scripts/taglist.vim'
- set tag=tag;/
+ set tags=tags;/
+ let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
+ let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
+ let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口 
  nnoremap <silent> <F8> :TlistToggle<cr>
 " }}}
 
@@ -109,35 +112,27 @@ set history=1000                " 历史记录数
 set wildmenu                    " vim自身命令行模式智能补全
 set autoread                    " 文件在Vim之外修改过，自动重新读入
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
-"set pastetoggle=<F2>           " when in insert mode, press <F2> to go to
-                                " paste mode, where you can paste mass data
-                                " that won't be autoindented
-
 set mouse=a                     " enable using the mouse if terminal emulator
 set mousehide                   " 在输入时隐藏鼠标指针
 
 " ===== UI ===== {{{
 set number                      " 显示行号
 set numberwidth=4               " 行号栏的宽度
-" set relativenumber             " 相对行号,要想相对行号起作用要放在显示行号后面
 set cursorline                  " 设置光标高亮显示
-set colorcolumn=85              " 彩色显示第85行
-set scrolloff=7                 " 光标移动到buffer的顶部和底部时保持7行距离
-set foldenable                  " 代码折叠
-set foldmethod=syntax           " folds are created manually
-set nowrap                      " 禁止自动换行
+set colorcolumn=81              " 彩色显示第81行
+set scrolloff=10                " 光标移动到buffer的顶部和底部时保持10行距离
+set foldenable                  " 开启代码折叠
+set foldmethod=syntax           " 语法高亮项目指定折叠
+set nowrap                      " 默认禁止自动换行
 set textwidth=0                 " maximum width in a line
-set hidden                      " hide buffers instead of closing them this
-                                "    means that the current buffer can be put
-                                "    to background without being written; and
-                                "    that marks and undo history are preserved
-set laststatus=2                " 启动显示状态行(1),总是显示状态行(2)
+set hidden                      " hide buffers instead of closing them
+set laststatus=2                " 总是显示状态行
 set showcmd                     " 显示输入命令在状态栏
 set showmode                    " show the mode of vim
 "}}}
-"
+
 " ===== encoding ===== {{{
-set encoding=utf-8              " 设置新文件的编码为 UTF-8
+set encoding=utf-8              " Vim内部文件(寄存器、缓冲区...)的编码为 UTF-8
 " 自动判断编码，依次尝试以下顺序
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1
 
@@ -166,25 +161,24 @@ set directory=~/.vim/.tmp
 " ===== Searching ===== {{{
 set hlsearch                    " highlight the words match the search pattern
 set incsearch                   " show the pattern as it was typed so far
-set ignorecase                  " 设置大小写敏感和聪明感知(小写全搜，大写完全匹配)
-set smartcase                   " the case of normal letters is ignored
+set ignorecase                  " 设置大小写敏感和聪明感知(小写忽略大小写，包含大写字母则完全匹配)
+set smartcase
 set showmatch                   " jump to the matching bracket
 " 取消搜索高亮
 noremap nh :nohl<cr>
 "}}}
 
 " ===== Default Indentation ===== {{{
-set autoindent                  " indent automatically
+set autoindent                  " 开启新行，从当前行负责缩进距离
 set smartindent                 " 设置smartindent为默认值
 set expandtab                   " 使用空格代替制表符
 set tabstop=4                   " 插入模式下Tab键的宽度
 set shiftwidth=4                " vim格式化时Tab的宽度
 set softtabstop=4               " 将连续的空格视为Tab(方便删除)
-set smarttab                    " insert tabs on the start of a line
-                                " in makefile
+set smarttab                    " 行首的 <Tab> 根据 'shiftwidth' 插入空白
 "}}}
 
-set whichwrap=b,s,<,>,[,]       " 让退格，空格，上下箭头遇到行首行尾时自动移到下一行（包括insert模式）
+set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
 "}}}
 
@@ -198,10 +192,10 @@ inoremap jk <ESC>
 " Treat long lines as break lines (useful when moving around in them)
 noremap j gj
 noremap k gk
-
-inoremap zz <c-o>zz
 nnoremap ww :w<CR>
 nnoremap qq :q<CR>
+
+inoremap zz <c-o>zz
 
 " 使用tab键来代替%进行匹配跳转
 nnoremap <tab> %
@@ -212,7 +206,7 @@ vnoremap <tab> %
 inoremap (p ()<ESC>i
 inoremap [p []<ESC>i
 inoremap {p {}<ESC>i
-inoremap {<cr> {<esc>o}<esc>O
+inoremap {<cr> {<cr>}<esc>O
 inoremap <p <><esc>i
 inoremap 'p ''<esc>i
 inoremap "p ""<esc>i
@@ -243,7 +237,7 @@ inoremap <c-f> <right>
 inoremap <c-b> <left>
 "}}}
 
-" ===== 复制删除 ===== {{{
+" ===== 使用用系统剪切板 ===== {{{
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p
 vnoremap <leader>y "+y
