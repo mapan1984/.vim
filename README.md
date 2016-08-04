@@ -20,7 +20,7 @@
 
 克隆到本地
 
-    git clone http://github.com/mapan1984/vimrc.git ~/.vim 
+    git clone http://github.com/mapan1984/.vim.git ~/.vim 
 
 进行软链接`-s`(symbolic link)(可以使用`-f`删除原有的`~/.vimrc`文件, **谨慎使用**) 
 

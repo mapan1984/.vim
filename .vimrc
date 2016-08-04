@@ -129,6 +129,7 @@ set hidden                      " hide buffers instead of closing them
 set laststatus=2                " 总是显示状态行
 set showcmd                     " 显示输入命令在状态栏
 set showmode                    " show the mode of vim
+set ruler                       " 显示光标位置的行号和列号
 "}}}
 
 " ===== encoding ===== {{{
