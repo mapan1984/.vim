@@ -25,11 +25,19 @@
 进行软链接`-s`(symbolic link)(可以使用`-f`删除原有的`~/.vimrc`文件, **谨慎使用**) 
 
     cd ~/.vim
-    ln -sf ./.vimrc ~/.vimrc
+    ln -sf .vimrc ~/.vimrc
 
 或直接硬链接(hard link)
 
-    ln -f ./.vimrc ~/.vimrc
+    ln -f .vimrc ~/.vimrc
+
+下载vundle
+
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+打开vim，执行
+
+    :Plugin Install!
 
 在`.vim`目录中新建`.undo`和`.tmp`目录，因为使用了`set undodir=~/.vim/.undo`和`set directory=~/.vim/.tmp`，来放置文件`*.un~`和`*.swp`文件(通常情况下禁止生成`*.swp`文件，但以防万一)
 
