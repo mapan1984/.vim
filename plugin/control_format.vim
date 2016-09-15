@@ -37,3 +37,9 @@ function! AutoSetFileHead()
     normal o
     normal o
 endfunc
+
+" ======== 自动插入文件头 =======
+function! TrunToJinja()
+    let b:current_syntax = "htmljinja"
+endfunc
+nnoremap <leader>tj :call TrunToJinja()<cr>

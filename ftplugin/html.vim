@@ -1,5 +1,6 @@
 setlocal wrap
 set colorcolumn=0                    " 消除.vimrc中的默认彩色显示第81列
+setlocal syntax=htmljinja
 
 " 创建折叠操作符 <vasual>zf 
 setlocal foldmethod=marker
