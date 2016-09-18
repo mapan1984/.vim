@@ -44,7 +44,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 
 " ========= nerdtree ========== {{{
 Plugin 'scrooloose/nerdtree'
- nnoremap tr :NERDTreeToggle<cr>
+ nnoremap <c-b> :NERDTreeToggle<cr>
  " 设置相对行号
  nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
  " open a NERDTree utomatically when vim starts up if no files were specified
@@ -189,14 +189,22 @@ let mapleader=","
 let maplocalleader="\<Space>"
 
 inoremap jk <ESC>
+vnoremap jk <ESC>
 
 " Treat long lines as break lines (useful when moving around in them)
 noremap j gj
 noremap k gk
-nnoremap ww :w<CR>
-nnoremap qq :q<CR>
-
+" jump the middle postion
 inoremap zz <c-o>zz
+" first you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
+nnoremap <c-s> :w<CR>
+vnoremap <c-s> <c-c>:w<cr>v
+inoremap <c-s> <esc>:w<cr>i
+" first you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
+nnoremap <c-q> :q<CR>
+vnoremap <c-q> <c-c>:q<cr>v
+inoremap <c-q> <esc>:q<cr>i
+
 
 " 使用tab键来代替%进行匹配跳转
 nnoremap <tab> %

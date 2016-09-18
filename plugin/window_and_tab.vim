@@ -4,7 +4,8 @@ nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
 
 " ===== Window =====
-nnoremap <leader>wx :Vexplore!<cr>
+" 拆分窗口
+nnoremap <c-\> :Vexplore!<cr>
 nnoremap <leader>ws :split <c-r>=expand("%:p:h")<cr>/
 nnoremap <leader>wv :vsplit <c-r>=expand("%:p:h")<cr>/
 nnoremap <leader>wc <c-w>c
@@ -16,8 +17,10 @@ noremap wl <c-w>l
 
 " ===== Tab page =====
 nnoremap <leader>tx :Texplore<cr>
-noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-noremap <leader>tn :tabnew<cr>
+" open file in new tab
+noremap <c-o> :tabedit <c-r>=expand("%:p:h")<cr>/
+" create new file in new tab
+noremap <c-n> :tabnew<cr>
 noremap <leader>tc :tabclose<cr>
 " 关闭所有其它的标签页
 noremap <leader>to :tabonly<cr>
@@ -29,13 +32,13 @@ map <leader>tl :tablast<cr>
 map <leader>tj :tabnext<cr>
 map <leader>tk :tabprev<cr>
 " normal模式下切换到确切的tab
-noremap <silent>t1 :tabn 1<cr>
-noremap <silent>t2 :tabn 2<cr>
-noremap <silent>t3 :tabn 3<cr>
-noremap <silent>t4 :tabn 4<cr>
-noremap <silent>t5 :tabn 5<cr>
-noremap <silent>t6 :tabn 6<cr>
-noremap <silent>t7 :tabn 7<cr>
-noremap <silent>t8 :tabn 8<cr>
-noremap <silent>t9 :tabn 9<cr>
-noremap <silent>t0 :tabn 10<cr>
+noremap <c-1> :tabn 1<cr>
+noremap <c-2> :tabn 2<cr>
+noremap <c-3> :tabn 3<cr>
+noremap <c-4> :tabn 4<cr>
+noremap <c-5> :tabn 5<cr>
+noremap <c-6> :tabn 6<cr>
+noremap <c-7> :tabn 7<cr>
+noremap <c-8> :tabn 8<cr>
+noremap <c-9> :tabn 9<cr>
+noremap <c-0> :tabn 10<cr>

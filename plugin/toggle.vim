@@ -31,7 +31,7 @@ endfunction "}}}
 " ===== 代码折叠 =====  {{{
 map <leader>zz :call FoldToggle()<cr>
 
-" 我开启了默认折叠，所以开始为1
+" 我开启了默认折叠，所以`have_folded`初始为1
 let g:have_folded = 1
 
 function! FoldToggle()

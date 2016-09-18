@@ -1,5 +1,6 @@
 " ========= 编译 && 运行 =========
 function! Compile_Run_Code()
+    " 执行保存
     execute "w"
     " 如果不在当前目录，改变路径
     if expand("%:p:h")!=getcwd()
@@ -21,16 +22,18 @@ function! Compile_Run_Code()
     elseif &filetype == "sh"
         execute "!bash %:t"
     endif
+    " 只有出错信息时，打开quickfix窗口
     execute "cwindow"
 endfunction
 
-" rr 保存、编译、运行
-inoremap <leader>rr <ESC>:call Compile_Run_Code()<CR>
-vnoremap <leader>rr <ESC>:call Compile_Run_Code()<CR>
-nnoremap <leader>rr :call Compile_Run_Code()<CR>
+" <f5> 保存、编译、运行
+inoremap <f5> <ESC>:call Compile_Run_Code()<CR>
+vnoremap <f5> <ESC>:call Compile_Run_Code()<CR>
+nnoremap <f5> :call Compile_Run_Code()<CR>
 
 " ========= 进行make的设置 =========
 function Do_make()
+    " 保存文件
     execute "w"
     " 如果不在当前目录，改变路径
     if expand("%:p:h")!=getcwd()
