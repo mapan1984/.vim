@@ -86,6 +86,11 @@ Plugin 'plasticboy/vim-markdown'
  let g:vim_markdown_new_list_item_indent = 2
 "}}}
 
+
+" ========= vim-fugitve ========= {{{
+Plugin 'tpope/vim-fugitive'
+"}}}
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -105,7 +110,7 @@ filetype plugin indent on    " required enables filetype plugin
 " ========= Basic Settings ========= {{{
 filetype on                     " enables filetype detection
 filetype indent on              " 不同文件采用不同缩进
-filetype plugin on              " 允许插件
+filetype plugin on              " 不同文件采用不同插件
 syntax enable                   " 开启语法高亮功能
 syntax on                       " 允许用指定语法高亮配色方案替换默认方案
 set history=1000                " 历史记录数
@@ -119,12 +124,11 @@ set mousehide                   " 在输入时隐藏鼠标指针
 set number                      " 显示行号
 set numberwidth=4               " 行号栏的宽度
 set cursorline                  " 设置光标高亮显示
+set nowrap                      " 默认禁止自动换行
 set colorcolumn=81              " 彩色显示第81行
 set scrolloff=10                " 光标移动到buffer的顶部和底部时保持10行距离
 set foldenable                  " 开启代码折叠
 set foldmethod=syntax           " 语法高亮项目指定折叠
-set nowrap                      " 默认禁止自动换行
-set textwidth=0                 " maximum width in a line
 set hidden                      " hide buffers instead of closing them
 set laststatus=2                " 总是显示状态行
 set showcmd                     " 显示输入命令在状态栏
@@ -167,6 +171,13 @@ set smartcase
 set showmatch                   " jump to the matching bracket
 " 取消搜索高亮
 noremap nh :nohl<cr>
+
+" 在当前文件下寻找光标下的词，在quickfix中显示
+nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
+" open quickfix window after any grep invocation
+autocmd QuickFixCmdPost *grep* cwindow
+" 从第一个匹配词搜索替换
+nnoremap <leader>s :1,%s///cg<left><left><left><left>
 "}}}
 
 " ===== Default Indentation ===== {{{
@@ -194,17 +205,19 @@ vnoremap jk <ESC>
 " Treat long lines as break lines (useful when moving around in them)
 noremap j gj
 noremap k gk
+
 " jump the middle postion
 inoremap zz <c-o>zz
+
 " first you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
 nnoremap <c-s> :w<CR>
 vnoremap <c-s> <c-c>:w<cr>v
 inoremap <c-s> <esc>:w<cr>i
+
 " first you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
 nnoremap <c-q> :q<CR>
 vnoremap <c-q> <c-c>:q<cr>v
 inoremap <c-q> <esc>:q<cr>i
-
 
 " 使用tab键来代替%进行匹配跳转
 nnoremap <tab> %
@@ -255,36 +268,18 @@ vnoremap <leader>p "+p
 
 " Switch CWD to the directory of the open buffer:
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-" 在当前文件下寻找光标下的词，在quickfix中显示
-nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
-" 从第一个匹配词搜索替换
-nnoremap <leader>s :1,%s///cg<left><left><left><left>
 
 " 编辑,重载.vimrc
 nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
 "}}}
 
-augroup coding "{{{
-    autocmd!
-    "保存文件前，读取前,格式化
-    "autocmd BufWritePre,BufRead *.html :normal! gg=G
-    "在末尾加分号
-    autocmd FileType c,cpp,javascript noremap <buffer> <leader>; A;<esc>o
-    "自动扩展if
-    autocmd FileType javascript,c,cpp :iabbrev <buffer> iff if()<left>
-    " 自动扩展for
-    autocmd filetype c,cpp :iabbrev <buffer> forr for()<left>
-augroup end "}}}
-
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{
 autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
-    \ endif " }}}
-
-" 打开新文件保存
-" autocmd BufNewFile * :write
+    \ endif
+"}}}
 
 "修改.vimrc后自动载入配置文件不需要重启
 "autocmd! bufwritepost .vimrc source %

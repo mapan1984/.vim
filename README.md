@@ -37,7 +37,7 @@
 
 打开vim，执行
 
-    :Plugin Install!
+    :PluginInstall!
 
 在`.vim`目录中新建`.undo`和`.tmp`目录，因为使用了`set undodir=~/.vim/.undo`和`set directory=~/.vim/.tmp`，来放置文件`*.un~`和`*.swp`文件(通常情况下禁止生成`*.swp`文件，但以防万一)
 

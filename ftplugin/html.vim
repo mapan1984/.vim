@@ -1,13 +1,12 @@
 setlocal wrap
-set colorcolumn=0                    " 消除.vimrc中的默认彩色显示第81列
-setlocal syntax=htmljinja
+setlocal colorcolumn=0                    " 消除.vimrc中的默认彩色显示第81列
 
 " 创建折叠操作符 <vasual>zf 
 setlocal foldmethod=marker
 nnoremap <buffer> <localleader>f Vatzf
 
-" ======== 自动插入html模板 =======
-nnoremap <buffer> <localleader>it :call AutoInsertTemplate()<cr>
+" ======== 自动插入html模板 ======= {{{
+nnoremap <buffer> !<tab> :call AutoInsertTemplate()<cr>
 
 function! AutoInsertTemplate()
     call setline(1, "\<!DOCTYPE HTML>")
@@ -20,12 +19,13 @@ function! AutoInsertTemplate()
     call append(7, "\</body>")
     call append(8, "\</html>")
 endfunc
+"}}}
 
 " css. js 链接
-iabbrev <buffer> linkcss 
-                 \<link rel="stylesheet" type="text/css" href="style.css" media="all">
-iabbrev <buffer> scriptsrc 
-                 \<script type="text/javascript" src=""></script>
+iabbrev <buffer> linkcss
+                 \ <link rel="stylesheet" type="text/css" href="style.css" media="all">
+iabbrev <buffer> linkjs
+                 \ <script type="text/javascript" src=""></script>
 
 " 特殊符号
 iabbrev <buffer> <e &ldquo;

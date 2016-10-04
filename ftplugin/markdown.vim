@@ -1,5 +1,5 @@
 setlocal wrap
-set colorcolumn=0              " 消除.vimrc中的默认彩色显示81列
+setlocal colorcolumn=0              " 消除.vimrc中的默认彩色显示81列
 
 " 在markdown中向前定位' ^==+$ '，使用cih(change inside heading 包括标题标记===)
 onoremap <buffer> ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
@@ -21,7 +21,7 @@ onoremap <buffer> in` :<c-u>normal! f`vi`<cr>
 nnoremap <buffer> <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
 
 " 缩写 e = expand
-iabbrev <buffer> maile <mapan1984@outlook.com>
+iabbrev <buffer> @@ <mapan1984@outlook.com>
 iabbrev <buffer> linke []()<left><left><left>
 iabbrev <buffer> linkte <a target="_blank" href=""></a><esc>Bf"a
 iabbrev <buffer> kbde <kbd></kbd><left><left><left><left><left><left>

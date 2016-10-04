@@ -31,14 +31,9 @@ map <leader>tf :tabfirst<cr>
 map <leader>tl :tablast<cr>
 map <leader>tj :tabnext<cr>
 map <leader>tk :tabprev<cr>
-" normal模式下切换到确切的tab
-noremap <c-1> :tabn 1<cr>
-noremap <c-2> :tabn 2<cr>
-noremap <c-3> :tabn 3<cr>
-noremap <c-4> :tabn 4<cr>
-noremap <c-5> :tabn 5<cr>
-noremap <c-6> :tabn 6<cr>
-noremap <c-7> :tabn 7<cr>
-noremap <c-8> :tabn 8<cr>
-noremap <c-9> :tabn 9<cr>
-noremap <c-0> :tabn 10<cr>
+"" normal模式下切换到确切的tab
+noremap <tab>1 :tabn 1<cr>
+noremap <tab>2 :tabn 2<cr>
+noremap <tab>3 :tabn 3<cr>
+noremap <tab>4 :tabn 4<cr>
+noremap <tab>5 :tabn 5<cr>

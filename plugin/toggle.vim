@@ -1,5 +1,5 @@
 " ===== 切换Colum ===== {{{
-nnoremap <leader>f :call FoldColumToggle()<cr>
+nnoremap <leader>c :call FoldColumToggle()<cr>
 
 function! FoldColumToggle()
     "echom &foldcolumn
@@ -8,7 +8,8 @@ function! FoldColumToggle()
     else
         setlocal foldcolumn=4
     endif
-endfunction "}}}
+endfunction
+"}}}
 
 " ===== 切换Quickfix ===== {{{
 nnoremap <leader>q :call QuickfixToggle()<cr>
@@ -26,29 +27,30 @@ function! QuickfixToggle()
         copen
         let g:quickfix_is_open = 1
     endif
-endfunction "}}}
+endfunction
+"}}}
 
 " ===== 代码折叠 =====  {{{
-map <leader>zz :call FoldToggle()<cr>
+nnoremap <leader>z :call FoldToggle()<cr>
 
 " 我开启了默认折叠，所以`have_folded`初始为1
-let g:have_folded = 1
+au BufReadPre * let b:have_folded = 1
 
 function! FoldToggle()
-    if g:have_folded
+    if b:have_folded
+        " 展开折叠
         execute "normal! zR"
-        let g:have_folded = 0
+        let b:have_folded = 0
     else
+        " 折叠代码
         execute "normal! zM"
-        let g:have_folded = 1
+        let b:have_folded = 1
     endif
-endfunction "}}}
+endfunction
+"}}}
 
 " ===== 切换wrap =====
 nnoremap <leader>wr :setlocal wrap! wrap?<cr>
-
-" ===== 显示可打印字符开关 =====
-nnoremap <leader>ls :setlocal list! list?<CR>
 
 " ===== 语法开关，关闭语法可以加快大文件的展示 =====
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
