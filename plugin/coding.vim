@@ -61,3 +61,15 @@ function! AutoSetFileHead()
     normal o
 endfunc
 "}}}
+
+" ======== CleverTab ======= {{{
+" 如果当前行只有空白，就插入 <Tab>，不然就或继续 CTRL-N 补全操作: >
+"function! CleverTab()
+"   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+"      return "\<Tab>"
+"   else
+"      return "\<C-N>"
+"   endif
+"endfunction
+"inoremap <Tab> <C-R>=CleverTab()<CR>
+"}}}

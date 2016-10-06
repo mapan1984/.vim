@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.ps1 setfiletype powershell
+autocmd BufNewFile,BufRead *.ps1 set filetype=powershell

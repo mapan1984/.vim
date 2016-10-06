@@ -3,12 +3,34 @@ if exists("b:current_syntax")
 endif
 
 echom "Our syntax highlighting code will go here."
-syntax keyword powershellKeyword loop times to while
-syntax keyword powershellKeyword if elsif else
-syntax keyword type if elsif else
-syntax keyword powershellKeyword class return
-syntax keyword powershellFunction print join string
+
+
+syntax keyword powershellKeyword if elseif else switch
+syntax keyword powershellKeyword for foreach do while
+syntax keyword powershellKeyword break continue
+syntax keyword powershellKeyword function return
+
+syntax keyword powershellFunction Write-Host
+
+syntax match powershellComment "\v^<#.*#>$"
+
+syntax match powershellOperator "\v\*"
+syntax match powershellOperator "\v/"
+syntax match powershellOperator "\v\+"
+syntax match powershellOperator "\v-"
+syntax match powershellOperator "\v\?"
+syntax match powershellOperator "\v\*\="
+syntax match powershellOperator "\v/\="
+syntax match powershellOperator "\v\+\="
+syntax match powershellOperator "\v-\="
+
+syntax region powershellString start=/\v"/ skip=/\v\\./ end=/\v"/
 
 highlight link powershellKeyword Keyword
 highlight link powershellFunction Function
+highlight link powershellComment Comment
+highlight link powershellOperator Operator
+highlight link powershellString String
+
+
 let b:current_syntax = "powershell"

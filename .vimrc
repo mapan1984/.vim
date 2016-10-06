@@ -39,14 +39,14 @@ Plugin 'nathanaelkane/vim-indent-guides'
  " 色块宽度
  let g:indent_guides_guide_size=1
  " 快捷键i开/关缩进可视化
- nnoremap <silent> <Leader>i <Plug>IndentGuidesToggle
+ "nnoremap <silent> <Leader>i <Plug>IndentGuidesToggle
 "}}}
 
 " ========= nerdtree ========== {{{
 Plugin 'scrooloose/nerdtree'
  nnoremap <c-b> :NERDTreeToggle<cr>
  " 设置相对行号
- nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
+ "nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
  " open a NERDTree utomatically when vim starts up if no files were specified
  autocmd StdinReadPre * let s:std_in=1
  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -68,13 +68,13 @@ Plugin 'vim-scripts/taglist.vim'
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
  let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口 
- nnoremap <silent> <F8> :TlistToggle<cr>
+ nnoremap <silent> tl :TlistToggle<cr>
 " }}}
 
 " ========= vim-markdown ========= {{{
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
- noremap to :Toc<cr>
+ noremap <silent> to :Toc<cr>
  let g:vim_markdown_folding_disabled = 1
  let g:vim_markdown_folding_level = 6
  let g:vim_markdown_no_default_key_mappings = 1
@@ -86,6 +86,9 @@ Plugin 'plasticboy/vim-markdown'
  let g:vim_markdown_new_list_item_indent = 2
 "}}}
 
+" ========= supertab ========= {{{
+Plugin 'ervandew/supertab'
+"}}}
 
 " ========= vim-fugitve ========= {{{
 Plugin 'tpope/vim-fugitive'
@@ -109,16 +112,14 @@ filetype plugin indent on    " required enables filetype plugin
 
 " ========= Basic Settings ========= {{{
 filetype on                     " enables filetype detection
-filetype indent on              " 不同文件采用不同缩进
-filetype plugin on              " 不同文件采用不同插件
 syntax enable                   " 开启语法高亮功能
 syntax on                       " 允许用指定语法高亮配色方案替换默认方案
 set history=1000                " 历史记录数
 set wildmenu                    " vim自身命令行模式智能补全
 set autoread                    " 文件在Vim之外修改过，自动重新读入
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
-set mouse=a                     " enable using the mouse if terminal emulator
-set mousehide                   " 在输入时隐藏鼠标指针
+"set mouse=a                     " enable using the mouse if terminal emulator
+"set mousehide                   " 在输入时隐藏鼠标指针
 
 " ===== UI ===== {{{
 set number                      " 显示行号
@@ -173,11 +174,9 @@ set showmatch                   " jump to the matching bracket
 noremap nh :nohl<cr>
 
 " 在当前文件下寻找光标下的词，在quickfix中显示
-nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
+"nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
 " open quickfix window after any grep invocation
 autocmd QuickFixCmdPost *grep* cwindow
-" 从第一个匹配词搜索替换
-nnoremap <leader>s :1,%s///cg<left><left><left><left>
 "}}}
 
 " ===== Default Indentation ===== {{{
@@ -200,7 +199,7 @@ let mapleader=","
 let maplocalleader="\<Space>"
 
 inoremap jk <ESC>
-vnoremap jk <ESC>
+"vnoremap jk <ESC>
 
 " Treat long lines as break lines (useful when moving around in them)
 noremap j gj
@@ -211,12 +210,10 @@ inoremap zz <c-o>zz
 
 " first you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
 nnoremap <c-s> :w<CR>
-vnoremap <c-s> <c-c>:w<cr>v
 inoremap <c-s> <esc>:w<cr>i
 
 " first you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
 nnoremap <c-q> :q<CR>
-vnoremap <c-q> <c-c>:q<cr>v
 inoremap <c-q> <esc>:q<cr>i
 
 " 使用tab键来代替%进行匹配跳转
@@ -270,11 +267,11 @@ vnoremap <leader>p "+p
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " 编辑,重载.vimrc
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
+"nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
+"nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
 "}}}
 
-" 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{
+" 打文件后开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{
 autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
