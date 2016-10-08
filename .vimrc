@@ -94,6 +94,11 @@ Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-fugitive'
 "}}}
 
+" ========= vim-json ========= {{{
+Plugin 'elzr/vim-json'
+ let g:vim_json_syntax_conceal = 0
+"}}}
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 

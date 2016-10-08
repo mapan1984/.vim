@@ -2,7 +2,8 @@
 
 1. [Manual](#user-content-1manual)
 2. [Installation](#user-content-2installation)
-3. [Last](#user-content-3last)
+3. [Manage](#user-content-3Manage)
+4. [Last](#user-content-4last)
 
 ## 1.Manual
 
@@ -20,20 +21,20 @@
 
 克隆到本地
 
-    git clone http://github.com/mapan1984/.vim.git ~/.vim 
+    $ git clone http://github.com/mapan1984/.vim.git ~/.vim 
 
 进行软链接`-s`(symbolic link)(可以使用`-f`删除原有的`~/.vimrc`文件, **谨慎使用**) 
 
-    cd ~/.vim
-    ln -sf .vimrc ~/.vimrc
+    $ cd ~/.vim
+    $ ln -sf .vimrc ~/.vimrc
 
 或直接硬链接(hard link)
 
-    ln -f .vimrc ~/.vimrc
+    $ ln -f .vimrc ~/.vimrc
 
 下载vundle
 
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 打开vim，执行
 
@@ -41,13 +42,34 @@
 
 在`.vim`目录中新建`.undo`和`.tmp`目录，因为使用了`set undodir=~/.vim/.undo`和`set directory=~/.vim/.tmp`，来放置文件`*.un~`和`*.swp`文件(通常情况下禁止生成`*.swp`文件，但以防万一)
 
-    cd ~/.vim
-    mkdir .undo .tmp
+    $ cd ~/.vim
+    $ mkdir .undo .tmp
 
 如果想使用`mydraft`中的脚本，可以在`.vimrc`中加下面的语句(`xxx.vim`是脚本的名字)
 
     source ~/.vim/mydraft/xxx.vim
 
-## 3.Last
+## 3.Manage
+
+### 3.1 可以使用[Installation](#user-content-2installation)
+
+### 3.2 Try using git submodule manage vim plugin
+
+将每一个插件作为一个子模块，用git submodule管理
+
+    $ cd ~/.vim
+    $ git submodule add https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim 
+
+克隆仓库并抓取子模块：
+
+    $ git clone http://github.com/mapan1984/.vim.git ~/.vim
+    $ git submodule init
+    $ git submodule update
+
+也可以自动初始化并更新每一个子模块：
+
+    $ git clone --recursive http://github.com/mapan1984/.vim.git ~/.vim 
+
+## 4.Last
 
 happy vimming（＾∀＾）
