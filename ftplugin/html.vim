@@ -5,6 +5,9 @@ setlocal colorcolumn=0                    " 消除.vimrc中的默认彩色显示
 setlocal foldmethod=marker
 nnoremap <buffer> <localleader>f Vatzf
 
+" indent folding
+:source ~/.vim/mydraft/folding.vim"
+
 " ======== 自动插入html模板 ======= {{{
 nnoremap <buffer> !<tab> :call AutoInsertTemplate()<cr>
 
