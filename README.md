@@ -2,7 +2,7 @@
 
 1. [Manual](#user-content-1manual)
 2. [Installation](#user-content-2installation)
-3. [Manage](#user-content-3Manage)
+3. [Manage](#user-content-3manage)
 4. [Last](#user-content-4last)
 
 ## 1.Manual

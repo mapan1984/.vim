@@ -131,7 +131,7 @@ set number                      " 显示行号
 set numberwidth=4               " 行号栏的宽度
 set cursorline                  " 设置光标高亮显示
 set nowrap                      " 默认禁止自动换行
-set colorcolumn=81              " 彩色显示第81行
+set colorcolumn=80              " 彩色显示第80行
 set scrolloff=10                " 光标移动到buffer的顶部和底部时保持10行距离
 set foldenable                  " 开启代码折叠
 set foldmethod=syntax           " 语法高亮项目指定折叠

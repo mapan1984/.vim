@@ -8,5 +8,10 @@ nnoremap <buffer> di :execute "normal! gg" . '/\vif .+:$' . "\r"<cr>
 inoremap <c-u> <esc>viwUea
 nnoremap <c-u> viwUe
 
+
 " indent folding
 :source ~/.vim/mydraft/folding.vim"
+
+" 超出80行高亮显示
+highlight OverLength term=reverse cterm=reverse ctermfg=124 gui=reverse guifg=#af0000
+match OverLength /\%81v.\+/
