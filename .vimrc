@@ -13,7 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 " ========= solarized ========= {{{
-Plugin 'vim-scripts/Solarized'
+"Plugin 'vim-scripts/Solarized'
  set background=dark
  colorscheme solarized
  let g:solarized_termtrans  = 1
