@@ -1,5 +1,5 @@
 " ========= 加注释 取消注释 ========= {{{
-func! Add_Comment()
+func! AddComment()
     if &filetype ==# "c" || &filetype ==# "cpp" || &filetype ==# "javascript"
         exec "normal! I//" . "\<esc>"
     elseif &filetype ==# "python" || &filetype ==# "sh"
@@ -11,7 +11,7 @@ func! Add_Comment()
     endif
 endfunc
 
-func! Clean_Comment()
+func! CleanComment()
     if &filetype ==# "c" || &filetype ==# "cpp" || &filetype ==# "javascript"
         exec "normal! ^xx"
     elseif &filetype ==# "python" || &filetype ==# "sh"
@@ -23,12 +23,10 @@ func! Clean_Comment()
     endif
 endfunc
 
-inoremap <leader>ac <ESC>:call Add_Comment()<CR>
-inoremap <leader>cc <ESC>:call Clean_Comment()<CR>
-vnoremap <leader>ac <ESC>:call Add_Comment()<CR>
-vnoremap <leader>cc <ESC>:call Clean_Comment()<CR>
-nnoremap <leader>ac :call Add_Comment()<CR>
-nnoremap <leader>cc :call Clean_Comment()<CR>
+inoremap <leader>ac <ESC>:call AddComment()<CR>
+inoremap <leader>cc <ESC>:call CleanComment()<CR>
+nnoremap <leader>ac :call AddComment()<CR>
+nnoremap <leader>cc :call CleanComment()<CR>
 "}}}
 
 " ========= 代码缩写 ========= {{{

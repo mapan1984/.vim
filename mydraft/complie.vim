@@ -1,6 +1,6 @@
 "单个文件编译
-map <F5> :call Do_OneFileMake()<CR>
-function Do_OneFileMake()
+map <F5> :call DoOneFileMake()<CR>
+function DoOneFileMake()
     " 如果不在当前路径
     if expand("%:p:h")!=getcwd()
         " exec "noremal! :cd %:p:h\<cr>:pwd\<cr>"

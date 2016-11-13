@@ -1,5 +1,5 @@
 " ========= 编译 && 运行 =========
-function! Compile_Run_Code()
+function! CompileRunCode()
     " 执行保存
     execute "w"
     " 如果不在当前目录，改变路径
@@ -27,12 +27,11 @@ function! Compile_Run_Code()
 endfunction
 
 " <f5> 保存、编译、运行
-inoremap <f5> <ESC>:call Compile_Run_Code()<CR>
-vnoremap <f5> <ESC>:call Compile_Run_Code()<CR>
-nnoremap <f5> :call Compile_Run_Code()<CR>
+inoremap <f5> <ESC>:call CompileRunCode()<CR>
+nnoremap <f5> :call CompileRunCode()<CR>
 
 " ========= 进行make的设置 =========
-function Do_make()
+function DoMake()
     " 保存文件
     execute "w"
     " 如果不在当前目录，改变路径
@@ -41,9 +40,10 @@ function Do_make()
     endif
     set makeprg=make
     execute "silent make"
-    execute "copen"
+    execute "!time ./%:r"
+    execute "cwindow"
 endfunction
 
 " mk mc
-map <leader>mk :call Do_make()<CR>
+map <leader>mk :call DoMake()<CR>
 map <leader>mc :silent make clean<CR>

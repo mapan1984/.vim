@@ -64,7 +64,7 @@ Plugin 'scrooloose/nerdtree'
 
 " ========= taglist ========= {{{
 Plugin 'vim-scripts/taglist.vim'
- set tags=tags;/
+ set tags=./tags;,tags
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
  let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口 
@@ -148,7 +148,7 @@ set encoding=utf-8              " Vim内部文件(寄存器、缓冲区...)的�
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1
 
 set helplang=cn                 " 帮助系统设置为中文
-set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
+" set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
 " set spell spelllang=en_us       " spell checking
 "}}}
 
@@ -234,6 +234,11 @@ inoremap {<cr> {<cr>}<esc>O
 inoremap <p <><esc>i
 inoremap 'p ''<esc>i
 inoremap "p ""<esc>i
+inoremap (P ()<ESC>i
+inoremap [P []<ESC>i
+inoremap {P {}<ESC>i
+inoremap <P <><esc>i
+inoremap "P ""<esc>i
 
 " ( = i(
 onoremap ( i(

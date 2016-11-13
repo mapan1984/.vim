@@ -98,13 +98,17 @@ elseif exists("b:current_syntax")
   finish
 endif
 
-" my option
+" My Option {{{
 :let OPTION_NAME = 1
 let python_highlight_all = 1
 let python_slow_sync = 1
-"
+
+" 超出80行标记为错误信息
+syntax match OverLength "\v^.{80,}$"
+highlight link OverLength ErrorMsg
+"}}}
+
 " Commands
-"
 command! -buffer Python2Syntax let b:python_version_2 = 1 | let &syntax=&syntax
 command! -buffer Python3Syntax let b:python_version_2 = 0 | let &syntax=&syntax
 
