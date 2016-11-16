@@ -184,16 +184,6 @@ noremap nh :nohl<cr>
 autocmd QuickFixCmdPost *grep* cwindow
 "}}}
 
-" ===== Default Indentation ===== {{{
-set autoindent                  " 开启新行，从当前行负责缩进距离
-set smartindent                 " 设置smartindent为默认值
-set expandtab                   " 使用空格代替制表符
-set tabstop=4                   " 插入模式下Tab键的宽度
-set shiftwidth=4                " vim格式化时Tab的宽度
-set softtabstop=4               " 将连续的空格视为Tab(方便删除)
-set smarttab                    " 行首的 <Tab> 根据 'shiftwidth' 插入空白
-"}}}
-
 set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
 "}}}
