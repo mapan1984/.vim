@@ -180,95 +180,13 @@ noremap nh :nohl<cr>
 
 " 在当前文件下寻找光标下的词，在quickfix中显示
 "nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
+
 " open quickfix window after any grep invocation
 autocmd QuickFixCmdPost *grep* cwindow
 "}}}
 
 set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
-"}}}
-
-" ========= Map =========== {{{
-" 设置leader键
-let mapleader=","
-let maplocalleader="\<Space>"
-
-inoremap jk <ESC>
-"vnoremap jk <ESC>
-
-" Treat long lines as break lines (useful when moving around in them)
-noremap j gj
-noremap k gk
-
-" jump the middle postion
-inoremap zz <c-o>zz
-
-" first you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
-nnoremap <c-s> :w<CR>
-inoremap <c-s> <esc>:w<cr>i
-
-" first you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
-nnoremap <c-q> :q<CR>
-inoremap <c-q> <esc>:q<cr>i
-
-" 使用tab键来代替%进行匹配跳转
-nnoremap <tab> %
-vnoremap <tab> %
-
-" ===== Brackets ===== {{{
-" auto complete
-inoremap (p ()<ESC>i
-inoremap [p []<ESC>i
-inoremap {p {}<ESC>i
-inoremap {<cr> {<cr>}<esc>O
-inoremap <p <><esc>i
-inoremap 'p ''<esc>i
-inoremap "p ""<esc>i
-inoremap (P ()<ESC>i
-inoremap [P []<ESC>i
-inoremap {P {}<ESC>i
-inoremap <P <><esc>i
-inoremap "P ""<esc>i
-
-" ( = i(
-onoremap ( i(
-onoremap { i{
-onoremap [ i[
-onoremap < i<
-onoremap " i"
-onoremap ' i'
-
-" 下一个括号的内容
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap in{ :<c-u>normal! f{vi{<cr>
-onoremap in[ :<c-u>normal! f[vi(<cr>
-onoremap in< :<c-u>normal! f<vi<<cr>
-onoremap in" :<c-u>normal! f"vi"<cr>
-onoremap in' :<c-u>normal! f'vi'<cr>
-"}}}
-
-" ===== 插入模式下移动 ===== {{{
-inoremap <c-a> <home>
-inoremap <c-e> <end>
-inoremap <c-j> <down>
-inoremap <c-k> <up>
-inoremap <c-f> <right>
-inoremap <c-b> <left>
-"}}}
-
-" ===== 使用用系统剪切板 ===== {{{
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-vnoremap <leader>y "+y
-vnoremap <leader>p "+p
-"}}}
-
-" Switch CWD to the directory of the open buffer:
-noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" 编辑,重载.vimrc
-"nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
-"nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
 "}}}
 
 " 打文件后开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{

@@ -3,7 +3,8 @@
 1. [Manual](#user-content-1manual)
 2. [Installation](#user-content-2installation)
 3. [Manage](#user-content-3manage)
-4. [Last](#user-content-4last)
+4. [Dependencies](#user-content-4dependencies)
+5. [Last](#user-content-5last)
 
 ## 1.Manual
 
@@ -16,8 +17,6 @@
 * `mydraft`中是未完成或暂时被抛弃的的脚本
 
 ## 2.Installation
-
-我不觉得有人会用我的配置，毕竟每个人的习惯不同，只有自己亲自的配置才会用的习惯, but anyway ...
 
 克隆到本地
 
@@ -70,6 +69,12 @@
 
     $ git clone --recursive http://github.com/mapan1984/.vim.git ~/.vim 
 
-## 4.Last
+## 4.Dependencies
+
+* 在~/.vim中建立目录.tmp、.undo
+* 为了使用`<c-s>`、`<c-q>`映射，在.bashrc中加入`stty -ixon`
+* 下载clang-format
+
+## 5.Last
 
 happy vimming（＾∀＾）
