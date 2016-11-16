@@ -30,16 +30,16 @@ nnoremap <leader>cc :call CleanComment()<CR>
 "}}}
 
 " ========= 代码缩写 ========= {{{
-augroup snippet
-    autocmd!
-    "在末尾加分号
-    autocmd FileType c,cpp,javascript noremap <buffer> <localleader>; A;<esc>o
-    "自动扩展if
-    autocmd FileType javascript,c,cpp :iabbrev <buffer> iff if()<left>
-    autocmd FileType python           :iabbrev <buffer> iff if:<left>
-    " 自动扩展for
-    autocmd filetype c,cpp :iabbrev <buffer> forr for()<left>
-augroup end
+" augroup snippet
+"     autocmd!
+"     "在末尾加分号
+"     autocmd FileType c,cpp,javascript noremap <buffer> <localleader>; A;<esc>o
+"     "自动扩展if
+"     autocmd FileType javascript,c,cpp :iabbrev <buffer> iff if () <left><left>
+"     autocmd FileType python           :iabbrev <buffer> iff if:<left>
+"     " 自动扩展for
+"     autocmd filetype c,cpp :iabbrev <buffer> forr for () <left><left>
+" augroup end
 "}}}
 
 " ======== 自动插入文件头 ======= {{{

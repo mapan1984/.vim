@@ -36,8 +36,8 @@ nnoremap <leader>rl :g/^\s*$/d<CR>
 "}}}
 
 " clang-format {{{
-map <c-k> :pyf ~/.vim/clang-format.py<cr>
-imap <c-k> <esc>:pyf ~/.vim/clang-format.py<cr>
+map <c-l> :pyf ~/.vim/clang-format.py<cr>
+imap <c-l> <esc>:pyf ~/.vim/clang-format.py<cr>
 
 function FormatFile()
   let l:lines="all"

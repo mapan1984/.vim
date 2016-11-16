@@ -1,7 +1,3 @@
-" 设置leader键
-let mapleader=","
-let maplocalleader="\<Space>"
-
 inoremap jk <ESC>
 
 " Treat long lines as break lines (useful when moving around in them)
@@ -19,9 +15,20 @@ inoremap <c-s> <esc>:w<cr>i
 nnoremap <c-q> :q<CR>
 inoremap <c-q> <esc>:q<cr>i
 
+" 切换buffer
+nnoremap [b :bprevious<cr>
+nnoremap ]b :bnext<cr>
+
 " 使用tab键来代替%进行匹配跳转
 nnoremap <tab> %
 vnoremap <tab> %
+
+" Switch CWD to the directory of the open buffer:
+noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" 编辑,重载.vimrc
+"nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
+"nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
 
 " ===== Brackets ===== {{{
 " auto complete
@@ -66,7 +73,6 @@ inoremap <c-b> <left>
 "inoremap <M-b> <c-o>b
 "}}}
 
-
 " ===== 插入模式下删除 ===== {{{
 inoremap <c-u> <c-o>d0
 inoremap <c-k> <c-o>C
@@ -81,10 +87,3 @@ nnoremap <leader>p "+p
 vnoremap <leader>y "+y
 vnoremap <leader>p "+p
 "}}}
-
-" Switch CWD to the directory of the open buffer:
-noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" 编辑,重载.vimrc
-"nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
-"nnoremap <silent> <leader>sv :source $MYVIMRC<CR>

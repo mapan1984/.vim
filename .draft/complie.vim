@@ -19,11 +19,13 @@ function DoOneFileMake()
         echohl WarningMsg | echo "Fail to make! Please delete the spaces in the filename!" | echohl None
         return
     endif
+
     if &filetype=="c"
         set makeprg=gcc\ -o\ %<\ %
     elseif &filetype=="cpp"
         set makeprg=g++\ -o\ %<\ %
     endif
+
     let outfilename=substitute(sourcefileename,'\(\.[^.]*\)' ,'','g')
     let toexename=outfilename
     if filereadable(outfilename)

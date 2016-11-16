@@ -12,7 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-" ========= solarized ========= {{{
+" ===== solarized ===== {{{
 "Plugin 'vim-scripts/Solarized'
  set background=dark
  colorscheme solarized
@@ -22,7 +22,7 @@ Plugin 'VundleVim/Vundle.vim'
  let g:solarized_visibility = "high"
 "}}}
 
-" ========= vim-powerline ========= {{{
+" ===== vim-powerline ===== {{{
 Plugin 'Lokaltog/vim-powerline'
  set guifont=PowerlineSymbols\ for\ Powerline
  set t_Co=256                 "设置256色显示
@@ -30,7 +30,7 @@ Plugin 'Lokaltog/vim-powerline'
  let g:Powerline_colorscheme = 'solarized256'
 "}}}
 
-" ========= vim-indent-guides ========== {{{
+" ===== vim-indent-guides ===== {{{
 Plugin 'nathanaelkane/vim-indent-guides'
  " 随vim自启动
  let g:indent_guides_enable_on_vim_startup=1
@@ -42,7 +42,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
  "nnoremap <silent> <Leader>i <Plug>IndentGuidesToggle
 "}}}
 
-" ========= nerdtree ========== {{{
+" ===== nerdtree ===== {{{
 Plugin 'scrooloose/nerdtree'
  nnoremap <c-b> :NERDTreeToggle<cr>
  " 设置相对行号
@@ -62,16 +62,16 @@ Plugin 'scrooloose/nerdtree'
  let g:NERDTreeWinPos=0
 "}}}
 
-" ========= taglist ========= {{{
+" ===== taglist ===== {{{
 Plugin 'vim-scripts/taglist.vim'
  set tags=./tags;,tags
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
- let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口 
+ let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
  nnoremap <silent> tl :TlistToggle<cr>
 " }}}
 
-" ========= vim-markdown ========= {{{
+" ===== vim-markdown ===== {{{
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
  noremap <silent> to :Toc<cr>
@@ -86,15 +86,15 @@ Plugin 'plasticboy/vim-markdown'
  let g:vim_markdown_new_list_item_indent = 2
 "}}}
 
-" ========= supertab ========= {{{
+" ===== supertab ===== {{{
 Plugin 'ervandew/supertab'
 "}}}
 
-" ========= vim-fugitve ========= {{{
+" ===== vim-fugitve ===== {{{
 Plugin 'tpope/vim-fugitive'
 "}}}
 
-" ========= vim-json ========= {{{
+" ===== vim-json ===== {{{
 Plugin 'elzr/vim-json'
  let g:vim_json_syntax_conceal = 0
 "}}}
@@ -115,7 +115,7 @@ filetype plugin indent on    " required enables filetype plugin
 " Put your non-Plugin stuff after this line
 " }}}
 
-" ========= Basic Settings ========= {{{
+" ===== Other Settings ===== {{{
 filetype on                     " enables filetype detection
 syntax enable                   " 开启语法高亮功能
 syntax on                       " 允许用指定语法高亮配色方案替换默认方案
@@ -123,8 +123,18 @@ set history=1000                " 历史记录数
 set wildmenu                    " vim自身命令行模式智能补全
 set autoread                    " 文件在Vim之外修改过，自动重新读入
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
+set encoding=utf-8              " Vim内部文件(寄存器、缓冲区...)的编码为 UTF-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1 " 自动判断编码，依次尝试以下顺序
+set helplang=cn                 " 帮助系统设置为中文
+" set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
+" set spell spelllang=en_us       " spell checking
+set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
+set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
 "set mouse=a                     " enable using the mouse if terminal emulator
 "set mousehide                   " 在输入时隐藏鼠标指针
+let mapleader=","               " 设置leader键
+let maplocalleader="\<Space>"   " localleader
+"}}}
 
 " ===== UI ===== {{{
 set number                      " 显示行号
@@ -140,16 +150,6 @@ set laststatus=2                " 总是显示状态行
 set showcmd                     " 显示输入命令在状态栏
 set showmode                    " show the mode of vim
 set ruler                       " 显示光标位置的行号和列号
-"}}}
-
-" ===== encoding ===== {{{
-set encoding=utf-8              " Vim内部文件(寄存器、缓冲区...)的编码为 UTF-8
-" 自动判断编码，依次尝试以下顺序
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1
-
-set helplang=cn                 " 帮助系统设置为中文
-" set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
-" set spell spelllang=en_us       " spell checking
 "}}}
 
 " ===== 无限undo ===== {{{
@@ -183,10 +183,6 @@ noremap nh :nohl<cr>
 
 " open quickfix window after any grep invocation
 autocmd QuickFixCmdPost *grep* cwindow
-"}}}
-
-set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
-set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
 "}}}
 
 " 打文件后开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{

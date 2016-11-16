@@ -1,21 +1,3 @@
-" ===== buffer =====
-" 切换buffer
-nnoremap [b :bprevious<cr>
-nnoremap ]b :bnext<cr>
-
-" ===== Window =====
-" 拆分窗口
-nnoremap <c-\> :Vexplore!<cr>
-nnoremap ws :split <c-r>=expand("%:p:h")<cr>/
-nnoremap wv :vsplit <c-r>=expand("%:p:h")<cr>/
-nnoremap wc <c-w>c
-nnoremap ww <c-w>w
-noremap wj <c-w>j
-noremap wh <c-w>h
-noremap wk <c-w>k
-noremap wl <c-w>l
-
-" ===== Tab page =====
 nnoremap <tab>x :Texplore<cr>
 " open file in new tab
 noremap <c-o> :tabedit <c-r>=expand("%:p:h")<cr>/

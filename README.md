@@ -14,7 +14,7 @@
 * `ftplugin`目录下的文件是否执行取决于文件的名字，当Vim把一个缓冲区的`filetype`设置成某个值时，它会去查找`~/.vim/ftplugin/`下的文件, 比如: 如果你执行`set filetype=derp`，Vim将查找`~/.vim/ftplugin/derp.vim`。 一旦文件存在，Vim将执行它(相当于设置`autocmd filetype derp xxxxx`)。
 * `indent`目录与`ftplugin`目录相似，都会按`filetype`自动加载，这里有我在[vim.org](http://www.vim.org)找的脚本，优化对代码缩进的支持。
 * `syntax`目录与`ftplugin`目录相似，都会按`filetype`自动加载，这里有我在[vim.org](http://www.vim.org)找的脚本，优化对代码语法的支持。
-* `mydraft`中是未完成或暂时被抛弃的的脚本
+* `.draft`中是未完成或暂时被抛弃的的脚本
 
 ## 2.Installation
 
@@ -44,9 +44,9 @@
     $ cd ~/.vim
     $ mkdir .undo .tmp
 
-如果想使用`mydraft`中的脚本，可以在`.vimrc`中加下面的语句(`xxx.vim`是脚本的名字)
+如果想使用`.draft`中的脚本，可以在`.vimrc`中加下面的语句(`xxx.vim`是脚本的名字)
 
-    source ~/.vim/mydraft/xxx.vim
+    source ~/.vim/.draft/xxx.vim
 
 ## 3.Manage
 

@@ -1,4 +1,4 @@
-" ========= 编译 && 运行 =========
+" ========= 编译 && 运行 ========= {{{
 function! CompileRunCode()
     " 执行保存
     execute "w"
@@ -29,8 +29,9 @@ endfunction
 " <f5> 保存、编译、运行
 inoremap <f5> <ESC>:call CompileRunCode()<CR>
 nnoremap <f5> :call CompileRunCode()<CR>
+"}}}
 
-" ========= 进行make的设置 =========
+" ========= 进行make的设置 ========= {{{
 function DoMake()
     " 保存文件
     execute "w"
@@ -47,3 +48,4 @@ endfunction
 " mk mc
 map <leader>mk :call DoMake()<CR>
 map <leader>mc :silent make clean<CR>
+"}}}
