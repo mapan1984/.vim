@@ -34,7 +34,7 @@ endfunction
 nnoremap <leader>z :call FoldToggle()<cr>
 
 " 我开启了默认折叠，所以`have_folded`初始为1
-au BufReadPre * let b:have_folded = 1
+au BufNewFile,BufReadPre * let b:have_folded = 1
 
 function! FoldToggle()
     if b:have_folded
