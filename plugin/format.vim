@@ -12,22 +12,25 @@ set smarttab                    " 行首的 <Tab> 根据 'shiftwidth' 插入空�
 inoremap <leader>rt <esc>:call RemoveTabs()<cr>
 nnoremap <leader>rt :call RemoveTabs()<cr>
 
-func! RemoveTabs()
-    if &shiftwidth ==# 2
-        execute '%s/\t/  /g'
-    elseif &shiftwidth ==# 4
-        execute '%s/\t/    /g'
-    else
-        execute '%s/\t/    /g'
-    endif
-endfunc
+function RemoveTabs()
+    let l:winview = winsaveview()
+    silent! %s/\t/\=repeat(" ", &tabstop)/
+    call winrestview(l:winview)
+endfunction
 "}}}
 
-" rb 去除所有尾部空白 {{{
-inoremap <leader>rb <ESC>:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-nnoremap <leader>rb :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-"}}}
+" ========= rb 去除所有尾部空白 ========= {{{
+inoremap <leader>rb <esc>:call StripTrailingWhite()<cr>
+nnoremap <leader>rb :call StripTrailingWhite()<cr>
 
+" http://vim.wikia.com/wiki/remove_unwanted_spaces
+function StripTrailingWhite()
+    let l:winview = winsaveview()
+    silent! %s/\s\+$//
+    call winrestview(l:winview)
+endfunction
+"}}}
+"
 " rl 去空行 {{{
 nnoremap <leader>rl :g/^\s*$/d<CR>
 "}}}
