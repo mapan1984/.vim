@@ -99,6 +99,10 @@ Plugin 'elzr/vim-json'
  let g:vim_json_syntax_conceal = 0
 "}}}
 
+" ===== vim-python-pep8-indent ===== {{{
+Plugin 'hynek/vim-python-pep8-indent'
+"}}}
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 

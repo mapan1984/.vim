@@ -28,3 +28,6 @@
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule "/home/mapan/.vim/bundle/vim-python-pep8-indent"]
+	path = /home/mapan/.vim/bundle/vim-python-pep8-indent
+	url = https://github.com/hynek/vim-python-pep8-indent.git
