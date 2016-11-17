@@ -8,9 +8,9 @@ set softtabstop=4               " 将连续的空格视为Tab(方便删除)
 set smarttab                    " 行首的 <Tab> 根据 'shiftwidth' 插入空白
 "}}}
 
-" ========= rt 将tab替换为空格 ========== {{{
-inoremap <leader>rt <esc>:call RemoveTabs()<cr>
-nnoremap <leader>rt :call RemoveTabs()<cr>
+" ========= \t 将tab替换为空格 ========== {{{
+inoremap \t <esc>:call RemoveTabs()<cr>
+nnoremap \t :call RemoveTabs()<cr>
 
 function RemoveTabs()
     let l:winview = winsaveview()
@@ -19,9 +19,9 @@ function RemoveTabs()
 endfunction
 "}}}
 
-" ========= rb 去除所有尾部空白 ========= {{{
-inoremap <leader>rb <esc>:call StripTrailingWhite()<cr>
-nnoremap <leader>rb :call StripTrailingWhite()<cr>
+" ========= \w 去除所有尾部空白(white) ========= {{{
+inoremap \w <esc>:call StripTrailingWhite()<cr>
+nnoremap \w :call StripTrailingWhite()<cr>
 
 " http://vim.wikia.com/wiki/remove_unwanted_spaces
 function StripTrailingWhite()
@@ -30,17 +30,13 @@ function StripTrailingWhite()
     call winrestview(l:winview)
 endfunction
 "}}}
-"
-" rl 去空行 {{{
-nnoremap <leader>rl :g/^\s*$/d<CR>
-"}}}
 
 " clang-format {{{
 map <c-l> :pyf ~/.vim/clang-format.py<cr>
 imap <c-l> <esc>:pyf ~/.vim/clang-format.py<cr>
 
 function FormatFile()
-  let l:lines="all"
-  pyf ~/.vim/clang-format.py
+    let l:lines="all"
+    pyf ~/.vim/.draft/clang-format.py
 endfunction
 "}}}
