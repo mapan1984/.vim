@@ -32,8 +32,8 @@ endfunction
 "}}}
 
 " clang-format {{{
-map <c-l> :pyf ~/.vim/clang-format.py<cr>
-imap <c-l> <esc>:pyf ~/.vim/clang-format.py<cr>
+map <c-l> :pyf ~/.vim/.draft/clang-format.py<cr>
+imap <c-l> <esc>:pyf ~/.vim/.draft/clang-format.py<cr>
 
 function FormatFile()
     let l:lines="all"
