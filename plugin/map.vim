@@ -71,6 +71,10 @@ inoremap <c-f> <right>
 inoremap <c-b> <left>
 "inoremap <M-f> <c-o>w
 "inoremap <M-b> <c-o>b
+"inoremap <A-f> <c-o>w
+"inoremap <A-b> <c-o>b
+inoremap b <c-o>b
+inoremap f <c-o>w
 "}}}
 
 " ===== 插入模式下删除 ===== {{{
