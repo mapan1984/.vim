@@ -1,41 +1,43 @@
 " ========= 加注释 取消注释 ========= {{{
-func! AddComment()
-    if &filetype ==# "c" || &filetype ==# "cpp" || &filetype ==# "javascript"
-        exec "normal! I//" . "\<esc>"
-    elseif &filetype ==# "python" || &filetype ==# "sh"
-        exec "normal! I#" . "\<esc>"
-    elseif &filetype ==# "vim"
-        exec "normal! I\" " . "\<esc>"
-    elseif &filetype ==# "scheme"
-        exec "normal! I;;" . "\<esc>"
-    endif
-endfunc
+let s:comment = {
+            \"c":"//",
+            \"cpp":"//",
+            \"javascript":"//",
+            \"jqury":"//",
+            \"python":"#",
+            \"vim":'"',
+            \"sh":"#",
+            \"scheme":";;",
+            \}
 
-func! CleanComment()
-    if &filetype ==# "c" || &filetype ==# "cpp" || &filetype ==# "javascript"
-        exec "normal! ^xx"
-    elseif &filetype ==# "python" || &filetype ==# "sh"
-        exec "normal! ^x"
-    elseif &filetype ==# "vim"
-        exec "normal! ^xx"
-    elseif &filetype ==# "scheme"
-        exec "normal! ^xx"
+function! Comment()
+    let l:winview = winsaveview()
+    let l:line = getline(line("."))
+    " 如果已被注释
+    if l:line =~ '\v^\s*' . s:comment[&ft] . '.*$'
+        " 删除注释
+        let l:commentLen = len(s:comment[&ft])
+        exec "normal! ^" . repeat("x", l:commentLen+1)
+    else
+        " 否则增加注释
+        exec "normal! I" . s:comment[&ft] ." "
     endif
-endfunc
+    call winrestview(l:winview)
+endfunction
 
-inoremap <leader>ac <ESC>:call AddComment()<CR>
-inoremap <leader>cc <ESC>:call CleanComment()<CR>
-nnoremap <leader>ac :call AddComment()<CR>
-nnoremap <leader>cc :call CleanComment()<CR>
+"inoremap <c-/> <esc> :call Comment()<cr>
+"nnoremap <c-/> :call Comment()<CR>
+inoremap  <esc> :call Comment()<cr>
+nnoremap  :call Comment()<cr>
 "}}}
 
 " ========= 代码缩写 ========= {{{
 " augroup snippet
 "     autocmd!
 "     "在末尾加分号
-"     autocmd FileType c,cpp,javascript noremap <buffer> <localleader>; A;<esc>o
+"     autocmd filetype c,cpp,javascript noremap <buffer> <localleader>; a;<esc>o
 "     "自动扩展if
-"     autocmd FileType javascript,c,cpp :iabbrev <buffer> iff if () <left><left>
+"     autocmd filetype javascript,c,cpp :iabbrev <buffer> iff if () <left><left>
 "     autocmd FileType python           :iabbrev <buffer> iff if:<left>
 "     " 自动扩展for
 "     autocmd filetype c,cpp :iabbrev <buffer> forr for () <left><left>
@@ -69,4 +71,9 @@ endfunc
 "   endif
 "endfunction
 "inoremap <Tab> <C-R>=CleverTab()<CR>
+"}}}
+"
+" use <tab> and <shift-tab> to indent {{{
+vmap <tab> >gv
+vmap <s-tab> <gv
 "}}}
