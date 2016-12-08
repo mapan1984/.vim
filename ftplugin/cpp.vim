@@ -52,5 +52,5 @@ endfunction
 nnoremap <buffer> <localleader>hd :call InsertHeadDefN()<CR>
 "}}}
 
-" 删除到下一个return
-onoremap <buffer> r /return<cr>
+" snippet
+:source ~/.vim/ftplugin/c.vim
