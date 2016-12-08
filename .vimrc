@@ -128,7 +128,9 @@ set wildmenu                    " vim自身命令行模式智能补全
 set autoread                    " 文件在Vim之外修改过，自动重新读入
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
 set encoding=utf-8              " Vim内部文件(寄存器、缓冲区...)的编码为 UTF-8
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,default,big5,euc-jp,euc-kr,latin1 " 自动判断编码，依次尝试以下顺序
+set termencoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 " 自动判断编码，依次尝试以下顺序
 set helplang=cn                 " 帮助系统设置为中文
 " set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
 " set spell spelllang=en_us       " spell checking

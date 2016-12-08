@@ -19,16 +19,28 @@ function RemoveTabs()
 endfunction
 "}}}
 
-" ========= \w 去除所有尾部空白(white) ========= {{{
-inoremap \w <esc>:call StripTrailingWhite()<cr>
-nnoremap \w :call StripTrailingWhite()<cr>
+" ========= \b 去除所有尾部空白(blank) ========= {{{
+inoremap \b <esc>:call StripTrailingBlank()<cr>
+nnoremap \b :call StripTrailingBlank()<cr>
 
 " http://vim.wikia.com/wiki/remove_unwanted_spaces
-function StripTrailingWhite()
+function StripTrailingBlank()
     let l:winview = winsaveview()
     silent! %s/\s\+$//
     call winrestview(l:winview)
 endfunction
+
+"function! RemoveTrailingWhitespace()
+"    if &ft != "diff"
+"        let b:curcol = col(".")
+"        let b:curline = line(".")
+"        silent! %s/\s\+$//
+"        silent! %s/\(\s*\n\)\+\%$//
+"        call cursor(b:curline, b:curcol)
+"    endif
+"endfunction
+"
+"autocmd BufWritePre * call RemoveTrailingWhitespace()
 "}}}
 
 " clang-format {{{

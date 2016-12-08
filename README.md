@@ -25,11 +25,11 @@
 进行软链接`-s`(symbolic link)(可以使用`-f`删除原有的`~/.vimrc`文件, **谨慎使用**) 
 
     $ cd ~/.vim
-    $ ln -sf .vimrc ~/.vimrc
+    $ ln -sf ./.vimrc ~/.vimrc
 
 或直接硬链接(hard link)
 
-    $ ln -f .vimrc ~/.vimrc
+    $ ln -f ./.vimrc ~/.vimrc
 
 下载vundle
 

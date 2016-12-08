@@ -10,7 +10,7 @@ nnoremap <c-u> viwUe
 
 
 " indent folding
-:source ~/.vim/.draft/folding.vim"
+:source ~/.vim/.draft/folding.vim
 
 " 超出80行高亮显示
 "func! FindOverLength()

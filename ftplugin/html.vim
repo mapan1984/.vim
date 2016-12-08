@@ -6,7 +6,7 @@ setlocal foldmethod=marker
 nnoremap <buffer> <localleader>f Vatzf
 
 " indent folding
-:source ~/.vim/.draft/folding.vim"
+:source ~/.vim/.draft/folding.vim
 
 " ======== 自动插入html模板 ======= {{{
 nnoremap <buffer> !<tab> :call AutoInsertTemplate()<cr>
