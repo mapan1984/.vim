@@ -1,15 +1,18 @@
+" tab explore
 nnoremap <tab>x :Texplore<cr>
 " open file in new tab
 noremap <c-o> :tabedit <c-r>=expand("%:p:h")<cr>/
 " create new file in new tab
-noremap <c-n> :tabnew<cr>
+noremap <c-n> :tabnew <c-r>=expand("%:p:h")<cr>/
+
 " 关闭当前标签页
 noremap <tab>c :tabclose<cr>
 " 关闭所有其它的标签页
 noremap <tab>o :tabonly<cr>
 " 当前标签页成为最后一个
 noremap <tab>m :tabmove<cr>
-" tab切换
+
+" ===== tab切换 =====
 noremap <tab>f :tabfirst<cr>
 noremap <tab>l :tablast<cr>
 noremap <tab>j :tabnext<cr>
