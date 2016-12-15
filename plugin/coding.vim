@@ -1,36 +1,3 @@
-" ========= 加注释 取消注释 ========= {{{
-let s:comment = {
-            \"c":"//",
-            \"cpp":"//",
-            \"javascript":"//",
-            \"jqury":"//",
-            \"python":"#",
-            \"vim":'"',
-            \"sh":"#",
-            \"scheme":";;",
-            \}
-
-function! Comment()
-    let l:winview = winsaveview()
-    let l:line = getline(line("."))
-    " 如果已被注释
-    if l:line =~ '\v^\s*' . s:comment[&ft] . '.*$'
-        " 删除注释
-        let l:commentLen = len(s:comment[&ft])
-        exec "normal! ^" . repeat("x", l:commentLen+1)
-    else
-        " 否则增加注释
-        exec "normal! I" . s:comment[&ft] ." "
-    endif
-    call winrestview(l:winview)
-endfunction
-
-"inoremap <c-/> <esc> :call Comment()<cr>
-"nnoremap <c-/> :call Comment()<CR>
-inoremap  <esc> :call Comment()<cr>
-nnoremap  :call Comment()<cr>
-"}}}
-
 " ========= 代码缩写 ========= {{{
 " augroup snippet
 "     autocmd!
@@ -72,8 +39,8 @@ endfunc
 "endfunction
 "inoremap <Tab> <C-R>=CleverTab()<CR>
 "}}}
-"
-" use <tab> and <shift-tab> to indent {{{
+
+" Use <tab> and <shift-tab> to indent {{{
 vmap <tab> >gv
 vmap <s-tab> <gv
 "}}}
