@@ -15,11 +15,18 @@ call plug#begin('~/.vim/bundle')
 "}}}
 
 " ===== vim-powerline ===== {{{
-Plug 'Lokaltog/vim-powerline'
- set guifont=PowerlineSymbols\ for\ Powerline
+"Plug 'Lokaltog/vim-powerline'
+" set guifont=PowerlineSymbols\ for\ Powerline
  set t_Co=256                 "设置256色显示
- let g:Powerline_symbols = 'fancy'
- let g:Powerline_colorscheme = 'solarized256'
+" let g:Powerline_symbols = 'fancy'
+" let g:Powerline_colorscheme = 'solarized256'
+"}}}
+
+" ==== vim-airline ==== {{{ 
+Plug 'vim-airline/vim-airline'
+ let g:airline#extensions#tabline#enabled = 1
+ let g:airline#extensions#tabline#left_sep = ' '
+ let g:airline#extensions#tabline#left_alt_sep = '|'
 "}}}
 
 " ===== vim-indent-guides ===== {{{
@@ -84,6 +91,10 @@ Plug 'ervandew/supertab'
 
 " ===== vim-fugitve ===== {{{
 Plug 'tpope/vim-fugitive'
+"}}}
+
+" ===== vim-gitgutter ===== {{{
+Plug 'airblade/vim-gitgutter'
 "}}}
 
 " ===== vim-json ===== {{{
