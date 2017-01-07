@@ -1,19 +1,11 @@
-" ========= Vundle ========= {{{
+" ========= Plugin ========= {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/bundle')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
 " ===== solarized ===== {{{
-"Plugin 'vim-scripts/Solarized'
+"Plug 'vim-scripts/Solarized'
  set background=dark
  colorscheme solarized
  let g:solarized_termtrans  = 1
@@ -23,7 +15,7 @@ Plugin 'VundleVim/Vundle.vim'
 "}}}
 
 " ===== vim-powerline ===== {{{
-Plugin 'Lokaltog/vim-powerline'
+Plug 'Lokaltog/vim-powerline'
  set guifont=PowerlineSymbols\ for\ Powerline
  set t_Co=256                 "设置256色显示
  let g:Powerline_symbols = 'fancy'
@@ -31,7 +23,7 @@ Plugin 'Lokaltog/vim-powerline'
 "}}}
 
 " ===== vim-indent-guides ===== {{{
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
  " 随vim自启动
  let g:indent_guides_enable_on_vim_startup=1
  " 从第二层开始可视化显示缩进
@@ -43,7 +35,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 "}}}
 
 " ===== nerdtree ===== {{{
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
  nnoremap <c-b> :NERDTreeToggle<cr>
  " 设置相对行号
  "nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
@@ -63,7 +55,7 @@ Plugin 'scrooloose/nerdtree'
 "}}}
 
 " ===== taglist ===== {{{
-Plugin 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/taglist.vim'
  set tags=./tags;,tags
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
@@ -72,8 +64,8 @@ Plugin 'vim-scripts/taglist.vim'
 " }}}
 
 " ===== vim-markdown ===== {{{
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
  noremap <silent> to :Toc<cr>
  let g:vim_markdown_folding_disabled = 1
  let g:vim_markdown_folding_level = 6
@@ -87,36 +79,27 @@ Plugin 'plasticboy/vim-markdown'
 "}}}
 
 " ===== supertab ===== {{{
-Plugin 'ervandew/supertab'
+Plug 'ervandew/supertab'
 "}}}
 
 " ===== vim-fugitve ===== {{{
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 "}}}
 
 " ===== vim-json ===== {{{
-Plugin 'elzr/vim-json'
+Plug 'elzr/vim-json'
  let g:vim_json_syntax_conceal = 0
 "}}}
 
 " ===== vim-python-pep8-indent ===== {{{
-Plugin 'hynek/vim-python-pep8-indent'
+Plug 'hynek/vim-python-pep8-indent'
 "}}}
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
 
 " 载入文件类型插件,为特定文件类型载入相关缩进文件
 filetype plugin indent on    " required enables filetype plugin
-"                                       enables filetype indent
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+                             "          enables filetype indent
 " }}}
 
 " ===== Other Settings ===== {{{
