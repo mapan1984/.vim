@@ -12,20 +12,8 @@
 "}}}
 
 " ======== 自动插入文件头 ======= {{{
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
-
-function! AutoSetFileHead()
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/env bash")
-    endif
-    if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python3")
-    endif
-
-    normal G
-    normal o
-    normal o
-endfunc
+" autocmd BufNewFile *.sh,*.py exec ":call format#AutoSetFileHead()"
+nnoremap <localleader>hd :call format#AutoSetFileHead()<CR>
 "}}}
 
 " ======== CleverTab ======= {{{
