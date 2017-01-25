@@ -8,7 +8,7 @@
 
 ## 1.Manual
 
-因为我使用[vim-plug](https://github.com/junegunn/vim-plug)做插件管理(每个插件都在`bundle`下的单独文件夹中)，所以`.vim`下的目录都是空的,但我会把一些自己写的简单脚本按功能分类放在这些目录中。把它们放在这主要是我不想让`.vimrc`过长(不好修改)，将每个功能分在不同的文件中更加便于修改，而且分配好之后在vim启动时会自动(或按需)加载这些脚本，十分方便。以下为目录说明:
+因为我使用[vim-plug](https://github.com/junegunn/vim-plug)管理插件(每个插件都在`bundle`下的单独文件夹中)，所以`.vim`下的目录都是空的，但我会把一些自己写的简单脚本按功能分类放在这些目录中。把它们放在这主要是我不想让`.vimrc`过长(不好修改)，将每个功能分在不同的文件中更加便于修改，而且分配好之后在Vim启动时会自动(或按需)加载这些脚本，十分方便。以下为目录说明:
 
 1. 自动加载：
     * `.vimrc`
@@ -16,8 +16,9 @@
     * `plugin`目录下是一些执行基本通用功能的脚本，在`.vimrc`中有功能明确相关且代码较长的代码块时，我就会把它们放在这。在`plugin`目录下的文件会在Vim启动时自动加载。
 2. 按文件类型自动加载
     * `ftplugin`目录下的文件是否执行取决于文件的名字，当Vim把一个缓冲区的`filetype`设置成某个值时，它会去查找`~/.vim/ftplugin/`下的文件, 比如: 如果你执行`set filetype=derp`，Vim将查找`~/.vim/ftplugin/derp.vim`。 一旦文件存在，Vim将执行它(相当于设置`autocmd filetype derp xxxxx`)。
-    * `indent`目录与`ftplugin`目录相似，都会按`filetype`自动加载，这里有我在[vim.org](http://www.vim.org)找的脚本，优化对代码缩进的支持。
-    * `syntax`目录与`ftplugin`目录相似，都会按`filetype`自动加载，这里有我在[vim.org](http://www.vim.org)找的脚本，优化对代码语法的支持。
+    * `indent`
+    * `syntax`
+    * `colors`
 3. 有需要时加载
     * `autoload`
 4. 其他文件
@@ -44,7 +45,7 @@
 ## 4.Dependencies
 
 * 为了使用`<c-s>`、`<c-q>`映射，在.bashrc中加入`stty -ixon`
-* 下载clang-format
+* 下载clang-format.py到.draft文件夹中
 
 ## 5.Last
 
