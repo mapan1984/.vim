@@ -25,8 +25,7 @@ call plug#begin('~/.vim/bundle')
 " ==== vim-airline ==== {{{ 
 Plug 'vim-airline/vim-airline'
  let g:airline#extensions#tabline#enabled = 1
- let g:airline#extensions#tabline#left_sep = ' '
- let g:airline#extensions#tabline#left_alt_sep = '|'
+ set laststatus=2     " 总是显示状态行
 "}}}
 
 " ===== vim-indent-guides ===== {{{
@@ -95,15 +94,12 @@ Plug 'tpope/vim-fugitive'
 
 " ===== vim-gitgutter ===== {{{
 Plug 'airblade/vim-gitgutter'
+ set updatetime=250
 "}}}
 
 " ===== vim-json ===== {{{
 Plug 'elzr/vim-json'
  let g:vim_json_syntax_conceal = 0
-"}}}
-
-" ===== vim-python-pep8-indent ===== {{{
-Plug 'hynek/vim-python-pep8-indent'
 "}}}
 
 call plug#end()
