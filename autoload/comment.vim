@@ -15,14 +15,14 @@ let s:comment = {
 function! comment#Comment()
     let l:winview = winsaveview()
     let l:line = getline(line("."))
+    let l:comment = s:comment[&ft]
     " 如果已被注释
-    if l:line =~ '\v^\s*' . s:comment[&ft] . '.*$'
+    if l:line =~ '\v^\s*' . l:comment . '.*$'
         " 删除注释
-        let l:commentlen = len(s:comment[&ft])
-        exec "normal! ^" . repeat("x", l:commentlen)
+        exec "normal! ^" . repeat("x", len(l:comment))
     else
         " 否则增加注释
-        exec "normal! i" . s:comment[&ft]
+        exec "normal! I" . l:comment
     endif
     call winrestview(l:winview)
 endfunction
@@ -33,13 +33,14 @@ function! comment#MultiLineComment()
     let l:winview = winsaveview()
     let l:start = line("'<")
     let l:end = line("'>")
+    let l:comment = s:comment[&ft]
     " 如果已被注释
-    if getline(l:start) =~ '\v^\s*' . s:comment[&ft] . '.*$'
+    if getline(l:start) =~ '\v^\s*' . l:comment . '.*$'
         " 则删除注释
-        execute "normal! :" . (l:start) . ',' . (l:end) . 'g/' . (s:comment[&ft]) . '/s/' . (s:comment[&ft]) . '//' . "\<cr>"
+        execute "normal! :" . (l:start) . ',' . (l:end) . 'g/' . (l:comment) . '/s/' . (l:comment) . '//' . "\<cr>"
     else
         " 否则增加注释
-        execute 'normal! :' . (l:start) . ',' . (l:end) . 'g/./s/^/' . s:comment[&ft] . '/' . "\<cr>"
+        execute 'normal! :' . (l:start) . ',' . (l:end) . 'g/./s/^/' . l:comment . '/' . "\<cr>"
     endif
     call winrestview(l:winview)
 endfunction
