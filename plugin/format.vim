@@ -1,11 +1,11 @@
 " ===== Default Indentation ===== {{{
 set autoindent                  " 开启新行，从当前行负责缩进距离
-set smartindent                 " 设置smartindent为默认值
+set smartindent                 " 开启新行时使用智能自动缩进
 set expandtab                   " 使用空格代替制表符
 set tabstop=4                   " 插入模式下Tab键的宽度
-set shiftwidth=4                " vim格式化时Tab的宽度
-set softtabstop=4               " 将连续的空格视为Tab(方便删除)
-set smarttab                    " 行首的 <Tab> 根据 'shiftwidth' 插入空白
+set shiftwidth=4                " (自动) 缩进每一步使用的空白数目。用于 |'cindent'|、|>>|、|<<| 等(自动) 缩进每一步使用的空白数目。用于 |'cindent'|、|>>|、|<<| 等
+set softtabstop=4               " 允许<Tab>和<Space>混合输入
+set smarttab                    " 行首的 <Tab> 根据 'shiftwidth' 插入/删除空白
 "}}}
 
 " ========= \t 将tab替换为空格 ========== {{{

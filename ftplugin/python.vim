@@ -1,4 +1,6 @@
 setlocal list
+setlocal nosmartindent
+setlocal cindent
 
 " 从头定位for, if 
 nnoremap <buffer> df :execute "normal! gg" . '/\vfor .+ in .+:$' . "\r"<cr>
