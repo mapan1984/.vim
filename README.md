@@ -30,13 +30,9 @@
 
 克隆到本地，并进行一些准备
 
-    $ git clone http://github.com/mapan1984/.vim.git ~/.vim 
+    $ git clone http://github.com/mapan1984/.vim.git ~/.vim
     $ cd ~/.vim
     $ ./install.sh
-
-打开vim，执行
-
-    :PluginInstall!
 
 如果想使用`.draft`中的脚本，可以在`.vimrc`中加下面的语句(`xxx.vim`是脚本的名字)
 
