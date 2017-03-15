@@ -30,18 +30,18 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " ===== Brackets ===== {{{
 " auto complete
-inoremap (p ()<ESC>i
-inoremap [p []<ESC>i
-inoremap {p {}<ESC>i
+inoremap (p ()<left>
+inoremap [p []<left>
+inoremap {p {}<left>
 inoremap {<cr> {<cr>}<esc>O
-inoremap <p <><esc>i
-inoremap 'p ''<esc>i
-inoremap "p ""<esc>i
-inoremap (P ()<ESC>i
-inoremap [P []<ESC>i
-inoremap {P {}<ESC>i
-inoremap <P <><esc>i
-inoremap "P ""<esc>i
+inoremap <p <><left>
+inoremap 'p ''<left>
+inoremap "p ""<left>
+inoremap (P ()<left>
+inoremap [P []<left>
+inoremap {P {}<left>
+inoremap <P <><left>
+inoremap "P ""<left>
 
 " ( = i(
 onoremap ( i(

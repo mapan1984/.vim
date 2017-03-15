@@ -1,11 +1,6 @@
 setlocal wrap
 setlocal colorcolumn=0              " 消除.vimrc中的默认彩色显示81列
 
-" 在markdown中向前定位' ^==+$ '，使用cih(change inside heading 包括标题标记===)
-onoremap <buffer> ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
-" cah(change around heading)
-onoremap <buffer> ah :<c-u>execute "normal! ?^==\\+\r:nohlsearch\rg_vk0"<cr>
-
 " 跳到下一个标题
 nnoremap <buffer> <leader>nh /^##\+<cr>:nohlsearch<cr>
 " 跳到下一个代码块
@@ -26,6 +21,21 @@ iabbrev <buffer> linke []()<left><left><left>
 iabbrev <buffer> linkte <a target="_blank" href=""></a><esc>Bf"a
 iabbrev <buffer> kbde <kbd></kbd><left><left><left><left><left><left>
 iabbrev <buffer> ``` ```<cr><cr>```<up><left>
-" 空格
+
+" 特殊字符
 iabbrev <buffer> sp &ensp;
 iabbrev <buffer> 2sp &emsp;
+iabbrev <buffer> < &lt;
+iabbrev <buffer> > &gt;
+iabbrev <buffer> <= &le;
+iabbrev <buffer> >= &ge;
+
+" Latex --- MathJax{{{
+syntax keyword markdownTexKeyword $$
+syntax region markdownTexInline start=/\$/ end=/\$/ keepend oneline
+syntax region markdownTexBlock start=/\\begin{.*}/ end=/\\end{.*}/ keepend 
+
+highlight link markdownTexKeyword Keyword
+highlight def link markdownTexBlock Tag
+highlight def link markdownTexInline Tag
+"}}}
