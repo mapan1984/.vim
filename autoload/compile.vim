@@ -1,4 +1,3 @@
-echom "Autoloading..."
 " ========= 编译 && 运行 ========= {{{
 function! compile#CompileRunCode()
     " 执行保存
@@ -37,8 +36,9 @@ function compile#DoMake()
         execute "normal! :cd %:p:h\<cr>:pwd\<cr>"
     endif
     set makeprg=make
-    execute "silent make"
+    execute "silent !make"
     execute "!time ./%:r"
     execute "cwindow"
+    execute "redraw!"
 endfunction
 "}}}

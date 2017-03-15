@@ -100,3 +100,17 @@ function! format#InsertHeadDefN()
     call InsertHeadDef(firstLine, lastLine)
 endfunction
 "}}}
+
+" ======== 自动插入html模板 ======= {{{
+function! format#AutoInsertTemplate()
+    call setline(1, "\<!DOCTYPE HTML>")
+    call append(1, "\<html lang=\"zh-CN\">")
+    call append(2, "\<head>")
+    call append(3, "\  <meta charset=\"UTF-8\">")
+    call append(4, "\  <title></title>")
+    call append(5, "\</head>")
+    call append(6, "\<body>")
+    call append(7, "\</body>")
+    call append(8, "\</html>")
+endfunc
+"}}}
