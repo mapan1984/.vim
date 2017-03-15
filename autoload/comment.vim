@@ -1,13 +1,23 @@
- " 不同语言的注释符号 {{{
+" 不同语言的注释符号 {{{
 let s:comment = {
             \"c":"// ",
             \"cpp":"// ",
             \"javascript":"// ",
-            \"jqury":"// ",
+            \"jquery":"// ",
             \"python":"# ",
             \"vim":'" ',
             \"sh":"# ",
             \"scheme":";; ",
+            \}
+let s:esc_comment = {
+            \"c":'\/\/ ',
+            \"cpp":'\/\/ ',
+            \"javascript":'\/\/ ',
+            \"jquery":'\/\/ ',
+            \"python":'# ',
+            \"vim":'" ',
+            \"sh":'# ',
+            \"scheme":';; ',
             \}
 "}}}
 
@@ -34,13 +44,14 @@ function! comment#MultiLineComment()
     let l:start = line("'<")
     let l:end = line("'>")
     let l:comment = s:comment[&ft]
+    let l:esc_comment = s:esc_comment[&ft]
     " 如果已被注释
     if getline(l:start) =~ '\v^\s*' . l:comment . '.*$'
         " 则删除注释
-        execute "normal! :" . (l:start) . ',' . (l:end) . 'g/' . (l:comment) . '/s/' . (l:comment) . '//' . "\<cr>"
+        execute "normal! :" . (l:start) . ',' . (l:end) . 'g/' . l:esc_comment . '/s/' . l:esc_comment . '//' . "\<cr>"
     else
         " 否则增加注释
-        execute 'normal! :' . (l:start) . ',' . (l:end) . 'g/./s/^/' . l:comment . '/' . "\<cr>"
+        execute 'normal! :' . (l:start) . ',' . (l:end) . 'g/./s/^/' . l:esc_comment . '/' . "\<cr>"
     endif
     call winrestview(l:winview)
 endfunction
