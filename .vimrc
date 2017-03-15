@@ -5,7 +5,7 @@ filetype off                  " required
 call plug#begin('~/.vim/bundle')
 
 " ===== solarized ===== {{{
-"Plug 'vim-scripts/Solarized'
+Plug 'altercation/vim-colors-solarized'
  set background=dark
  colorscheme solarized
  let g:solarized_termtrans  = 1
@@ -14,18 +14,10 @@ call plug#begin('~/.vim/bundle')
  let g:solarized_visibility = "high"
 "}}}
 
-" ===== vim-powerline ===== {{{
-"Plug 'Lokaltog/vim-powerline'
-" set guifont=PowerlineSymbols\ for\ Powerline
- set t_Co=256                 "设置256色显示
-" let g:Powerline_symbols = 'fancy'
-" let g:Powerline_colorscheme = 'solarized256'
-"}}}
-
 " ==== vim-airline ==== {{{ 
 Plug 'vim-airline/vim-airline'
- let g:airline#extensions#tabline#enabled = 1
  set laststatus=2     " 总是显示状态行
+ let g:airline#extensions#tabline#enabled = 1
 "}}}
 
 " ===== vim-indent-guides ===== {{{
@@ -55,7 +47,7 @@ Plug 'scrooloose/nerdtree'
  " let NERDTreeShowBookmarks=1
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
- let g:NERDTreeIgnore=['\.$','\~$']
+ let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$', '^__pycache__$', '\.pyc$', '^myvenv$']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
 "}}}
@@ -63,22 +55,22 @@ Plug 'scrooloose/nerdtree'
 " ===== taglist ===== {{{
 Plug 'vim-scripts/taglist.vim'
  set tags=./tags;,tags
+ nnoremap <silent> tl :TlistToggle<cr>
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
  let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
- nnoremap <silent> tl :TlistToggle<cr>
 " }}}
 
 " ===== vim-markdown ===== {{{
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+ set conceallevel=2
  noremap <silent> to :Toc<cr>
  let g:vim_markdown_folding_disabled = 1
  let g:vim_markdown_folding_level = 6
  let g:vim_markdown_no_default_key_mappings = 1
  let g:vim_markdown_toc_autofit = 1
  let g:vim_markdown_emphasis_multiline = 0
- set conceallevel=2
  let g:vim_markdown_conceal = 0
  let g:vim_markdown_frontmatter = 1
  let g:vim_markdown_new_list_item_indent = 2
