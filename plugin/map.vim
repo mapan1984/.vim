@@ -23,6 +23,9 @@ nnoremap ]b :bnext<cr>
 " Switch CWD to the directory of the open buffer:
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" 查找单词
+nnoremap <F2> :call ci#GetCi()<CR>
+
 " 编辑,重载.vimrc
 "nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
 "nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
