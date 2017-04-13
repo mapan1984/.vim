@@ -37,10 +37,10 @@ endfunction
 " ======== 插入文件头 ======= {{{
 function! format#AutoSetFileHead()
     if &filetype == 'sh'
-        call setline(1, "\#!/bin/env bash")
+        call setline(1, "\#!/bin/bash")
     endif
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python3")
+        call setline(1, "\#!/usr/bin/python3")
     endif
 
     normal G

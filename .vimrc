@@ -14,7 +14,7 @@ Plug 'altercation/vim-colors-solarized'
  let g:solarized_visibility = "high"
 "}}}
 
-" ==== vim-airline ==== {{{ 
+" ===== vim-airline ===== {{{
 Plug 'vim-airline/vim-airline'
  set laststatus=2     " 总是显示状态行
  let g:airline#extensions#tabline#enabled = 1
@@ -47,7 +47,7 @@ Plug 'scrooloose/nerdtree'
  " let NERDTreeShowBookmarks=1
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
- let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$', '^__pycache__$', '\.pyc$', '^myvenv$']
+ let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$', '^__pycache__$', '\.pyc$', '^myvenv$', '\.aux$', '\.log$', '\.out', '\.gz$']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
 "}}}
@@ -59,21 +59,6 @@ Plug 'vim-scripts/taglist.vim'
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
  let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
-" }}}
-
-" ===== vim-markdown ===== {{{
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
- set conceallevel=2
- noremap <silent> to :Toc<cr>
- let g:vim_markdown_folding_disabled = 1
- let g:vim_markdown_folding_level = 6
- let g:vim_markdown_no_default_key_mappings = 1
- let g:vim_markdown_toc_autofit = 1
- let g:vim_markdown_emphasis_multiline = 0
- let g:vim_markdown_conceal = 0
- let g:vim_markdown_frontmatter = 1
- let g:vim_markdown_new_list_item_indent = 2
 "}}}
 
 " ===== supertab ===== {{{
@@ -89,9 +74,21 @@ Plug 'airblade/vim-gitgutter'
  set updatetime=250
 "}}}
 
-" ===== vim-json ===== {{{
-Plug 'elzr/vim-json'
- let g:vim_json_syntax_conceal = 0
+" ===== Ci ===== {{{
+"Plug 'mapan1983/Ci', {'branch': 'forme'}
+"}}}
+
+" ===== vim-markdown ===== {{{
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+ let g:vim_markdown_folding_disabled = 1
+ let g:vim_markdown_folding_level = 6
+ let g:vim_markdown_no_default_key_mappings = 1
+ let g:vim_markdown_toc_autofit = 1
+ let g:vim_markdown_emphasis_multiline = 0
+ let g:vim_markdown_conceal = 0
+ let g:vim_markdown_frontmatter = 1
+ let g:vim_markdown_new_list_item_indent = 2
 "}}}
 
 call plug#end()
@@ -182,3 +179,4 @@ autocmd BufReadPost *
 
 "修改.vimrc后自动载入配置文件不需要重启
 "autocmd! bufwritepost .vimrc source %
+

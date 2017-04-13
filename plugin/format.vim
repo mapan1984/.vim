@@ -19,6 +19,15 @@ nnoremap \b :call format#StripTrailingBlank()<cr>
 "autocmd BufWritePre * call format#RemoveTrailingWhitespace()
 "}}}
 
+" Use <tab> and <shift-tab> to indent {{{
+vmap <tab> >gv
+vmap <s-tab> <gv
+"}}}
+
+" ======== 插入文件头 ======= {{{
+nnoremap <localleader>hd :call format#AutoSetFileHead()<CR>
+"}}}
+
 " clang-format {{{
 map <c-l> :pyf ~/.vim/.draft/clang-format.py<cr>
 imap <c-l> <esc>:pyf ~/.vim/.draft/clang-format.py<cr>

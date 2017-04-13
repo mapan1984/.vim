@@ -2,9 +2,8 @@
 
 1. [Manual](#user-content-1manual)
 2. [Installation](#user-content-2installation)
-3. [Manage](#user-content-3manage)
-4. [Dependencies](#user-content-4dependencies)
-5. [Last](#user-content-5last)
+3. [Dependencies](#user-content-4dependencies)
+4. [Last](#user-content-5last)
 
 ## 1.Manual
 
@@ -41,11 +40,11 @@
 
     source ~/.vim/.draft/xxx.vim
 
-## 4.Dependencies
+## 3.Dependencies
 
 * 为了使用`<c-s>`、`<c-q>`映射，在.bashrc中加入`stty -ixon`
 * 下载clang-format.py到.draft文件夹中
 
-## 5.Last
+## 4.Last
 
 happy vimming（＾∀＾）

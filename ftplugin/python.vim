@@ -1,17 +1,8 @@
-setlocal list
+" 缩进
 setlocal nosmartindent
 setlocal cindent
 
-" 从头定位for, if 
-nnoremap <buffer> df :execute "normal! gg" . '/\vfor .+ in .+:$' . "\r"<cr>
-nnoremap <buffer> di :execute "normal! gg" . '/\vif .+:$' . "\r"<cr>
-
-" 将当前光标下的词变为大写
-inoremap <c-u> <esc>viwUea
-nnoremap <c-u> viwUe
-
-
-" indent folding
+" 根据缩进进行折叠
 :source ~/.vim/.draft/folding.vim
 
 " 超出80行高亮显示
