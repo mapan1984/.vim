@@ -16,8 +16,23 @@ Plug 'altercation/vim-colors-solarized'
 
 " ===== vim-airline ===== {{{
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
  set laststatus=2     " 总是显示状态行
- let g:airline#extensions#tabline#enabled = 1
+ let g:airline_theme='solarized'
+ " let g:airline#extensions#tabline#enabled = 1
+ " let g:airline_extensions=['fugitive', 'ctrlp', 'nerdtree', 'vim-gitgutter']
+"}}}
+
+" ===== lightline ===== {{{
+" Plug 'itchyny/lightline.vim'
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ 'component': {
+"       \   'readonly': '%{&readonly?"x":""}',
+"       \ },
+"       \ 'separator': { 'left': '', 'right': '' },
+"       \ 'subseparator': { 'left': '|', 'right': '|' }
+"       \ }
 "}}}
 
 " ===== vim-indent-guides ===== {{{
@@ -47,7 +62,9 @@ Plug 'scrooloose/nerdtree'
  " let NERDTreeShowBookmarks=1
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
- let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$', '^__pycache__$', '\.pyc$', '^myvenv$', '\.aux$', '\.log$', '\.out', '\.gz$']
+ let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$', '^__pycache__$', 
+                     \ '\.pyc$', '^myvenv$', '\.aux$', '\.log$', '\.out', 
+                     \ '\.gz$', '^node_modules$']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
 "}}}
@@ -65,6 +82,21 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'ervandew/supertab'
 "}}}
 
+" ===== supertab ===== {{{
+Plug 'ctrlpvim/ctrlp.vim'
+ set wildignore+=*/tmp/*,*\\tmp\\*,*.so,*.swp,*.zip,*.exe
+
+ let g:ctrlp_map = '<c-p>'
+ let g:ctrlp_cmd = 'CtrlP'
+
+ let g:ctrlp_working_path_mode = 'ra'
+
+ let g:ctrlp_custom_ignore = {
+   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+   \ 'file': '\v\.(exe|so|dll)$',
+   \ }
+"}}}
+
 " ===== vim-fugitve ===== {{{
 Plug 'tpope/vim-fugitive'
 "}}}
@@ -75,7 +107,7 @@ Plug 'airblade/vim-gitgutter'
 "}}}
 
 " ===== Ci ===== {{{
-"Plug 'mapan1983/Ci', {'branch': 'forme'}
+Plug 'mapan1984/Ci', {'branch': 'forme'}
 "}}}
 
 " ===== vim-markdown ===== {{{
@@ -89,6 +121,10 @@ Plug 'plasticboy/vim-markdown'
  let g:vim_markdown_conceal = 0
  let g:vim_markdown_frontmatter = 1
  let g:vim_markdown_new_list_item_indent = 2
+"}}}
+
+" ===== vim-markdown ===== {{{
+Plug 'pangloss/vim-javascript'
 "}}}
 
 call plug#end()

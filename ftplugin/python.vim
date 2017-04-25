@@ -2,6 +2,8 @@
 setlocal nosmartindent
 setlocal cindent
 
+iabbrev <buffer> form from
+
 " 根据缩进进行折叠
 :source ~/.vim/.draft/folding.vim
 

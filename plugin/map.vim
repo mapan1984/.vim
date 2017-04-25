@@ -58,8 +58,8 @@ nnoremap <silent> g, g,zz
 " ===== 插入模式下移动 ===== {{{
 inoremap <c-a> <home>
 inoremap <c-e> <end>
-"inoremap <c-k> <up>
-"inoremap <c-j> <down>
+inoremap <c-k> <up>
+inoremap <c-j> <down>
 inoremap <c-f> <right>
 inoremap <c-b> <left>
 "inoremap <A-f> <c-o>w
