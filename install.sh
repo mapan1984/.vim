@@ -62,7 +62,7 @@ ln -f .vimrc ~/.vimrc
 printf "\033[32mCopy Completed\033[0m\n\n"
 
 printf "\033[36mInstall plug...\033[0m\n"
-vim -c PlugInstall
+vim +PlugInstall +qall
 printf "\033[36mInstall plug Completed!\033[0m\n\n"
 
 

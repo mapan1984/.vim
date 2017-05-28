@@ -125,6 +125,7 @@ Plug 'plasticboy/vim-markdown'
 
 " ===== vim-markdown ===== {{{
 Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 "}}}
 
 call plug#end()
