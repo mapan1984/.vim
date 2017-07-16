@@ -7,12 +7,13 @@ inoremap { {}<left>
 inoremap {<cr> {<cr>}<esc>O
 inoremap ' ''<left>
 inoremap " ""<left>
+inoremap ` ``<left>
 
 " 按退格键时判断当前光标前一个字符，如果是左括号，则删除对应的右括号
 function! RemovePairs()
     let l:previous_char = getline(".")[col(".")-1]  " 取得当前光标前一个字符
 
-    if index(["(", "[", "{"], l:previous_char) != -1
+    if index(["(", "[", "{"], l:previous_char) != -1 " 当前光标的前一个字符是左括号
         let l:original_pos = getpos(".")
         execute "normal %"
         let l:new_pos = getpos(".")
@@ -32,7 +33,7 @@ function! RemovePairs()
         	execute "normal! v%xi"
         end
 
-    else
+    else " 当前光标的前一个字符不是左括号
         execute "normal! a\<BS>"
     end
 endfunction
@@ -47,7 +48,11 @@ function! RemoveNextDoubleChar(char)
     if a:char == l:next_char
     	execute "normal! l"
     else
-    	execute "normal! a" . a:char
+        if col(".") == 1
+    	    execute "normal! i" . a:char
+        else
+    	    execute "normal! a" . a:char
+        end
     end
 endfunction
 

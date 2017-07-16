@@ -62,9 +62,11 @@ Plug 'scrooloose/nerdtree'
  " let NERDTreeShowBookmarks=1
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
- let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$', '^__pycache__$', 
-                     \ '\.pyc$', '^myvenv$', '\.aux$', '\.log$', '\.out', 
-                     \ '\.gz$', '^node_modules$']
+ let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$',
+                     \ '^__pycache__$', '\.pyc$', '^myvenv$',
+                     \ '\.aux$', '\.log$', '\.out$', '\.pdf$', '\.gz$',
+                     \ '^node_modules$',
+                     \ '\.sass-cache$']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
 "}}}
@@ -198,7 +200,7 @@ set ignorecase                  " 设置大小写敏感和聪明感知(小写忽
 set smartcase
 set showmatch                   " jump to the matching bracket
 " 取消搜索高亮
-noremap nh :nohl<cr>
+" noremap nh :nohl<cr>
 
 " 在当前文件下寻找光标下的词，在quickfix中显示
 "nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>

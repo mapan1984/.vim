@@ -36,6 +36,7 @@ onoremap [ i[
 onoremap < i<
 onoremap " i"
 onoremap ' i'
+onoremap ` i`
 
 " 下一个括号的内容
 onoremap in( :<c-u>normal! f(vi(<cr>
@@ -44,6 +45,7 @@ onoremap in[ :<c-u>normal! f[vi(<cr>
 onoremap in< :<c-u>normal! f<vi<<cr>
 onoremap in" :<c-u>normal! f"vi"<cr>
 onoremap in' :<c-u>normal! f'vi'<cr>
+onoremap in` :<c-u>normal! f`vi`<cr>
 "}}}
 
 " 将当前光标下的词变为大写
