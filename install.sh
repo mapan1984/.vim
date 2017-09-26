@@ -9,45 +9,45 @@ printf "\033[36mChecking Git Completed!\033[0m\n\n"
 
 printf "\033[34mChecking Dir ...\033[0m\n"
 if [ ! -d "$HOME/.vim" ]; then
-	echo "Make ALL with $HOME Directory PATH"
-	printf "\n"
-	echo " [- .vim"
-	echo "   |- bundle   [ -- Manager Plugin -- ]"
-	echo "   |- autoload [ -- Manager Plugin -- ]"
-	echo "   |- .undo    [ -- Generator undo file -- ]"
-	echo "   |- .tmp     [ -- Generator tmp file -- ]"
-	echo " -] "
-	printf "\n"
-	
-	mkdir $HOME/.vim
-	mkdir $HOME/.vim/bundle
-	mkdir $HOME/.vim/.undo
-	mkdir $HOME/.vim/.tmp
-	mkdir $HOME/.vim/autoload
+  echo "Make ALL with $HOME Directory PATH"
+  printf "\n"
+  echo " [- .vim"
+  echo "   |- bundle   [ -- Manager Plugin -- ]"
+  echo "   |- autoload [ -- Manager Plugin -- ]"
+  echo "   |- .undo    [ -- Generator undo file -- ]"
+  echo "   |- .tmp     [ -- Generator tmp file -- ]"
+  echo " -] "
+  printf "\n"
+
+  mkdir $HOME/.vim
+  mkdir $HOME/.vim/bundle
+  mkdir $HOME/.vim/.undo
+  mkdir $HOME/.vim/.tmp
+  mkdir $HOME/.vim/autoload
 else
   if [ ! -d "$HOME/.vim/bundle" ]; then
-  	echo "Make dir -- bundle"
-  	mkdir $HOME/.vim/bundle
+    echo "Make dir -- bundle"
+    mkdir $HOME/.vim/bundle
   fi
   if [ ! -d "$HOME/.vim/autoload/" ]; then
-  	echo "Make dir -- [ autoload ]"
-  	mkdir $HOME/.vim/autoload/
+    echo "Make dir -- [ autoload ]"
+    mkdir $HOME/.vim/autoload/
   fi
   if [ ! -d "$HOME/.vim/.undo" ]; then
-  	echo "Make dir -- [ .undo ]"
-  	mkdir $HOME/.vim/.undo
+    echo "Make dir -- [ .undo ]"
+    mkdir $HOME/.vim/.undo
   fi
   if [ ! -d "$HOME/.vim/.tmp" ]; then
-  	echo "Make dir -- [ .tmp ]"
-  	mkdir $HOME/.vim/.tmp
+    echo "Make dir -- [ .tmp ]"
+    mkdir $HOME/.vim/.tmp
   fi
 fi
 printf "\033[34mChecking Dir Completed!\033[0m\n\n"
 
 printf "\033[36mChecking plug.vim Exist?\033[0m\n"
 if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
-	echo "Download Vim-Plug Plugin..."
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+  echo "Download Vim-Plug Plugin..."
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 printf "\033[36mChecking plug.vim Completed!\033[0m\n\n"

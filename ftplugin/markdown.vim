@@ -13,7 +13,7 @@ nnoremap <buffer> <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
 iabbrev <buffer> ``` ```<cr>```<up>
 
 " 行内公式
-iabbrev <buffer> \$ \\(\\)<left><left><left>
+iabbrev <buffer> \$ \\(\\)<left><left><left><space><left>
 
 " Plugin vim-markdown
 setlocal conceallevel=2

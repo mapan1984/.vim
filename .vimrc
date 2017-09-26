@@ -49,6 +49,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 " ===== nerdtree ===== {{{
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
  nnoremap <c-b> :NERDTreeToggle<cr>
  " 设置相对行号
  "nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
@@ -62,10 +63,11 @@ Plug 'scrooloose/nerdtree'
  " let NERDTreeShowBookmarks=1
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
- let g:NERDTreeIgnore=['\.git$', '\.vscode$', '\.idea$',
+ let g:NERDTreeIgnore=['\.git$', '\.gitignore$', '\.vscode$', '\.idea$',
                      \ '^__pycache__$', '\.pyc$', '^myvenv$',
                      \ '\.aux$', '\.log$', '\.out$', '\.pdf$', '\.gz$',
                      \ '^node_modules$',
+                     \ '^\.undo$','^\.tmp$', '^\.netrwhist$',
                      \ '\.sass-cache$']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
@@ -84,7 +86,7 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'ervandew/supertab'
 "}}}
 
-" ===== supertab ===== {{{
+" ===== ctrlp ===== {{{
 Plug 'ctrlpvim/ctrlp.vim'
  set wildignore+=*/tmp/*,*\\tmp\\*,*.so,*.swp,*.zip,*.exe
 
@@ -125,7 +127,7 @@ Plug 'plasticboy/vim-markdown'
  let g:vim_markdown_new_list_item_indent = 2
 "}}}
 
-" ===== vim-markdown ===== {{{
+" ===== vim-javascript ===== {{{
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 "}}}
@@ -149,7 +151,7 @@ set encoding=utf-8              " Vim内部文件(寄存器、缓冲区...)的�
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 " 自动判断编码，依次尝试以下顺序
-set helplang=cn                 " 帮助系统设置为中文
+" set helplang=cn                 " 帮助系统设置为中文
 " set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
 " set spell spelllang=en_us       " spell checking
 set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
@@ -158,11 +160,13 @@ set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent,
 "set mousehide                   " 在输入时隐藏鼠标指针
 let mapleader=","               " 设置leader键
 let maplocalleader="\<Space>"   " localleader
+" cmap w!! w !sudo tee % > /dev/null  " 没有写权限时使用w!!
+" set clipboard=unnamed
 "}}}
 
 " ===== UI ===== {{{
 set number                      " 显示行号
-set numberwidth=4               " 行号栏的宽度
+set numberwidth=3               " 行号栏的宽度
 set cursorline                  " 设置光标高亮显示
 set nowrap                      " 默认禁止自动换行
 set colorcolumn=80              " 彩色显示第80行
@@ -174,6 +178,7 @@ set laststatus=2                " 总是显示状态行
 set showcmd                     " 显示输入命令在状态栏
 set showmode                    " show the mode of vim
 set ruler                       " 显示光标位置的行号和列号
+set list listchars=tab:→\ ,trail:•
 "}}}
 
 " ===== 无限undo ===== {{{
