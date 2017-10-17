@@ -88,7 +88,7 @@ Plug 'ervandew/supertab'
 
 " ===== ctrlp ===== {{{
 Plug 'ctrlpvim/ctrlp.vim'
- set wildignore+=*/tmp/*,*\\tmp\\*,*.so,*.swp,*.zip,*.exe
+ set wildignore+=*/tmp/*,*\\tmp\\*,*.so,*.swp,*.zip,*.exe,*/.sass-cache/*,*/node_modules/*
 
  let g:ctrlp_map = '<c-p>'
  let g:ctrlp_cmd = 'CtrlP'
@@ -99,6 +99,12 @@ Plug 'ctrlpvim/ctrlp.vim'
    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
    \ 'file': '\v\.(exe|so|dll)$',
    \ }
+"}}}
+
+" ===== ag.vim ===== {{{
+Plug 'rking/ag.vim'
+ let g:ag_prg="/usr/bin/ag --vimgrep"
+ let g:ag_working_path_mode="r"
 "}}}
 
 " ===== vim-fugitve ===== {{{
