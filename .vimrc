@@ -6,8 +6,6 @@ call plug#begin('~/.vim/bundle')
 
 " ===== solarized ===== {{{
 Plug 'altercation/vim-colors-solarized'
- set background=dark
- colorscheme solarized
  let g:solarized_termtrans  = 1
  let g:solarized_termcolors = 256
  let g:solarized_contrast   = "high"
@@ -37,14 +35,16 @@ Plug 'vim-airline/vim-airline-themes'
 
 " ===== vim-indent-guides ===== {{{
 Plug 'nathanaelkane/vim-indent-guides'
- " 随vim自启动
- let g:indent_guides_enable_on_vim_startup=1
- " 从第二层开始可视化显示缩进
- let g:indent_guides_start_level=1
- " 色块宽度
+ " let g:indent_guides_enable_on_vim_startup=1
+ let g:indent_guides_auto_colors=0
+ let g:indent_guides_start_level=2
  let g:indent_guides_guide_size=1
+ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vim',
+                                        \ 'markdown', 'tex', ' ']
+ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
  " 快捷键i开/关缩进可视化
- "nnoremap <silent> <Leader>i <Plug>IndentGuidesToggle
+ nnoremap <silent> <c-i> :IndentGuidesToggle<cr>
 "}}}
 
 " ===== nerdtree ===== {{{
@@ -132,6 +132,11 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 "}}}
 
+" ===== vim-python-pep8-indent ===== {{{
+Plug 'hynek/vim-python-pep8-indent'
+"}}}
+
+
 call plug#end()
 
 " 载入文件类型插件,为特定文件类型载入相关缩进文件
@@ -165,6 +170,8 @@ let maplocalleader="\<Space>"   " localleader
 "}}}
 
 " ===== UI ===== {{{
+set background=dark             " 可选light/dark
+colorscheme solarized
 set number                      " 显示行号
 set numberwidth=3               " 行号栏的宽度
 set cursorline                  " 设置光标高亮显示
