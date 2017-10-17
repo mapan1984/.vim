@@ -20,17 +20,17 @@ function! RemovePairs()
 
         " 如果没有匹配的右括号
         if l:original_pos == l:new_pos
-        	execute "normal! a\<BS>"
-        	return
+            execute "normal! a\<BS>"
+            return
         end
 
         let l:line2 = getline(".")
         if len(l:line2) == col(".")
-        	" 如果右括号是当前行最后一个字符
-        	execute "normal! v%xa"
+            " 如果右括号是当前行最后一个字符
+            execute "normal! v%xa"
         else
-        	" 如果右括号不是当前行最后一个字符
-        	execute "normal! v%xi"
+            " 如果右括号不是当前行最后一个字符
+            execute "normal! v%xi"
         end
 
     else " 当前光标的前一个字符不是左括号
@@ -46,12 +46,12 @@ function! RemoveNextDoubleChar(char)
     let l:next_char = getline(".")[col(".")] " 取得当前光标后一个字符
 
     if a:char == l:next_char
-    	execute "normal! l"
+        execute "normal! l"
     else
         if col(".") == 1
-    	    execute "normal! i" . a:char
+            execute "normal! i" . a:char
         else
-    	    execute "normal! a" . a:char
+            execute "normal! a" . a:char
         end
     end
 endfunction

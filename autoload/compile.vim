@@ -12,7 +12,7 @@ function! compile#CompileRunCode()
         execute "silent make"
         execute "!time ./%:r"
     elseif &filetype == "cpp"
-        set makeprg=g++\ -Wall\ -std=c++14\ -o\ %:r\ %:t"
+        set makeprg=g++\ -Wall\ -std=c++14\ -o\ %:r\ %:t
         execute "silent make"
         execute "!time ./%:r"
     elseif &filetype == "scheme"

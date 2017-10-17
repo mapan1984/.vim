@@ -66,7 +66,7 @@ def main():
     print('Couldn\'t determine cursor position. Is your file empty?')
     return
 
-  # Avoid flashing an ugly, 
+  # Avoid flashing an ugly,
   # ugly cmd prompt on Windows when invoking clang-format.
   startupinfo = None
   if sys.platform.startswith('win32'):

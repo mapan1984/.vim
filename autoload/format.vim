@@ -27,7 +27,7 @@ endfunction
 "autocmd BufWritePre * call RemoveTrailingWhitespace()
 "}}}
 
-" clang-format {{{
+" ========= clang-format ========= {{{
 function format#FormatFile()
     let l:lines="all"
     pyf ~/.vim/.draft/clang-format.py
@@ -82,7 +82,7 @@ function! format#InsertHeadDefN()
     let n = 1
     while 1
         let line = getline(n)
-        if n==1 
+        if n==1
             if line =~ '^\/\*.*$'
                 let n = n + 1
                 continue

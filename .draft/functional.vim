@@ -41,7 +41,7 @@ function! Mapped(fn, list)
 endfunction
 
 "Filtered()接受一个谓词函数和一个列表
-"它返回一个列表的副本， 而这个列表只包括将自身作为谓词函数的输入参数并返回真值的元素 
+"它返回一个列表的副本， 而这个列表只包括将自身作为谓词函数的输入参数并返回真值的元素
 function! Filtered(fn, l)
     let new_list = deepcopy(a:l)
     call filter(new_list, string(a:fn) . '(v:val)')
