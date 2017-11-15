@@ -52,15 +52,6 @@ if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
 fi
 printf "\033[36mChecking plug.vim Completed!\033[0m\n\n"
 
-printf "\033[32mCopy .vimrc to the HOME PATH...\033[0m\n"
-echo " [- $HOME/"
-echo "   |- .vimrc       [ -- Vim config -- ]"
-echo " -] "
-# Copy file in to path
-#cp -f .vimrc $HOME/
-ln -f .vimrc ~/.vimrc
-printf "\033[32mCopy Completed\033[0m\n\n"
-
 printf "\033[36mInstall plug...\033[0m\n"
 vim +PlugInstall +qall
 printf "\033[36mInstall plug Completed!\033[0m\n\n"
