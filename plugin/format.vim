@@ -20,8 +20,8 @@ nnoremap \b :call format#StripTrailingBlank()<cr>
 "}}}
 
 " Use <tab> and <shift-tab> to indent {{{
-vmap <tab> >gv
-vmap <s-tab> <gv
+vnoremap <tab> >gv
+vnoremap <s-tab> <gv
 "}}}
 
 " ======== 插入文件头 ======= {{{

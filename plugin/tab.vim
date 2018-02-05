@@ -1,7 +1,7 @@
 " tab explore
 nnoremap <tab>x :Texplore<cr>
 " open file in new tab
-noremap <c-o> :tabedit <c-r>=expand("%:p:h")<cr>/
+" noremap <c-o> :tabedit <c-r>=expand("%:p:h")<cr>/
 " create new file in new tab
 noremap <c-n> :tabnew <c-r>=expand("%:p:h")<cr>/
 

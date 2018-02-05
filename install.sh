@@ -7,6 +7,16 @@ hash git 2>/dev/null || { echo >&2 "Require Git is not installed! Please install
 git --version
 printf "\033[36mChecking Git Completed!\033[0m\n\n"
 
+printf "\033[36mChecking ctags install...\033[0m\n"
+hash ctags 2>/dev/null || { echo >&2 "Require ctags is not installed! Please install ctags before you prefix config vim"; exit 1; }
+ctags --version
+printf "\033[36mChecking ctags Completed!\033[0m\n\n"
+
+printf "\033[36mChecking ag install...\033[0m\n"
+hash ag 2>/dev/null || { echo >&2 "Require ag is not installed! Please install ag before you prefix config vim"; exit 1; }
+ag --version
+printf "\033[36mChecking ag Completed!\033[0m\n\n"
+
 printf "\033[34mChecking Dir ...\033[0m\n"
 if [ ! -d "$HOME/.vim" ]; then
   echo "Make ALL with $HOME Directory PATH"

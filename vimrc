@@ -44,7 +44,7 @@ Plug 'nathanaelkane/vim-indent-guides'
  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
  " 快捷键i开/关缩进可视化
- nnoremap <silent> <c-i> :IndentGuidesToggle<cr>
+ " nnoremap <silent> <c-i> :IndentGuidesToggle<cr>
 "}}}
 
 " ===== nerdtree ===== {{{
@@ -59,8 +59,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  " close vim if the only window left open in a NERDTree
  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
  " Store the bookmarks file
- " let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
- " let NERDTreeShowBookmarks=1
+ "let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
+ "let NERDTreeShowBookmarks=1
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
  let g:NERDTreeIgnore=['\.git$', '\.gitignore$', '\.vscode$', '\.idea$',
@@ -71,11 +71,14 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
                      \ '\.sass-cache$']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
+ " For mouse click in NERDTree
+ let g:NERDTreeMouseMode=3
 "}}}
 
 " ===== taglist ===== {{{
 Plug 'vim-scripts/taglist.vim'
  set tags=./tags;,tags
+ ""command! MakeTags !ctags -R .
  nnoremap <silent> tl :TlistToggle<cr>
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
@@ -86,25 +89,62 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'ervandew/supertab'
 "}}}
 
+" ===== YouCompleteMe ===== {{{
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --clang-completer --go-completer --js-completer
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'python', 'go', 'javascript'], 'do': function('BuildYCM') }
+""let g:ycm_key_invoke_completion = '<c-z>'
+let g:ycm_python_binary_path = 'python3'
+let g:ycm_global_ycm_extra_conf='./.draft/.ycm_extra_conf.py'
+" 屏蔽诊断信息
+" let g:ycm_show_diagnostics_ui = 0
+" 不弹出函数原型的预览窗口
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0
+" 输入两个字符后即进行语义补全"
+let g:ycm_semantic_triggers =  {
+            \ 'c,cpp,go,python,javascript': ['re!\w{2}'],
+            \ }
+let g:ycm_filetype_whitelist = {
+            \ "c": 1,
+            \ "go": 1,
+            \ "cpp": 1,
+            \ "python": 1,
+            \ "javascript": 1,
+            \ }
+"}}}
+
 " ===== ctrlp ===== {{{
 Plug 'ctrlpvim/ctrlp.vim'
- set wildignore+=*/tmp/*,*\\tmp\\*,*.so,*.swp,*.zip,*.exe,*/.sass-cache/*,*/node_modules/*
-
  let g:ctrlp_map = '<c-p>'
  let g:ctrlp_cmd = 'CtrlP'
+ " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore"
+ let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+ " ag is fast enough that CtrlP doesn't need to cache
+ let g:ctrlp_use_caching = 0
 
  let g:ctrlp_working_path_mode = 'ra'
 
- let g:ctrlp_custom_ignore = {
-   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-   \ 'file': '\v\.(exe|so|dll)$',
-   \ }
+ "Because use `ctrlp_user_command`，ignore config are not used by CtrlP
+ " let g:ctrlp_custom_ignore = {
+ "   \ 'dir':  '\v[\/](node_modules|log|tmp)|(\.(git|svn|vscode))$',
+ "   \ 'file': '\v\.(exe|so|dll|dat)$',
+ "   \ }
+ " set wildignore+=*/tmp/*,*\\tmp\\*,*.so,*.swp,*.zip,*.exe,*/.sass-cache/*,*/node_modules/*
 "}}}
 
 " ===== ag.vim ===== {{{
 Plug 'rking/ag.vim'
- let g:ag_prg="/usr/bin/ag --vimgrep"
+ " Use ag over grep
+ set grepprg=ag\ --nogroup\ --nocolor
+ let g:ag_prg="ag --vimgrep --smart-case"
+ let g:ag_highlight=1
  let g:ag_working_path_mode="r"
+ " bind k to grep word under cursor
+ "nnoremap K :grep! "\b<C-R><C-W>\b" <CR>:cw<CR>
 "}}}
 
 " ===== incsearch ===== {{{
@@ -183,8 +223,8 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 " 自动
 " set spell spelllang=en_us       " spell checking
 set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
-"set mouse=a                     " enable using the mouse if terminal emulator
-"set mousehide                   " 在输入时隐藏鼠标指针
+set mouse=a                     " enable using the mouse if terminal emulator
+set mousehide                   " 在输入时隐藏鼠标指针
 let mapleader=","               " 设置leader键
 let maplocalleader="\<Space>"   " localleader
 " cmap w!! w !sudo tee % > /dev/null  " 没有写权限时使用w!!

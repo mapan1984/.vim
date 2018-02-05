@@ -14,7 +14,7 @@ inoremap <c-s> <esc>:w<cr>i
 
 " first you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
 nnoremap <c-q> :q<CR>
-inoremap <c-q> <esc>:q<cr>i
+inoremap <c-q> <esc>:q<cr>
 
 " 切换buffer
 nnoremap [b :bprevious<cr>
