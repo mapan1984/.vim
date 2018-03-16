@@ -21,18 +21,6 @@ Plug 'vim-airline/vim-airline-themes'
  " let g:airline_extensions=['fugitive', 'ctrlp', 'nerdtree', 'vim-gitgutter']
 "}}}
 
-" ===== lightline ===== {{{
-" Plug 'itchyny/lightline.vim'
-" let g:lightline = {
-"       \ 'colorscheme': 'solarized',
-"       \ 'component': {
-"       \   'readonly': '%{&readonly?"x":""}',
-"       \ },
-"       \ 'separator': { 'left': '', 'right': '' },
-"       \ 'subseparator': { 'left': '|', 'right': '|' }
-"       \ }
-"}}}
-
 " ===== vim-indent-guides ===== {{{
 Plug 'nathanaelkane/vim-indent-guides'
  " let g:indent_guides_enable_on_vim_startup=1
@@ -64,9 +52,10 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
  let g:NERDTreeIgnore=['\.git$', '\.gitignore$', '\.vscode$', '\.idea$',
-                     \ '^__pycache__$', '\.pyc$', '^myvenv$',
+                     \ '^__pycache__$', '\.pyc$', '\.venv$',
                      \ '\.aux$', '\.log$', '\.out$', '\.pdf$', '\.gz$',
-                     \ '^node_modules$',
+                     \ '^node_modules$', '\.tern-project$',
+                     \ '\.ycm_extra_conf.py$',
                      \ '^\.undo$','^\.tmp$', '^\.netrwhist$',
                      \ '\.sass-cache$']
  "let NERDTreeShowLineNumbers=1
@@ -78,7 +67,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " ===== taglist ===== {{{
 Plug 'vim-scripts/taglist.vim'
  set tags=./tags;,tags
- ""command! MakeTags !ctags -R .
+ "command! MakeTags !ctags -R .
  nnoremap <silent> tl :TlistToggle<cr>
  let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
  let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
@@ -96,25 +85,39 @@ function! BuildYCM(info)
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'python', 'go', 'javascript'], 'do': function('BuildYCM') }
-""let g:ycm_key_invoke_completion = '<c-z>'
-let g:ycm_python_binary_path = 'python3'
-let g:ycm_global_ycm_extra_conf='./.draft/.ycm_extra_conf.py'
-" 屏蔽诊断信息
-" let g:ycm_show_diagnostics_ui = 0
-" 不弹出函数原型的预览窗口
-set completeopt=menu,menuone
-let g:ycm_add_preview_to_completeopt = 0
-" 输入两个字符后即进行语义补全"
-let g:ycm_semantic_triggers =  {
-            \ 'c,cpp,go,python,javascript': ['re!\w{2}'],
-            \ }
-let g:ycm_filetype_whitelist = {
-            \ "c": 1,
-            \ "go": 1,
-            \ "cpp": 1,
-            \ "python": 1,
-            \ "javascript": 1,
-            \ }
+ "let g:ycm_key_invoke_completion = '<c-z>'
+ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+ " Python config
+ let g:ycm_python_binary_path = 'python3'
+ let g:ycm_global_ycm_extra_conf='~/.vim/.draft/.ycm_extra_conf.py'
+ " 屏蔽诊断信息
+ "let g:ycm_show_diagnostics_ui = 0
+ " 不弹出函数原型的预览窗口
+ "set completeopt=menu,menuone
+ "let g:ycm_add_preview_to_completeopt = 0
+
+ " Close preview window when the offered completion is accepted
+ "let g:ycm_autoclose_preview_window_after_completion=1
+ " 输入两个字符后即进行语义补全"
+ let g:ycm_semantic_triggers =  {
+             \ 'c,cpp,go,python,javascript': ['re!\w{2}'],
+             \ }
+ let g:ycm_filetype_whitelist = {
+             \ "c": 1,
+             \ "go": 1,
+             \ "cpp": 1,
+             \ "python": 1,
+             \ "javascript": 1,
+             \ }
+"}}}
+
+" ===== Emmet-vim ===== {{{
+Plug 'mattn/emmet-vim'
+ " Enable just for html/css
+ let g:user_emmet_install_global = 0
+ autocmd FileType html,css EmmetInstall
+ autocmd FileType html,css imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 "}}}
 
 " ===== ctrlp ===== {{{
@@ -123,7 +126,7 @@ Plug 'ctrlpvim/ctrlp.vim'
  let g:ctrlp_cmd = 'CtrlP'
  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore"
  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
- " ag is fast enough that CtrlP doesn't need to cache
+ " Ag is fast enough that CtrlP doesn't need to cache
  let g:ctrlp_use_caching = 0
 
  let g:ctrlp_working_path_mode = 'ra'
@@ -143,24 +146,8 @@ Plug 'rking/ag.vim'
  let g:ag_prg="ag --vimgrep --smart-case"
  let g:ag_highlight=1
  let g:ag_working_path_mode="r"
- " bind k to grep word under cursor
+ " Bind `K` to grep word under cursor
  "nnoremap K :grep! "\b<C-R><C-W>\b" <CR>:cw<CR>
-"}}}
-
-" ===== incsearch ===== {{{
-" Plug 'haya14busa/incsearch.vim'
-"map /  <Plug>(incsearch-forward)
-"map ?  <Plug>(incsearch-backward)
-"map g/ <Plug>(incsearch-stay)
-"" :h g:incsearch#auto_nohlsearch
-"" set hlsearch
-"let g:incsearch#auto_nohlsearch = 1
-"map n  <Plug>(incsearch-nohl-n)
-"map N  <Plug>(incsearch-nohl-N)
-"map *  <Plug>(incsearch-nohl-*)
-"map #  <Plug>(incsearch-nohl-#)
-"map g* <Plug>(incsearch-nohl-g*)
-"map g# <Plug>(incsearch-nohl-g#)
 "}}}
 
 " ===== vim-fugitve ===== {{{
@@ -191,7 +178,7 @@ Plug 'plasticboy/vim-markdown'
 
 " ===== vim-javascript ===== {{{
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+"Plug 'mxw/vim-jsx'
 "}}}
 
 " ===== vim-python-pep8-indent ===== {{{
@@ -223,12 +210,12 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 " 自动
 " set spell spelllang=en_us       " spell checking
 set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
-set mouse=a                     " enable using the mouse if terminal emulator
+"set mouse=a                     " enable using the mouse if terminal emulator
 set mousehide                   " 在输入时隐藏鼠标指针
+" set clipboard=unnamed
+
 let mapleader=","               " 设置leader键
 let maplocalleader="\<Space>"   " localleader
-" cmap w!! w !sudo tee % > /dev/null  " 没有写权限时使用w!!
-" set clipboard=unnamed
 "}}}
 
 " ===== UI ===== {{{
@@ -279,7 +266,7 @@ set showmatch                   " jump to the matching bracket
 " 在当前文件下寻找光标下的词，在quickfix中显示
 "nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
 
-" open quickfix window after any grep invocation
+" Open quickfix window after any grep invocation
 autocmd QuickFixCmdPost *grep* cwindow
 "}}}
 
@@ -290,6 +277,6 @@ autocmd BufReadPost *
     \ endif
 "}}}
 
-"修改.vimrc后自动载入配置文件不需要重启
+" 修改.vimrc后自动载入配置文件不需要重启
 "autocmd! bufwritepost .vimrc source %
 

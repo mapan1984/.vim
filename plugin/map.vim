@@ -5,14 +5,14 @@ inoremap jk <ESC>
 noremap j gj
 noremap k gk
 
-" jump the middle postion
+" Jump the middle postion
 inoremap zz <c-o>zz
 
-" first you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
+" First you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
 nnoremap <c-s> :w<CR>
 inoremap <c-s> <esc>:w<cr>i
 
-" first you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
+" First you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
 nnoremap <c-q> :q<CR>
 inoremap <c-q> <esc>:q<cr>
 
@@ -26,6 +26,9 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " 编辑,重载.vimrc
 "nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
 "nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
+
+" 没有写权限时使用w!!
+cmap w!! w !sudo tee % > /dev/null
 "}}}
 
 " ===== Brackets ===== {{{
@@ -88,8 +91,13 @@ cnoremap <c-b> <left>
 "}}}
 
 " ===== 使用用系统剪切板 ===== {{{
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-vnoremap <leader>y "+y
-vnoremap <leader>p "+p
+" Copy (write) highlighted text to .vimbuffer
+vnoremap <silent> <leader>y y:new ~/.vim/.tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
+" Paste from buffer
+"noremap <silent> <leader>p :r ~/.vim/.clipbuffer<CR>
+
+"nnoremap <leader>y "+y
+"nnoremap <leader>p "+p
+"vnoremap <leader>y "+y
+"vnoremap <leader>p "+p
 "}}}
