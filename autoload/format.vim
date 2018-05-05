@@ -30,7 +30,7 @@ endfunction
 " ========= clang-format ========= {{{
 function format#FormatFile()
     let l:lines="all"
-    pyf ~/.vim/.draft/clang-format.py
+    pyf ~/.vim/.utils/clang-format.py
 endfunction
 "}}}
 

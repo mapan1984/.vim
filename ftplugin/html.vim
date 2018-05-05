@@ -1,7 +1,9 @@
 setlocal wrap                 " 开启折叠
 setlocal colorcolumn=0        " 消除.vimrc中的默认彩色显示第81列
 
-" 创建折叠操作符 <vasual>zf 
+setlocal iskeyword+=%,&,-          " set the keywords将-连接符也设置为单词
+
+" 创建折叠操作符 <vasual>zf
 setlocal foldmethod=marker
 nnoremap <buffer> <localleader>f Vatzf
 
@@ -10,7 +12,7 @@ inoremap <buffer> < <><left>
 inoremap <buffer> > <ESC>:call RemoveNextDoubleChar('>')<CR>a
 
 " 根据缩进折叠
-:source ~/.vim/.draft/folding.vim
+:source ~/.vim/.utils/folding.vim
 
 " 自动插入html模板
 nnoremap <buffer> !<tab> :call format#AutoInsertTemplate()<cr>

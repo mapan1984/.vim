@@ -20,8 +20,10 @@ nnoremap \b :call format#StripTrailingBlank()<cr>
 "}}}
 
 " Use <tab> and <shift-tab> to indent {{{
-vnoremap <tab> >gv
-vnoremap <s-tab> <gv
+""vnoremap <tab> >gv
+""vnoremap <s-tab> <gv
+xnoremap > >gv
+xnoremap < <gv
 "}}}
 
 " ======== 插入文件头 ======= {{{
@@ -29,6 +31,10 @@ nnoremap <localleader>hd :call format#AutoSetFileHead()<CR>
 "}}}
 
 " clang-format {{{
-map <c-l> :pyf ~/.vim/.draft/clang-format.py<cr>
-imap <c-l> <esc>:pyf ~/.vim/.draft/clang-format.py<cr>
+augroup clang-format
+  au!
+  au FileType c,c++ map <c-l> :pyf ~/.vim/.utils/clang-format.py<cr>
+  au FileType c,c++ imap <c-l> <esc>:pyf ~/.vim/.utils/clang-format.py<cr>
+augroup END
+
 "}}}

@@ -10,7 +10,7 @@ inoremap zz <c-o>zz
 
 " First you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
 nnoremap <c-s> :w<CR>
-inoremap <c-s> <esc>:w<cr>i
+inoremap <c-s> <esc>:w<cr>a
 
 " First you need add 'stty -ixon' to .bashrc to forbid <c-q> regain stty
 nnoremap <c-q> :q<CR>
@@ -52,9 +52,8 @@ onoremap in` :<c-u>normal! f`vi`<cr>
 "}}}
 
 " 将当前光标下的词变为大写
-" inoremap <A-u> <esc>viwUea
-inoremap u <esc>viwUea
-nnoremap u viwUe
+inoremap <m-u> <esc>viwUea
+nnoremap <m-u> viwUe
 
 " Format Jump
 nnoremap <silent> g; g;zz
@@ -67,12 +66,8 @@ inoremap <c-k> <up>
 inoremap <c-j> <down>
 inoremap <c-f> <right>
 inoremap <c-b> <left>
-"inoremap <A-f> <c-o>w
-"inoremap <A-b> <c-o>b
-"inoremap <M-f> <c-o>w
-"inoremap <M-b> <c-o>b
-inoremap f <c-o>w
-inoremap b <c-o>b
+inoremap <m-f> <c-o>w
+inoremap <m-b> <c-o>b
 "}}}
 
 " ===== 插入模式下删除 ===== {{{

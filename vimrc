@@ -1,3 +1,7 @@
+" ========= 提前的全局配置 ========= {{{
+source ~/.vim/.utils/fix-alt-map.vim
+"}}}
+
 " ========= Plugin ========= {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -17,8 +21,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
  set laststatus=2     " 总是显示状态行
  let g:airline_theme='solarized'
- " let g:airline#extensions#tabline#enabled = 1
- " let g:airline_extensions=['fugitive', 'ctrlp', 'nerdtree', 'vim-gitgutter']
+ let g:airline#extensions#ale#enabled = 1
+ let g:airline#extensions#tagbar#enabled = 1
+ let g:airline#extensions#ycm#enabled = 1
 "}}}
 
 " ===== vim-indent-guides ===== {{{
@@ -51,13 +56,14 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  "let NERDTreeShowBookmarks=1
  let g:NERDTreeShowFiles=1
  let g:NERDTreeShowHidden=1
- let g:NERDTreeIgnore=['\.git$', '\.gitignore$', '\.vscode$', '\.idea$',
-                     \ '^__pycache__$', '\.pyc$', '\.venv$',
+ let g:NERDTreeIgnore=['\.git$', '\.gitignore$', '.tags', '\.vscode$', '\.idea$',
+                     \ '^__pycache__$', '\.pyc$', '\.venv$', '\.wenv',
                      \ '\.aux$', '\.log$', '\.out$', '\.pdf$', '\.gz$',
                      \ '^node_modules$', '\.tern-project$',
                      \ '\.ycm_extra_conf.py$',
-                     \ '^\.undo$','^\.tmp$', '^\.netrwhist$',
-                     \ '\.sass-cache$']
+                     \ '^\.undo$','^\.tmp$', '^\.netrwhist$', '^\.cache$',
+                     \ '\.sass-cache$',
+                     \ '.eslintrc.js', '.flake8', '.tern-project']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
  " For mouse click in NERDTree
@@ -65,13 +71,51 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 "}}}
 
 " ===== taglist ===== {{{
-Plug 'vim-scripts/taglist.vim'
- set tags=./tags;,tags
- "command! MakeTags !ctags -R .
- nnoremap <silent> tl :TlistToggle<cr>
- let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
- let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
- let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
+"Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
+" set tags=./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
+" "command! MakeTags !ctags -o .tags -R .
+" nnoremap <silent> tl :TlistToggle<cr>
+" let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
+" let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
+" let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
+"}}}
+
+" ===== tagbar ===== {{{
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+ set tags=./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
+ "command! MakeTags !ctags -o .tags -R .
+ nnoremap <silent> tl :TagbarToggle<cr>
+"}}}
+
+" ===== vim-gutentags ===== {{{
+Plug 'ludovicchabant/vim-gutentags'
+ " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+ let g:gutentags_project_root = ['.root', '.vscode', '.git', 'Markfile', '.venv', 'package.json']
+ " 所生成的数据文件的名称
+ let g:gutentags_ctags_tagfile = '.tags'
+ " 将自动生成的 tags 文件全部放入 ~/.vim/.cache/tags 目录中，避免污染工程目录
+ let s:vim_tags = expand('~/.vim/.cache/tags')
+ let g:gutentags_cache_dir = s:vim_tags
+ " 配置 ctags 的参数
+ "let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+ "let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+ "let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+ " 检测 ~/.cache/tags 不存在就新建
+ if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+ endif
+"}}}
+
+" ===== asyncrun.vim ===== {{{
+Plug 'skywind3000/asyncrun.vim'
+ " 自动打开 quickfix window ，高度为 6
+ let g:asyncrun_open = 6
+ " 任务结束时候响铃提醒
+ let g:asyncrun_bell = 1
+ " 工程目录的标志
+ let g:asyncrun_rootmarks = ['.root', '.git', '.vscode', 'Makefile', '.venv']
+ " 设置 F10 打开/关闭 Quickfix 窗口
+ nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 "}}}
 
 " ===== supertab ===== {{{
@@ -86,19 +130,22 @@ function! BuildYCM(info)
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'python', 'go', 'javascript'], 'do': function('BuildYCM') }
  "let g:ycm_key_invoke_completion = '<c-z>'
- nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+ nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
  " Python config
  let g:ycm_python_binary_path = 'python3'
- let g:ycm_global_ycm_extra_conf='~/.vim/.draft/.ycm_extra_conf.py'
+ let g:ycm_global_ycm_extra_conf='~/.vim/.utils/.ycm_extra_conf.py'
  " 屏蔽诊断信息
  "let g:ycm_show_diagnostics_ui = 0
  " 不弹出函数原型的预览窗口
- "set completeopt=menu,menuone
- "let g:ycm_add_preview_to_completeopt = 0
-
+ set completeopt=menu,menuone
+ let g:ycm_add_preview_to_completeopt = 0
  " Close preview window when the offered completion is accepted
  "let g:ycm_autoclose_preview_window_after_completion=1
+ let g:ycm_server_log_level = 'info'
+ let g:ycm_min_num_identifier_candidate_chars = 2
+ let g:ycm_collect_identifiers_from_comments_and_strings = 1
+ let g:ycm_complete_in_strings=1
  " 输入两个字符后即进行语义补全"
  let g:ycm_semantic_triggers =  {
              \ 'c,cpp,go,python,javascript': ['re!\w{2}'],
@@ -112,24 +159,85 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'python', 'go', 'javascript
              \ }
 "}}}
 
+" ===== ale ===== {{{
+Plug 'w0rp/ale'
+ let g:ale_linters = {
+ \   'javascript': ['eslint'],
+ \   'python': ['flake8'],
+ \}
+ let g:ale_linters_explicit = 1
+ let g:ale_completion_delay = 500
+ let g:ale_echo_delay = 20
+ let g:ale_lint_delay = 500
+ let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+ let g:ale_lint_on_text_changed = 'normal'
+ let g:ale_lint_on_insert_leave = 1
+
+ nmap <silent> [e <Plug>(ale_previous_wrap)
+ nmap <silent> ]e <Plug>(ale_next_wrap)
+
+
+ ""let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+ ""let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+ ""let g:ale_c_cppcheck_options = ''
+ ""let g:ale_cpp_cppcheck_options = ''
+ ""let g:ale_sign_error = "\ue009\ue009"
+ ""hi! clear SpellBad
+ ""hi! clear SpellCap
+ ""hi! clear SpellRare
+ ""hi! SpellBad gui=undercurl guisp=red
+ ""hi! SpellCap gui=undercurl guisp=blue
+ ""hi! SpellRare gui=undercurl guisp=magenta
+"}}}
+
 " ===== Emmet-vim ===== {{{
 Plug 'mattn/emmet-vim'
  " Enable just for html/css
  let g:user_emmet_install_global = 0
- autocmd FileType html,css EmmetInstall
- autocmd FileType html,css imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+ autocmd FileType html,htmljinja,css EmmetInstall
+ autocmd FileType html,htmljinja,css imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+"}}}
+
+" ===== LeaderF  ===== {{{
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+ let g:Lf_ShortcutF = '<c-p>'
+ let g:Lf_ShortcutB = '<m-b>'
+ noremap <m-m> :LeaderfMru<cr>
+ noremap <m-f> :LeaderfFunction<cr>
+ noremap <m-b> :LeaderfBuffer<cr>
+ noremap <m-t> :LeaderfTag<cr>
+ let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+ let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+ let g:Lf_WorkingDirectoryMode = 'Ac'
+ let g:Lf_WindowHeight = 0.30
+ let g:Lf_CacheDirectory = expand('~/.vim/.cache')
+ let g:Lf_ShowRelativePath = 0
+ let g:Lf_HideHelp = 1
+ let g:Lf_StlColorscheme = 'powerline'
+
+ let g:Lf_NormalMap = {
+    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>'],
+    \            ["<F6>", ':exec g:Lf_py "fileExplManager.quit()"<CR>'] ],
+    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>'],
+    \            ["<F6>", ':exec g:Lf_py "bufExplManager.quit()"<CR>'] ],
+    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+    \ }
 "}}}
 
 " ===== ctrlp ===== {{{
-Plug 'ctrlpvim/ctrlp.vim'
- let g:ctrlp_map = '<c-p>'
- let g:ctrlp_cmd = 'CtrlP'
- " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore"
- let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
- " Ag is fast enough that CtrlP doesn't need to cache
- let g:ctrlp_use_caching = 0
+""Plug 'ctrlpvim/ctrlp.vim'
+ "let g:ctrlp_map = '<c-p>'
+ "let g:ctrlp_cmd = 'CtrlP'
+ "" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore"
+ "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+ "" Ag is fast enough that CtrlP doesn't need to cache
+ "let g:ctrlp_use_caching = 0
 
- let g:ctrlp_working_path_mode = 'ra'
+ "let g:ctrlp_working_path_mode = 'ra'
 
  "Because use `ctrlp_user_command`，ignore config are not used by CtrlP
  " let g:ctrlp_custom_ignore = {
@@ -159,6 +267,10 @@ Plug 'airblade/vim-gitgutter'
  set updatetime=250
 "}}}
 
+" ===== vim-signify ===== {{{
+""Plug 'mhinz/vim-signify'
+"}}}
+
 " ===== Ci ===== {{{
 Plug 'mapan1984/Ci', {'branch': 'forme'}
 "}}}
@@ -178,7 +290,7 @@ Plug 'plasticboy/vim-markdown'
 
 " ===== vim-javascript ===== {{{
 Plug 'pangloss/vim-javascript'
-"Plug 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx'
 "}}}
 
 " ===== vim-python-pep8-indent ===== {{{
@@ -206,7 +318,7 @@ set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1 " 自动判断编码，依次尝试以下顺序
 " set helplang=cn                 " 帮助系统设置为中文
-" set iskeyword+=%,&,#,-          " set the keywords将-连接符也设置为单词
+" set iskeyword+=%,&,-            " set the keywords将-连接符也设置为单词
 " set spell spelllang=en_us       " spell checking
 set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
@@ -223,7 +335,10 @@ set background=dark             " 可选light/dark
 colorscheme solarized
 set number                      " 显示行号
 set numberwidth=3               " 行号栏的宽度
-set cursorline                  " 设置光标高亮显示
+" 当前行高亮只在当前窗口并且不处于插入模式下生效
+"set cursorline                  " 设置光标高亮显示
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
 set nowrap                      " 默认禁止自动换行
 set colorcolumn=80              " 彩色显示第80行
 set scrolloff=10                " 光标移动到buffer的顶部和底部时保持10行距离
@@ -237,21 +352,32 @@ set ruler                       " 显示光标位置的行号和列号
 set list listchars=tab:→\ ,trail:•
 "}}}
 
-" ===== 无限undo ===== {{{
-set undolevels=1000             " use many much levels of undo
-if v:version >= 704
-    set undofile                " keep a persistent backup file
-    set undodir=~/.vim/.undo
+" ===== 临时文件 ===== {{{
+" 如果文件夹不存在，则新建文件夹
+if !isdirectory($HOME.'/.vim/.tmp') && exists('*mkdir')
+  call mkdir($HOME.'/.vim/.tmp')
+  call mkdir($HOME.'/.vim/.tmp/backup')
+  call mkdir($HOME.'/.vim/.tmp/swap')
+  call mkdir($HOME.'/.vim/.tmp/undo')
+  call mkdir($HOME.'/.vim/.tmp/info')
 endif
-"}}}
 
-" ===== 禁止临时文件 ===== {{{
-set nobackup                    " 禁止生成备份文件
-set noswapfile                  " do not write annoying intermediate swap files,
-                                "   who did ever restore from swap files anyway?
-set directory=~/.vim/.tmp
-                                " store swap files in one of these directories
-                                "   (in case swapfile is ever turned on)
+" 备份文件
+"set nobackup                " 禁止生成备份文件
+set backup
+set backupdir   =$HOME/.vim/.tmp/backup/
+set backupext   =-vimbackup
+set backupskip  =
+" 交换文件
+"set noswapfile             " 禁用交换文件
+set directory   =$HOME/.vim/.tmp/swap/
+set updatecount =100
+" 撤销文件
+set undolevels=1000             " use many much levels of undo
+set undofile
+set undodir     =$HOME/.vim/.tmp/undo/
+" viminfo 文件
+set viminfo     ='100,n$HOME/.vim/.tmp/info/viminfo
 "}}}
 
 " ===== Searching ===== {{{
@@ -261,7 +387,8 @@ set ignorecase                  " 设置大小写敏感和聪明感知(小写忽
 set smartcase
 set showmatch                   " jump to the matching bracket
 " 取消搜索高亮
-" noremap nh :nohl<cr>
+" noremap <bs> :nohl<cr>
+noremap <c-h> :nohl<cr>
 
 " 在当前文件下寻找光标下的词，在quickfix中显示
 "nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
@@ -278,5 +405,5 @@ autocmd BufReadPost *
 "}}}
 
 " 修改.vimrc后自动载入配置文件不需要重启
-"autocmd! bufwritepost .vimrc source %
+"autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 

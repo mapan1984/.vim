@@ -1,6 +1,8 @@
 .netrwhist
 .undo
 .tmp
+.cache
+.tags
 *.un~
 *.swp
 bundle

@@ -2,7 +2,10 @@
 setlocal nosmartindent
 setlocal cindent
 " 根据缩进进行折叠
-:source ~/.vim/.draft/folding.vim
+:source ~/.vim/.utils/folding.vim
+
+" 帮助文档
+nnoremap <buffer> K :<c-u>AsyncRun! pydoc3 <cword><cr>
 
 " 超出80行高亮显示
 "func! FindOverLength()

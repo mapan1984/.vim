@@ -1,5 +1,4 @@
-"inoremap <c-/> <esc> :call Comment()<cr>
-"nnoremap <c-/> :call Comment()<CR>
-inoremap  <esc> :call comment#Comment()<cr>
-nnoremap  :call comment#Comment()<cr>
-vnoremap  :<c-u>call comment#MultiLineComment()<cr>
+" 在终端<ctrl-/>被映射为<ctrl-_>
+inoremap <c-_> <esc> :call comment#Comment()<cr>
+nnoremap <c-_> :call comment#Comment()<cr>
+vnoremap <c-_> :<c-u>call comment#MultiLineComment()<cr>

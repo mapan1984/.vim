@@ -1,9 +1,11 @@
+source ~/.vim/bundle/asyncrun.vim/plugin/asyncrun.vim
+
 " ========= 编译 && 运行 ========= {{{
 function! compile#CompileRunCode()
     " 执行保存
     execute "w"
     " 如果不在当前目录，改变路径
-    if expand("%:p:h")!=getcwd()
+    if expand("%:p:h") != getcwd()
         execute "normal! :cd %:p:h\<cr>:pwd\<cr>"
     endif
     " 对c, cpp文件使用make，出错后可以在quickfix窗口中查看
@@ -15,24 +17,82 @@ function! compile#CompileRunCode()
         set makeprg=g++\ -Wall\ -std=c++14\ -o\ %:r\ %:t
         execute "silent make"
         execute "!time ./%:r"
+    elseif &filetype == "go"
+        execute "!go run %:t"
     elseif &filetype == "scheme"
         execute "!guile -l %:t"
     elseif &filetype == "python"
-        execute "!python3 %:t"
+        execute "!./%:t"
     elseif &filetype == "sh"
-        execute "!bash %:t"
+        execute "!./%:t"
     endif
     " 只有出错信息时，打开quickfix窗口
     execute "cwindow"
 endfunction
 "}}}
 
+
+" ========= 构建 ========= {{{
+function! compile#Build()
+    let l:rootdir = asyncrun#get_root("%")
+    let l:makefile = asyncrun#path_join(l:rootdir, "Makefile")
+    execute "w"
+    if &filetype == "c"
+        if filereadable(l:makefile)
+            execute "AsyncRun -save=2 -cwd=<root> make"
+        else
+            execute "AsyncRun gcc -Wall -std=c11 -o %:r %:t"
+        endif
+    elseif &filetype == "cpp"
+        if filereadable(l:makefile)
+            execute "AsyncRun -save=2 -cwd=<root> make"
+        else
+            execute "AsyncRun! g++ -Wall -std=c++14 -o %:r %:t"
+        endif
+    elseif &filetype == "go"
+        " current file dir
+        execute "AsyncRun -save=2 go build %:p:h"
+    endif
+endfunction
+"}}}
+
+
+" ========= 运行 ========= {{{
+function! compile#Run()
+    let l:rootdir = asyncrun#get_root("%")
+    let l:makefile = asyncrun#path_join(l:rootdir, "Makefile")
+    execute "w"
+    if &filetype == "c"
+        if filereadable(l:makefile)
+            execute "AsyncRun -raw -cwd=<root> time ./%:t:r"
+        else
+            execute "AsyncRun! gcc -Wall -std=c11 -o %:r %:t; time ./%:r"
+        endif
+    elseif &filetype == "cpp"
+        if filereadable(l:makefile)
+            execute "AsyncRun -raw -cwd=<root> time ./%:t:r"
+        else
+            execute "AsyncRun! g++ -Wall -std=c++14 -o %:r %:t; time ./%:r"
+        endif
+    elseif &filetype == "go"
+        execute "AsyncRun -raw go run %:t"
+    elseif &filetype == "scheme"
+        execute "AsyncRun -raw guile -l %:t"
+    elseif &filetype == "python"
+        execute "AsyncRun -raw ./%:t"
+    elseif &filetype == "sh"
+        execute "AsyncRun -raw ./%:t"
+    endif
+endfunction
+"}}}
+
+
 " ========= 进行make的设置 ========= {{{
 function compile#DoMake()
     " 保存文件
     execute "w"
     " 如果不在当前目录，改变路径
-    if expand("%:p:h")!=getcwd()
+    if expand("%:p:h") != getcwd()
         execute "normal! :cd %:p:h\<cr>:pwd\<cr>"
     endif
     set makeprg=make
