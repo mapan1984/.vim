@@ -4,7 +4,7 @@ end
 let g:AutoPairsLoaded = 1
 
 if !exists('g:AutoPairs')
-  let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+  let g:AutoPairs = {'(':')', '[':']', '{':'}', "'":"'",'"':'"', '`':'`'}
 end
 
 if !exists('g:AutoPairsParens')
@@ -84,6 +84,7 @@ let s:Right = s:Go."\<RIGHT>"
 
 " Will auto generated {']' => '[', ..., '}' => '{'}in initialize.
 let g:AutoPairsClosedPairs = {}
+
 
 
 function! AutoPairsInsert(key)

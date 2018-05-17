@@ -4,7 +4,7 @@
 
 可能适合`C/C++`, `Python`, `JavaScript`, `Go`, `HTML/CSS`, `Markdown`等语言。
 
-键盘映射及常用功能等见[wiki](https://github.com/mapan1984/.vim/wiki)。
+键盘映射、常用功能、文件组织及依赖等见[wiki](https://github.com/mapan1984/.vim/wiki)。
 
 ## 2.Installation
 
@@ -18,12 +18,6 @@
 
     source ~/.vim/.utils/xxx.vim
 
-## 3.Dependencies
-
-* 为了使用`<c-s>`、`<c-q>`映射，在.bashrc中加入`stty -ixon`
-* 下载[ag](https://github.com/ggreer/the_silver_searcher)
-* 下载[ctags](https://ctags.io/)
-
-## 4.Last
+## 3.Last
 
 happy vimming（＾∀＾）

@@ -1,5 +1,3 @@
-source ~/.vim/bundle/asyncrun.vim/plugin/asyncrun.vim
-
 " ========= 编译 && 运行 ========= {{{
 function! compile#CompileRunCode()
     " 执行保存
@@ -34,8 +32,8 @@ endfunction
 
 " ========= 构建 ========= {{{
 function! compile#Build()
-    let l:rootdir = asyncrun#get_root("%")
-    let l:makefile = asyncrun#path_join(l:rootdir, "Makefile")
+    let l:rootdir = getcwd()
+    let l:makefile = l:rootdir.'/Makefile'
     execute "w"
     if &filetype == "c"
         if filereadable(l:makefile)
@@ -51,7 +49,7 @@ function! compile#Build()
         endif
     elseif &filetype == "go"
         " current file dir
-        execute "AsyncRun -save=2 go build %:p:h"
+        execute "AsyncRun -save=2 go build ./"
     endif
 endfunction
 "}}}
@@ -59,13 +57,15 @@ endfunction
 
 " ========= 运行 ========= {{{
 function! compile#Run()
-    let l:rootdir = asyncrun#get_root("%")
-    let l:makefile = asyncrun#path_join(l:rootdir, "Makefile")
+    let l:rootdir = getcwd()
+    let l:makefile = l:rootdir.'/Makefile'
     execute "w"
     if &filetype == "c"
         if filereadable(l:makefile)
+            " 目录名
             execute "AsyncRun -raw -cwd=<root> time ./%:t:r"
         else
+            " 文件名
             execute "AsyncRun! gcc -Wall -std=c11 -o %:r %:t; time ./%:r"
         endif
     elseif &filetype == "cpp"
