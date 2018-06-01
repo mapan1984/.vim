@@ -6,7 +6,6 @@ call plug#begin('~/.vim/bundle')
 " ===== vim-airline ===== {{{
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
- set laststatus=2     " 总是显示状态行
  let g:airline_theme='hybrid'
  let g:airline#extensions#ale#enabled = 1
  let g:airline#extensions#tagbar#enabled = 1
@@ -14,15 +13,13 @@ Plug 'vim-airline/vim-airline-themes'
 "}}}
 
 " ===== vim-indent-guides ===== {{{
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides', {'on': 'IndentGuidesToggle'}
  " let g:indent_guides_enable_on_vim_startup=1
  let g:indent_guides_auto_colors=0
  let g:indent_guides_start_level=2
  let g:indent_guides_guide_size=1
  let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vim',
                                         \ 'markdown', 'tex', ' ']
- autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
- autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
  " 快捷键i开/关缩进可视化
  " nnoremap <silent> <c-i> :IndentGuidesToggle<cr>
 "}}}
@@ -37,7 +34,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  nnoremap <c-b> :NERDTreeToggle<cr>
  " 设置相对行号
  "nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
- " Open a NERDTree utomatically when vim starts up if no files were specified
+ " Open NERDTree automatically when vim starts up if no files were specified
  autocmd StdinReadPre * let s:std_in=1
  autocmd VimEnter *
              \ if argc() == 0 && !exists("s:std_in")
@@ -86,8 +83,9 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 " ===== vim-gutentags ===== {{{
 Plug 'ludovicchabant/vim-gutentags'
+"Plug 'skywind3000/gutentags_plus'
  " 调试
- ""let g:gutentags_trace = 1
+ "let g:gutentags_trace = 1
  " 碰到这些文件/目录名之前不断向上一级目录递归
  " (如果想避免生成ctags，在目录中加`.notags`文件)
  let g:gutentags_project_root = g:project_root_markers
@@ -95,11 +93,26 @@ Plug 'ludovicchabant/vim-gutentags'
  " 所生成的数据文件的名称
  let g:gutentags_ctags_tagfile = '.tags'
  " 将自动生成的 tags 文件全部放入 ~/.vim/.cache/tags 目录中，避免污染工程目录
- ""let s:vim_tags = expand('~/.vim/.cache/tags')
- ""let g:gutentags_cache_dir = s:vim_tags
+ "let s:vim_tags = expand('~/.vim/.cache/tags')
+ "let g:gutentags_cache_dir = s:vim_tags
+ " 检测 ~/.cache/tags 不存在就新建
+ "if !isdirectory(s:vim_tags)
+ "   silent! call mkdir(s:vim_tags, 'p')
+ "endif
 
+ " 默认禁用自动生成
+ let g:gutentags_modules = [] 
+ " 如果有 ctags 可执行就允许动态生成 ctags 文件
+ if executable('ctags')
+ 	let g:gutentags_modules += ['ctags']
+ endif
+ " 如果有 gtags 可执行就允许动态生成 gtags 数据库
+ "if executable('gtags') && executable('gtags-cscope')
+ "	let g:gutentags_modules += ['gtags_cscope']
+ "endif
+ 
  " 忽略未进入版本控制的文件
- ""let g:gutentags_file_list_command = 'rg --files'
+ "let g:gutentags_file_list_command = 'rg --files'
  let g:gutentags_file_list_command = {
      \ 'markers': {
          \ '.git': 'git ls-files',
@@ -111,14 +124,11 @@ Plug 'ludovicchabant/vim-gutentags'
  let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
  let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
  let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
  " 如果使用 universal ctags 需要增加下面一行
  let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
- " 检测 ~/.cache/tags 不存在就新建
- ""if !isdirectory(s:vim_tags)
- ""   silent! call mkdir(s:vim_tags, 'p')
- ""endif
+ " 禁止 gutentags 自动链接 gtags 数据库
+ "let g:gutentags_auto_add_gtags_cscope = 0
 "}}}
 
 " ===== asyncrun.vim ===== {{{
@@ -144,7 +154,7 @@ function! BuildYCM(info)
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', {
-            \'for': ['c', 'sh', 'cpp', 'vim', 'python', 'go', 'javascript'],
+            \'for': ['c', 'sh', 'cpp', 'vim', 'python', 'go', 'javascript', 'javascript.jsx'],
             \'do': function('BuildYCM') }
  let g:ycm_key_invoke_completion = '<c-z>'
  nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -152,7 +162,7 @@ Plug 'Valloric/YouCompleteMe', {
 
  " Python config
  let g:ycm_python_binary_path = 'python3'
- let g:ycm_global_ycm_extra_conf='~/.vim/.utils/.ycm_extra_conf.py'
+ let g:ycm_global_ycm_extra_conf='~/.vim/.utils/config/.ycm_extra_conf.py'
  " 屏蔽诊断信息
  let g:ycm_show_diagnostics_ui = 0
  " 不弹出函数原型的预览窗口
@@ -168,7 +178,7 @@ Plug 'Valloric/YouCompleteMe', {
  " 输入两个字符后即进行语义补全"
  let g:ycm_semantic_triggers =  {
         \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-        \ 'cs,lua,javascript,vim': ['re!\w{2}'],
+        \ 'cs,lua,javascript,javascript.jsx,vim': ['re!\w{2}'],
         \ }
  let g:ycm_filetype_whitelist = {
              \ "c": 1,
@@ -178,33 +188,47 @@ Plug 'Valloric/YouCompleteMe', {
              \ "vim": 1,
              \ "python": 1,
              \ "javascript": 1,
+             \ "javascript.jsx": 1,
              \ }
 "}}}
 
 " ===== ale ===== {{{
 Plug 'w0rp/ale'
+ " 编辑不同文件类型需要的语法检查器
+ let g:ale_linters_explicit = 1
  let g:ale_linters = {
  \   'javascript': ['eslint'],
  \   'python': ['flake8'],
  \   'c': ['gcc'],
- \   'c++': ['gcc'],
- \   'go': ['gofmt'],
+ \   'cpp': ['gcc'],
+ \   'go': ['go build', 'gofmt'],
+ \   'text': ['textlint', 'write-good', 'languagetool']
  \}
+ " 如果没有 gcc 只有 clang 时（FreeBSD）
+ if executable('gcc') == 0 && executable('clang')
+ 	let g:ale_linters.c += ['clang']
+ 	let g:ale_linters.cpp += ['clang']
+ endif
  let g:ale_fixers = {
  \   'javascript': ['eslint'],
  \   'python': ['flake8'],
  \   'c': ['gcc'],
- \   'c++': ['gcc'],
- \   'go': ['gofmt'],
+ \   'cpp': ['gcc'],
+ \   'go': ['go build', 'gofmt'],
  \}
- let g:ale_linters_explicit = 1
+  
+ " 设定延迟和提示信息
  let g:ale_completion_delay = 500
  let g:ale_echo_delay = 20
  let g:ale_lint_delay = 500
  let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+
+ " 设定检测的时机：normal 模式文字改变，或者离开 insert模式
+ " 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
  let g:ale_lint_on_text_changed = 'normal'
  let g:ale_lint_on_insert_leave = 1
 
+ " 跳转到错误
  nmap <silent> [e <Plug>(ale_previous_wrap)
  nmap <silent> ]e <Plug>(ale_next_wrap)
 
@@ -219,11 +243,11 @@ Plug 'w0rp/ale'
  " let g:ale_set_quickfix = 1
 
  " Show when code contains warnings or errors"
- let g:ale_open_list = 1
+ "let g:ale_open_list = 1
  " let g:ale_keep_list_window_open = 1
 
  " Show 5 lines of errors (default: 10)
- let g:ale_list_window_size = 5
+ "let g:ale_list_window_size = 5
 "}}}
 
 " ===== Emmet-vim ===== {{{
@@ -294,6 +318,7 @@ Plug 'rking/ag.vim', {'on': 'Ag'}
  "nnoremap K :grep! "\b<C-R><C-W>\b" <CR>:cw<CR>
 "}}}
 
+" ======= Git ======= {{{
 " ===== vim-fugitve ===== {{{
 Plug 'tpope/vim-fugitive'
 "}}}
@@ -309,6 +334,7 @@ Plug 'junegunn/gv.vim', {'on': 'GV'}
 
 " ===== vim-signify ===== {{{
 ""Plug 'mhinz/vim-signify'
+"}}}
 "}}}
 
 " ===== Ci ===== {{{

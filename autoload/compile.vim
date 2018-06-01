@@ -21,6 +21,8 @@ function! compile#CompileRunCode()
         execute "!guile -l %:t"
     elseif &filetype == "python"
         execute "!./%:t"
+    elseif &filetype == "javascript"
+        execute "!./%:t"
     elseif &filetype == "sh"
         execute "!./%:t"
     endif
@@ -79,6 +81,8 @@ function! compile#Run()
     elseif &filetype == "scheme"
         execute "AsyncRun -raw guile -l %:t"
     elseif &filetype == "python"
+        execute "AsyncRun -raw ./%:t"
+    elseif &filetype == "javascript"
         execute "AsyncRun -raw ./%:t"
     elseif &filetype == "sh"
         execute "AsyncRun -raw ./%:t"

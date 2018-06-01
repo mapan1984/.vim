@@ -10,19 +10,19 @@
 " current colorschemes. So I wrote this plugin to help us out, to
 " meet the perfect colorsheme that we are `DESTINED` to be with.
 " just like your lovely girlfriends/wifves:)
-" Written by sunus Lee
-" sunus.the.dev@gmail.com
+" Written by sunus Lee: sunus.the.dev@gmail.com
 
-function! GetOS()
+
+" 获取运行系统名称
+if !exists('g:os')
     if has('unix')
-        return 'linux'
+        let g:os = 'linux'
     elseif has('win16') || has('win32') || has('win64')
-        return 'win'
+        let g:os = 'win'
     endif
-endfunction
+endif
 
-let g:os = GetOS()
-
+" 设置存放`.love`, `.hate`文件的路径
 if g:os == 'linux'
     let g:plugin_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
     let g:slash = '/'
@@ -45,21 +45,14 @@ elseif g:os == 'win'
     end
 endif
 
-function! GetRAND()
-    if g:os == 'linux'
-        return system("echo $RANDOM")
-    elseif g:os == 'win'
-        return system("echo %RANDOM%")
-    endif
-endfunction
-
+" 获取当前设置的`colorscheme`
+" (`g:colors_name`为vim规定的当前`colorscheme`的名字，一般在`color`文件中定义；
+" `g:colors_name`为我自己定义的变量)
 if exists('g:colors_name')
     let g:colorscheme = g:colors_name
 else
     let g:colorscheme = 'default'
 endif
-
-let g:colorscheme_file_path = ''
 
 " Get all the colorscheme file dir
 let s:colorscheme_dirs = []
@@ -69,14 +62,34 @@ for i in split(&runtimepath, ',')
     endif
 endfor
 
+" Current colorscheme file path
+let g:colorscheme_file_path = ''
+
 " Get all colorscheme file path
 let g:colorscheme_file_paths= []
 for colorsheme_dir in s:colorscheme_dirs
-    let colorschemes = glob(colorsheme_dir.'/*.vim')
-    let g:colorscheme_file_paths += split(colorschemes, '\n')
+    let s:colorschemes = glob(colorsheme_dir.'/*.vim')
+    let g:colorscheme_file_paths += split(s:colorschemes, '\n')
 endfor
 
+" Get the total number of all colorschemes
 let g:total_colorschemes = len(g:colorscheme_file_paths)
+
+
+function! GetRAND()
+    if g:os == 'linux'
+        return system("echo $RANDOM")
+    elseif g:os == 'win'
+        return system("echo %RANDOM%")
+    endif
+endfunction
+
+
+function! ApplyCS(colorscheme)
+    let cmd = 'colorscheme '.a:colorscheme
+    execute cmd
+endfunction
+
 
 function! colorschemepicker#RandomPick()
     " Get all hate colorsheme file path
@@ -116,15 +129,12 @@ function! colorschemepicker#RandomPick()
     call colorschemepicker#ShowCS()
 endfunction
 
-function! ApplyCS(colorscheme)
-    let cmd = 'colorscheme '.a:colorscheme
-    execute cmd
-endfunction
 
 " 把当前colorscheme加入到.love文件
 function! colorschemepicker#LoveCS()
     execute writefile([g:colorscheme], g:love_path)
 endfunction
+
 
 " 删除.love文件，将当前colorscheme路径加入.hate文件，随机展示下一个colorscheme
 function! colorschemepicker#HateCS()
@@ -145,6 +155,7 @@ function! colorschemepicker#HateCS()
     endif
 endfunction
 
+
 " Clear .hate file
 function! colorschemepicker#BackCS()
     execute writefile([], g:hate_path)
@@ -152,13 +163,16 @@ function! colorschemepicker#BackCS()
     echom "you've got all the previously hated colorschemes back"
 endfunction
 
+
 " Echom current colorscheme
 function! colorschemepicker#ShowCS()
     redrawstatus
     echom 'using colorscheme: '.g:colorscheme
 endfunction
 
-" 初始化
-" call RandomPick()
 
-" autocmd VimEnter * echom 'using colorscheme: '.g:colorscheme
+" 检测光标位置处文字的样式名
+function! colorschemepicker#SynStack()
+    echo map(synstack(line('.'),col('.')),'synIDattr(v:val, "name")')
+endfunc
+

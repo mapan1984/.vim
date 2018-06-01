@@ -15,8 +15,8 @@ noremap <tab>m :tabmove<cr>
 " ===== tab切换 =====
 noremap <tab>f :tabfirst<cr>
 noremap <tab>l :tablast<cr>
-noremap <tab>j :tabnext<cr>
-noremap <tab>k :tabprev<cr>
+noremap <tab>n :tabnext<cr>
+noremap <tab>p :tabprev<cr>
 noremap <tab>1 :tabn 1<cr>
 noremap <tab>2 :tabn 2<cr>
 noremap <tab>3 :tabn 3<cr>
@@ -96,3 +96,25 @@ noremap <tab>5 :tabn 5<cr>
 """ setup new tabline, just like %M%t in macvim
 ""set tabline=%!Vim_NeatTabLine()
 ""set guitablabel=%{Vim_NeatGuiTabLabel()}
+
+" 左移 tab
+""function! Tab_MoveLeft()
+""    let l:tabnr = tabpagenr() - 2
+""    if l:tabnr >= 0
+""        exec 'tabmove '.l:tabnr
+""    endif
+""endfunc
+""
+""" 右移 tab
+""function! Tab_MoveRight()
+""    let l:tabnr = tabpagenr() + 1
+""    if l:tabnr <= tabpagenr('$')
+""        exec 'tabmove '.l:tabnr
+""    endif
+""endfunc
+""
+""noremap <silent><leader>tl :call Tab_MoveLeft()<cr>
+""noremap <silent><leader>tr :call Tab_MoveRight()<cr>
+""noremap <silent><m-left> :call Tab_MoveLeft()<cr>
+""noremap <silent><m-right> :call Tab_MoveRight()<cr>
+

@@ -1,8 +1,8 @@
-function! Buf_total_num()
+function! BufTotalNum()
     return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
 endfunction
 
-function! File_size(f)
+function! FileSize(f)
     let l:size = getfsize(expand(a:f))
     if l:size == 0 || l:size == -1 || l:size == -2
         return ''
@@ -21,8 +21,8 @@ endfunction
 set statusline=%<%1*[B-%n]%*
 
 " TOT is an abbreviation for total
-set statusline+=%2*[TOT:%{Buf_total_num()}]%*
-set statusline+=%3*\ %{File_size(@%)}\ %*
+set statusline+=%2*[TOT:%{BufTotalNum()}]%*
+set statusline+=%3*\ %{FileSize(@%)}\ %*
 set statusline+=%4*\ %F\ %*
 set statusline+=%5*『\ %{exists('g:loaded_ale')?ALEGetStatusLine():''}』%{exists('g:loaded_fugitive')?fugitive#statusline():''}%*
 set statusline+=%6*\ %m%r%y\ %*

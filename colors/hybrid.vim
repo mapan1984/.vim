@@ -197,7 +197,7 @@ function! s:build_prim(hi_elem, field)
 endfunction
 
 let s:bg_none = ' guibg=NONE ctermbg=NONE'
-call s:build_prim('bg', 'foreground')
+call s:build_prim('bg', 'foreground') " let s:bg_foreground guibg=s:palette.gui[foreground]
 call s:build_prim('bg', 'background')
 call s:build_prim('bg', 'selection')
 call s:build_prim('bg', 'line')
@@ -453,7 +453,49 @@ let &background = s:style
 " }}}
 
 
-
+" 自定义设置
 hi! Visual ctermfg=234 ctermbg=110  guifg=#1daf21 guibg=#81a2be
-hi! pythonDecorator ctermfg=red
-hi! pythonDecoratorName ctermfg=blue
+exe "hi! VertSplit"           .s:fg_comment     .s:bg_background  .s:fmt_revr
+
+exe "hi! pythonDecorator"     .s:fg_red         .s:bg_none        .s:fmt_none
+exe "hi! pythonDecoratorName" .s:fg_orange      .s:bg_none        .s:fmt_none
+
+exe "hi! OverLength"          .s:fg_foreground  .s:bg_red        .s:fmt_none
+
+" 更清晰的错误标注：默认一片红色背景，语法高亮都被搞没了
+" 只显示红色或者蓝色下划线或者波浪线
+if has('gui_running')
+    hi! clear SpellBad
+    hi! clear SpellCap
+    hi! clear SpellRare
+    hi! clear SpellLocal
+    hi! SpellBad gui=undercurl guisp=red
+    hi! SpellCap gui=undercurl guisp=blue
+    hi! SpellRare gui=undercurl guisp=magenta
+    hi! SpellRare gui=undercurl guisp=cyan
+else
+    hi! clear SpellBad
+    hi! clear SpellCap
+    hi! clear SpellRare
+    hi! clear SpellLocal
+    hi! SpellBad term=standout ctermfg=1 term=underline cterm=underline
+    hi! SpellCap term=underline cterm=underline
+    hi! SpellRare term=underline cterm=underline
+    hi! SpellLocal term=underline cterm=underline
+endif
+
+" 只高亮第81列的字符
+"highlight OverLength ctermbg=red
+"call matchadd('OverLength', '\%81v', 100)
+
+" 去掉 sign column 的白色背景
+hi! SignColumn ctermbg=0 guibg=#000000
+
+" 修改行号为浅灰色，默认主题的黄色行号很难看，换主题可以仿照修改
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE 
+    \ gui=NONE guifg=DarkGrey guibg=NONE
+
+
+" vim-indent-guides 自定义高亮
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4

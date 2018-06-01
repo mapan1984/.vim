@@ -10,7 +10,7 @@ nnoremap <buffer> <localleader>nc /^``` [a-z]\+<cr>:nohlsearch<cr>
 nnoremap <buffer> <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
 
 " 代码块
-iabbrev <buffer> ``` ```<cr>```<up>
+" iabbrev <buffer> ``` ```<cr>```<up>
 
 " 行内公式
 iabbrev <buffer> \$ \\(\\)<left><left><left><space><left>

@@ -1,5 +1,4 @@
-" ===== indent folding ===== {{{
-"打开文件是默认不折叠代码
+"打开文件时默认不折叠代码
 set nofoldenable
 setlocal foldmethod=expr
 setlocal foldexpr=GetPythonFold(v:lnum)
@@ -45,4 +44,3 @@ function! GetPythonFold(lnum)
         return '>' . next_indent
     endif
 endfunction
-"}}}
