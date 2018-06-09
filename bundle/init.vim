@@ -64,6 +64,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  let g:NERDTreeMouseMode=3
 "}}}
 
+" ======= Tags ======= {{{
 " ===== taglist ===== {{{
 "Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
 " set tags=./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
@@ -93,11 +94,11 @@ Plug 'ludovicchabant/vim-gutentags'
  " 所生成的数据文件的名称
  let g:gutentags_ctags_tagfile = '.tags'
  " 将自动生成的 tags 文件全部放入 ~/.vim/.cache/tags 目录中，避免污染工程目录
- "let s:vim_tags = expand('~/.vim/.cache/tags')
- "let g:gutentags_cache_dir = s:vim_tags
+ "let s:vim_cache_tags = expand('~/.vim/.cache/tags')
+ "let g:gutentags_cache_dir = s:vim_cache_tags
  " 检测 ~/.cache/tags 不存在就新建
- "if !isdirectory(s:vim_tags)
- "   silent! call mkdir(s:vim_tags, 'p')
+ "if !isdirectory(s:vim_cache_tags)
+ "   silent! call mkdir(s:vim_cache_tags, 'p')
  "endif
 
  " 默认禁用自动生成
@@ -129,6 +130,7 @@ Plug 'ludovicchabant/vim-gutentags'
 
  " 禁止 gutentags 自动链接 gtags 数据库
  "let g:gutentags_auto_add_gtags_cscope = 0
+"}}}
 "}}}
 
 " ===== asyncrun.vim ===== {{{
@@ -272,7 +274,6 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
  let g:Lf_RootMarkers = g:project_root_markers
  let g:Lf_WorkingDirectoryMode = 'Ac'
- let g:Lf_CacheDirectory = expand('~/.vim/.cache')
  let g:Lf_WindowHeight = 0.30
  let g:Lf_ShowRelativePath = 0
  let g:Lf_HideHelp = 1
@@ -286,6 +287,12 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
     \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
     \ }
+
+ let s:vim_cache_lf = expand('~/.vim/.cache')
+ let g:Lf_CacheDirectory = s:vim_cache_lf
+ if !isdirectory(s:vim_cache_lf)
+    silent! call mkdir(s:vim_cache_lf, 'p')
+ endif
 "}}}
 
 " ===== ctrlp ===== {{{
@@ -308,14 +315,16 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 "}}}
 
 " ===== ag.vim ===== {{{
-Plug 'rking/ag.vim', {'on': 'Ag'}
- " Use ag over grep
- set grepprg=ag\ --nogroup\ --nocolor
- let g:ag_prg="ag --vimgrep --smart-case"
- let g:ag_highlight=1
- let g:ag_working_path_mode="r"
- " Bind `K` to grep word under cursor
- "nnoremap K :grep! "\b<C-R><C-W>\b" <CR>:cw<CR>
+if executable('ag')
+    Plug 'rking/ag.vim', {'on': 'Ag'}
+     " Use ag over grep
+     set grepprg=ag\ --nogroup\ --nocolor
+     let g:ag_prg="ag --vimgrep --smart-case"
+     let g:ag_highlight=1
+     let g:ag_working_path_mode="r"
+     " Bind `K` to grep word under cursor
+     "nnoremap K :grep! "\b<C-R><C-W>\b" <CR>:cw<CR>
+endif
 "}}}
 
 " ======= Git ======= {{{
@@ -342,8 +351,8 @@ Plug 'mapan1984/Ci', {'branch': 'forme'}
 "}}}
 
 " ===== vim-markdown ===== {{{
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular', {'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
  let g:vim_markdown_folding_disabled = 1
  let g:vim_markdown_folding_level = 6
  let g:vim_markdown_no_default_key_mappings = 1
@@ -355,12 +364,12 @@ Plug 'plasticboy/vim-markdown'
 "}}}
 
 " ===== vim-javascript ===== {{{
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
 "}}}
 
 " ===== vim-python-pep8-indent ===== {{{
-Plug 'hynek/vim-python-pep8-indent'
+Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 "}}}
 
 call plug#end()

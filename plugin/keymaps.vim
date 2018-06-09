@@ -1,5 +1,5 @@
 " ===== other ===== {{{
-" inoremap jk <ESC>
+inoremap jk <ESC>
 
 " Treat long lines as break lines (useful when moving around in them)
 noremap j gj

@@ -24,34 +24,34 @@ endif
 
 " 设置存放`.love`, `.hate`文件的路径
 if g:os == 'linux'
-    let g:plugin_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-    let g:slash = '/'
+    let s:plugin_path = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+    let s:slash = '/'
     if exists('g:tmp_dir')
-        let g:love_path = g:tmp_dir.'/.love'
-        let g:hate_path = g:tmp_dir.'/.hate'
+        let s:love_path = g:tmp_dir.'/.love'
+        let s:hate_path = g:tmp_dir.'/.hate'
     else
-        let g:love_path = g:plugin_path.'/.love'
-        let g:hate_path = g:plugin_path.'/.hate'
+        let s:love_path = s:plugin_path.'/.love'
+        let s:hate_path = s:plugin_path.'/.hate'
     end
 elseif g:os == 'win'
-    let g:plugin_path = $HOME.'/vimfiles/plugin'
-    let g:slash = '\'
+    let s:plugin_path = $HOME.'/vimfiles/plugin'
+    let s:slash = '\'
     if exists('g:tmp_dir')
-        let g:love_path = g:tmp_dir.'\love.txt'
-        let g:hate_path = g:tmp_dir.'\hate.txt'
+        let s:love_path = g:tmp_dir.'\love.txt'
+        let s:hate_path = g:tmp_dir.'\hate.txt'
     else
-        let g:love_path = g:plugin_path.'\love.txt'
-        let g:hate_path = g:plugin_path.'\hate.txt'
+        let s:love_path = s:plugin_path.'\love.txt'
+        let s:hate_path = s:plugin_path.'\hate.txt'
     end
 endif
 
 " 获取当前设置的`colorscheme`
 " (`g:colors_name`为vim规定的当前`colorscheme`的名字，一般在`color`文件中定义；
-" `g:colors_name`为我自己定义的变量)
+" `s:colorscheme`为我自己定义的变量)
 if exists('g:colors_name')
-    let g:colorscheme = g:colors_name
+    let s:colorscheme = g:colors_name
 else
-    let g:colorscheme = 'default'
+    let s:colorscheme = 'default'
 endif
 
 " Get all the colorscheme file dir
@@ -63,17 +63,17 @@ for i in split(&runtimepath, ',')
 endfor
 
 " Current colorscheme file path
-let g:colorscheme_file_path = ''
+let s:colorscheme_file_path = ''
 
 " Get all colorscheme file path
-let g:colorscheme_file_paths= []
+let s:colorscheme_file_paths= []
 for colorsheme_dir in s:colorscheme_dirs
     let s:colorschemes = glob(colorsheme_dir.'/*.vim')
-    let g:colorscheme_file_paths += split(s:colorschemes, '\n')
+    let s:colorscheme_file_paths += split(s:colorschemes, '\n')
 endfor
 
 " Get the total number of all colorschemes
-let g:total_colorschemes = len(g:colorscheme_file_paths)
+let s:total_colorschemes = len(s:colorscheme_file_paths)
 
 
 function! GetRAND()
@@ -94,63 +94,63 @@ endfunction
 function! colorschemepicker#RandomPick()
     " Get all hate colorsheme file path
     let hates = []
-    let r = findfile(g:hate_path)
+    let r = findfile(s:hate_path)
     if r != ''
-        let hates = readfile(g:hate_path)
+        let hates = readfile(s:hate_path)
     endif
 
     " Get all love colorsheme
     let loves = []
-    let r = findfile(g:love_path)
+    let r = findfile(s:love_path)
     if r != ''
-        let loves = readfile(g:love_path)
+        let loves = readfile(s:love_path)
     endif
 
     " Try apply the love colorscheme
     if len(loves) > 0
-        let g:colorscheme = loves[0]
-        call ApplyCS(g:colorscheme)
+        let s:colorscheme = loves[0]
+        call ApplyCS(s:colorscheme)
         return
     endif
 
     " Randomly get a colorscheme that not in hate file
     while 1
-        let rand = GetRAND() % g:total_colorschemes
-        let g:colorscheme_file_path = g:colorscheme_file_paths[rand]
-        if index(hates, g:colorscheme_file_path) == -1
+        let rand = GetRAND() % s:total_colorschemes
+        let s:colorscheme_file_path = s:colorscheme_file_paths[rand]
+        if index(hates, s:colorscheme_file_path) == -1
             break
         endif
     endwhile
 
     " colorscheme is /path/to/colorscheme.vim
     " convert to colorscheme
-    let g:colorscheme = split(g:colorscheme_file_path, g:slash)[-1][:-5]
-    call ApplyCS(g:colorscheme)
+    let s:colorscheme = split(s:colorscheme_file_path, s:slash)[-1][:-5]
+    call ApplyCS(s:colorscheme)
     call colorschemepicker#ShowCS()
 endfunction
 
 
 " 把当前colorscheme加入到.love文件
 function! colorschemepicker#LoveCS()
-    execute writefile([g:colorscheme], g:love_path)
+    execute writefile([s:colorscheme], s:love_path)
 endfunction
 
 
 " 删除.love文件，将当前colorscheme路径加入.hate文件，随机展示下一个colorscheme
 function! colorschemepicker#HateCS()
-    call delete(g:love_path)
-    let r = findfile(g:hate_path)
+    call delete(s:love_path)
+    let r = findfile(s:hate_path)
     if r != ''
-        let hates = readfile(g:hate_path)
+        let hates = readfile(s:hate_path)
     else
         let hates = []
     endif
-    if len(hates) + 1 == g:total_colorschemes
+    if len(hates) + 1 == s:total_colorschemes
         redrawstatus
         echo "She is the last one you got, Can't hate it anymore, or :Back first."
     else
-        call add(hates, g:colorscheme_file_path)
-        call writefile(hates, g:hate_path)
+        call add(hates, s:colorscheme_file_path)
+        call writefile(hates, s:hate_path)
         call colorschemepicker#RandomPick()
     endif
 endfunction
@@ -158,7 +158,7 @@ endfunction
 
 " Clear .hate file
 function! colorschemepicker#BackCS()
-    execute writefile([], g:hate_path)
+    execute writefile([], s:hate_path)
     redrawstatus
     echom "you've got all the previously hated colorschemes back"
 endfunction
@@ -167,7 +167,7 @@ endfunction
 " Echom current colorscheme
 function! colorschemepicker#ShowCS()
     redrawstatus
-    echom 'using colorscheme: '.g:colorscheme
+    echom 'using colorscheme: '.s:colorscheme
 endfunction
 
 

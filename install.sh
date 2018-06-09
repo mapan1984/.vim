@@ -1,71 +1,117 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-printf "\033[33mInstall Start...\033[0m\n\n"
+debug_mode='0'
 
-printf "\033[36mChecking Git install...\033[0m\n"
-hash git 2>/dev/null || { echo >&2 "Require Git is not installed! Please install Git before you prefix config vim"; exit 1; }
-git --version
-printf "\033[36mChecking Git Completed!\033[0m\n\n"
+function msg() {
+  printf '%b\n' "$1" >&2
+}
 
-printf "\033[36mChecking ctags install...\033[0m\n"
-hash ctags 2>/dev/null || { echo >&2 "Require ctags is not installed! Please install ctags before you prefix config vim"; exit 1; }
-ctags --version
-printf "\033[36mChecking ctags Completed!\033[0m\n\n"
+function info() {
+  msg "\33[36m[>]\33[0m ${1}${2}"
+}
 
-printf "\033[36mChecking ag install...\033[0m\n"
-hash ag 2>/dev/null || { echo >&2 "Require ag is not installed! Please install ag before you prefix config vim"; exit 1; }
-ag --version
-printf "\033[36mChecking ag Completed!\033[0m\n\n"
+function success() {
+  msg "\33[32m[✔]\33[0m ${1}${2}"
+}
 
-printf "\033[34mChecking Dir ...\033[0m\n"
-if [ ! -d "$HOME/.vim" ]; then
-  echo "Make ALL with $HOME Directory PATH"
-  printf "\n"
-  echo " [- .vim"
-  echo "   |- bundle   [ -- Manager Plugin -- ]"
-  echo "   |- autoload [ -- Manager Plugin -- ]"
-  echo "   |- .undo    [ -- Generator undo file -- ]"
-  echo "   |- .tmp     [ -- Generator tmp file -- ]"
-  echo " -] "
-  printf "\n"
+function waring() {
+  msg "\33[33m[!]\33[0m ${1}${2}"
+}
 
-  mkdir $HOME/.vim
-  mkdir $HOME/.vim/bundle
-  mkdir $HOME/.vim/.undo
-  mkdir $HOME/.vim/.tmp
-  mkdir $HOME/.vim/autoload
-else
-  if [ ! -d "$HOME/.vim/bundle" ]; then
-    echo "Make dir -- bundle"
-    mkdir $HOME/.vim/bundle
+function error() {
+  msg "\33[31m[✘]\33[0m ${1}${2}"
+  exit 1
+}
+
+function debug() {
+  if [ "$debug_mode" -eq '1' ] && [ "$ret" -gt '1' ]; then
+    msg "An error occurred in function \"${FUNCNAME[$i+1]}\" on line ${BASH_LINENO[$i+1]}, we're sorry for that."
   fi
-  if [ ! -d "$HOME/.vim/autoload/" ]; then
-    echo "Make dir -- [ autoload ]"
-    mkdir $HOME/.vim/autoload/
+}
+
+function program_exists() {
+  local ret='0'
+  command -v $1 >/dev/null 2>&1 || { local ret='1'; }
+
+  # fail on non-zero return value
+  if [ "$ret" -ne 0 ]; then
+    return 1
   fi
-  if [ ! -d "$HOME/.vim/.undo" ]; then
-    echo "Make dir -- [ .undo ]"
-    mkdir $HOME/.vim/.undo
+
+  return 0
+}
+
+function variable_must_set() {
+  if [ -z "$1" ]; then
+    error "You must have your $1 environmental variable set to continue."
   fi
-  if [ ! -d "$HOME/.vim/.tmp" ]; then
-    echo "Make dir -- [ .tmp ]"
-    mkdir $HOME/.vim/.tmp
+}
+
+function lnif() {
+  if [ -e "$1" ]; then
+    ln -sf "$1" "$2"
   fi
-fi
-printf "\033[34mChecking Dir Completed!\033[0m\n\n"
+  ret="$?"
+  debug
+}
 
-printf "\033[36mChecking plug.vim Exist?\033[0m\n"
-if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
-  echo "Download Vim-Plug Plugin..."
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-printf "\033[36mChecking plug.vim Completed!\033[0m\n\n"
+function check_must_program() {
+  local program="$1"
+  program_exists ${program}
+  if [[ "$?" -ne 0 ]]; then
+    error "You must have ${program} installed to continue."
+  else
+    success "You have installed ${program}."
+  fi
+}
 
-printf "\033[36mInstall plug...\033[0m\n"
-vim +PlugInstall +qall
-printf "\033[36mInstall plug Completed!\033[0m\n\n"
+function check_option_program() {
+  local program="$1"
+  program_exists ${program}
+  if [[ "$?" -ne 0 ]]; then
+    waring "Install ${program} to get a better experience."
+  else
+    success "You have installed ${program}."
+  fi
 
+}
 
-printf "\033[33mInstall Completed!\033[0m\n"
-exit 0;
+function setup_plugs() {
+  info "Install all vim plugs ..."
+
+  local system_shell="$SHELL"
+  export SHELL='/bin/sh'
+
+  # Check(and install) plug.vim
+  if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    ret="$?"
+    if [[ "$ret" -eq '0' ]]; then
+      success "Install plug.vim done."
+    fi
+    debug
+  fi
+
+  # Install all plugs
+  vim +PlugInstall +qall
+
+  export SHELL="$system_shell"
+
+  ret="$?"
+  if [[ "$ret" -eq '0' ]]; then
+    success "Install all vim plugs done."
+  fi
+  debug
+}
+
+info "Install start ..."
+
+check_must_program "vim"
+check_must_program "git"
+check_option_program "ag"
+check_option_program "ctags"
+
+setup_plugs
+
+info "Install Completed!"
