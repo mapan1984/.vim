@@ -3,8 +3,9 @@ let s:comment = {
             \"c":"// ",
             \"cpp":"// ",
             \"javascript":"// ",
-            \"go":"// ",
             \"jquery":"// ",
+            \"javascript.jsx":"// ",
+            \"go":"// ",
             \"python":"# ",
             \"vim":'" ',
             \"sh":"# ",
@@ -14,8 +15,9 @@ let s:esc_comment = {
             \"c":'\/\/ ',
             \"cpp":'\/\/ ',
             \"javascript":'\/\/ ',
-            \"go":'\/\/ ',
             \"jquery":'\/\/ ',
+            \"javascript.jsx":'\/\/ ',
+            \"go":'\/\/ ',
             \"python":'# ',
             \"vim":'" ',
             \"sh":'# ',
@@ -53,7 +55,8 @@ function! comment#MultiLineComment()
         execute "normal! :" . (l:start) . ',' . (l:end) . 'g/' . l:esc_comment . '/s/' . l:esc_comment . '//' . "\<cr>"
     else
         " 否则增加注释
-        execute 'normal! :' . (l:start) . ',' . (l:end) . 'g/./s/^/' . l:esc_comment . '/' . "\<cr>"
+        " execute 'normal! :' . (l:start) . ',' . (l:end) . 'g/./s/^/' . l:esc_comment . '/' . "\<cr>"
+        execute 'normal! :' . (l:start) . ',' . (l:end) . ' norm I' . l:comment . "\<cr>"
     endif
     call winrestview(l:winview)
 endfunction

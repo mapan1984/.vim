@@ -1,4 +1,4 @@
-"===== 切换Colum ===== {{{
+" ===== 切换Colum ===== {{{
 function! toggle#FoldColumToggle()
     "echom &foldcolumn
     if &foldcolumn
@@ -43,3 +43,25 @@ function! toggle#FoldToggle()
     endif
 endfunction
 "}}}
+
+" ===== 语法开关 =====  {{{
+function! toggle#SyntaxToggle()
+    if exists("g:syntax_on")
+        syntax off
+    else
+        syntax enable
+    endif
+endfunction
+" }}}
+"
+" ===== 切换LocationList ===== {{{
+function! toggle#LocalListToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    lclose
+    unlet g:qfix_win
+  else
+    lopen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+" }}}

@@ -53,11 +53,11 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  let g:NERDTreeIgnore=['\.git$', '\.gitignore$', '\.tags', '\.vscode$', '\.idea$', '.root',
                      \ '^__pycache__$', '\.pyc$', '\.venv$', '\.wenv',
                      \ '\.aux$', '\.log$', '\.out$', '\.pdf$', '\.gz$',
-                     \ '^node_modules$', '\.tern-project$',
+                     \ '^node_modules$', '\.tern-project$','^package-lock.json$',
                      \ '\.ycm_extra_conf.py$',
                      \ '^\.undo$','^\.tmp$', '^\.netrwhist$', '^\.cache$',
                      \ '\.sass-cache$',
-                     \ '.eslintrc.js', '.flake8', '.tern-project']
+                     \ '.eslintrc.js', '.prettierrc.js', '.flake8', '.tern-project']
  "let NERDTreeShowLineNumbers=1
  let g:NERDTreeWinPos=0
  " For mouse click in NERDTree
@@ -102,16 +102,16 @@ Plug 'ludovicchabant/vim-gutentags'
  "endif
 
  " 默认禁用自动生成
- let g:gutentags_modules = [] 
+ let g:gutentags_modules = []
  " 如果有 ctags 可执行就允许动态生成 ctags 文件
  if executable('ctags')
- 	let g:gutentags_modules += ['ctags']
+     let g:gutentags_modules += ['ctags']
  endif
  " 如果有 gtags 可执行就允许动态生成 gtags 数据库
  "if executable('gtags') && executable('gtags-cscope')
- "	let g:gutentags_modules += ['gtags_cscope']
+ "    let g:gutentags_modules += ['gtags_cscope']
  "endif
- 
+
  " 忽略未进入版本控制的文件
  "let g:gutentags_file_list_command = 'rg --files'
  let g:gutentags_file_list_command = {
@@ -145,6 +145,28 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
  " nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 "}}}
 
+" ===== ultisnips ===== {{{
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+ let g:UltiSnipsExpandTrigger="<c-j>"
+ let g:UltiSnipsJumpForwardTrigger="<c-j>"
+ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+ let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+
+ let g:UltiSnipsEditSplit="vertical"
+
+ let g:UltiSnipsUsePythonVersion = 3
+
+ let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+
+ let g:ultisnips_javascript = {
+      \ 'keyword-spacing': 'always',
+      \ 'semi': 'never',
+      \ 'space-before-function-paren': 'always',
+      \ }
+"}}}
+
 " ===== supertab ===== {{{
 Plug 'ervandew/supertab'
 "}}}
@@ -156,9 +178,9 @@ function! BuildYCM(info)
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', {
-            \'for': ['c', 'sh', 'cpp', 'vim', 'python', 'go', 'javascript', 'javascript.jsx'],
+            \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
             \'do': function('BuildYCM') }
- let g:ycm_key_invoke_completion = '<c-z>'
+ "let g:ycm_key_invoke_completion = '<c-z>'
  nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
  ""nnoremap <S-F12> :YcmCompleter GoToReferences<CR>
 
@@ -177,9 +199,9 @@ Plug 'Valloric/YouCompleteMe', {
  let g:ycm_min_num_identifier_candidate_chars = 2
  let g:ycm_collect_identifiers_from_comments_and_strings = 1
  let g:ycm_complete_in_strings=1
- " 输入两个字符后即进行语义补全"
+ " 输入两个字符后即进行语义补全
  let g:ycm_semantic_triggers =  {
-        \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+        \ 'c,cpp,java,python,java,go,erlang,perl': ['re!\w{2}'],
         \ 'cs,lua,javascript,javascript.jsx,vim': ['re!\w{2}'],
         \ }
  let g:ycm_filetype_whitelist = {
@@ -188,10 +210,20 @@ Plug 'Valloric/YouCompleteMe', {
              \ "sh": 1,
              \ "cpp": 1,
              \ "vim": 1,
+             \ "java": 1,
              \ "python": 1,
              \ "javascript": 1,
              \ "javascript.jsx": 1,
              \ }
+"}}}
+
+" ===== vim-snipmate ===== {{{
+"Plug 'marcweber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+"Plug 'honza/vim-snippets'
+" imap <c-j> <Plug>snipMateNextOrTrigger
+" smap <c-j> <Plug>snipMateNextOrTrigger
 "}}}
 
 " ===== ale ===== {{{
@@ -199,34 +231,44 @@ Plug 'w0rp/ale'
  " 编辑不同文件类型需要的语法检查器
  let g:ale_linters_explicit = 1
  let g:ale_linters = {
- \   'javascript': ['eslint'],
+ \   'javascript': ['eslint', 'prettier'],
  \   'python': ['flake8'],
  \   'c': ['gcc'],
  \   'cpp': ['gcc'],
  \   'go': ['go build', 'gofmt'],
+ \   'vim': ['vint'],
  \   'text': ['textlint', 'write-good', 'languagetool']
  \}
  " 如果没有 gcc 只有 clang 时（FreeBSD）
  if executable('gcc') == 0 && executable('clang')
- 	let g:ale_linters.c += ['clang']
- 	let g:ale_linters.cpp += ['clang']
+     let g:ale_linters.c += ['clang']
+     let g:ale_linters.cpp += ['clang']
  endif
+
+ " Set this variable to 1 to fix files when you save them
+ " let g:ale_fix_on_save = 1
  let g:ale_fixers = {
- \   'javascript': ['eslint'],
+ \   'javascript': ['prettier'],
  \   'python': ['flake8'],
  \   'c': ['gcc'],
  \   'cpp': ['gcc'],
  \   'go': ['go build', 'gofmt'],
  \}
-  
+
+ " Enable completion where available
+ "let g:ale_completion_enabled = 1
+
  " 设定延迟和提示信息
- let g:ale_completion_delay = 500
+ let g:ale_completion_delay = 200
  let g:ale_echo_delay = 20
- let g:ale_lint_delay = 500
+ let g:ale_lint_delay = 200
+ "let g:ale_echo_msg_error_str = 'E'
+ "let g:ale_echo_msg_warning_str = 'W'
+ " let g:ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s'
  let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 
- " 设定检测的时机：normal 模式文字改变，或者离开 insert模式
- " 禁用默认 INSERT 模式下改变文字也触发的设置，太频繁外，还会让补全窗闪烁
+ " 设定检测的时机：normal模式文字改变，或者离开insert模式
+ "                 禁用默认INSERT模式下改变文字也触发的设置
  let g:ale_lint_on_text_changed = 'normal'
  let g:ale_lint_on_insert_leave = 1
 
@@ -247,9 +289,19 @@ Plug 'w0rp/ale'
  " Show when code contains warnings or errors"
  "let g:ale_open_list = 1
  " let g:ale_keep_list_window_open = 1
+ " 如果只剩下LocationList则关闭LocationList
+ autocmd QuitPre * if empty(&bt) | lclose | endif
 
  " Show 5 lines of errors (default: 10)
  "let g:ale_list_window_size = 5
+
+ " Change the signs ALE uses
+ "let g:ale_sign_error = 'x>'
+ "let g:ale_sign_warning = '!>'
+ "let g:ale_sign_error = "◉"
+ "let g:ale_sign_warning = "•"
+ let g:ale_sign_error = '✘'
+ let g:ale_sign_warning = '⚠'
 "}}}
 
 " ===== Emmet-vim ===== {{{
@@ -334,7 +386,7 @@ Plug 'tpope/vim-fugitive'
 
 " ===== vim-gitgutter ===== {{{
 Plug 'airblade/vim-gitgutter'
- set updatetime=250
+ set updatetime=200
 "}}}
 
 " ===== gv.vim ===== {{{
@@ -363,13 +415,22 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
  let g:vim_markdown_new_list_item_indent = 2
 "}}}
 
+" ===== vim-jinja ===== {{{
+Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
+"}}}
+
 " ===== vim-javascript ===== {{{
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
+ let g:jsx_ext_required = 1
 "}}}
 
 " ===== vim-python-pep8-indent ===== {{{
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
+"}}}
+
+" ===== vim-systemd-syntax ===== {{{
+Plug 'Matt-Deacalion/vim-systemd-syntax'
 "}}}
 
 call plug#end()

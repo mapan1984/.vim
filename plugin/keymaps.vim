@@ -65,7 +65,7 @@ inoremap <c-e> <end>
 inoremap <c-f> <right>
 inoremap <c-b> <left>
 inoremap <c-k> <up>
-inoremap <c-j> <down>
+" inoremap <c-j> <down>
 inoremap <m-f> <c-o>w
 inoremap <m-b> <c-o>b
 "}}}
@@ -83,18 +83,20 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 cnoremap <c-f> <right>
 cnoremap <c-b> <left>
-cnoremap <c-j> <down>
+" cnoremap <c-j> <down>
 cnoremap <c-k> <up>
 "}}}
 
 " ===== 使用用系统剪切板 ===== {{{
-" Copy (write) highlighted text to .vimbuffer
-vnoremap <silent> <leader>y y:new ~/.vim/.tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
-" Paste from buffer
-"noremap <silent> <leader>p :r ~/.vim/.clipbuffer<CR>
-
-"nnoremap <leader>y "+y
-"nnoremap <leader>p "+p
-"vnoremap <leader>y "+y
-"vnoremap <leader>p "+p
+if isdirectory('/mnt/c/Windows')
+    " Copy (write) highlighted text to .vimbuffer
+    vnoremap <silent> <leader>y y:new ~/.vim/.tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
+    " Paste from buffer
+    "noremap <silent> <leader>p :r ~/.vim/.clipbuffer<CR>
+else
+    nnoremap <leader>y "+y
+    nnoremap <leader>p "+p
+    vnoremap <leader>y "+y
+    vnoremap <leader>p "+p
+endif
 "}}}

@@ -37,4 +37,11 @@ augroup clang-format
   au FileType c,c++ imap <c-l> <esc>:pyf ~/.vim/.utils/clang-format.py<cr>
 augroup END
 
+augroup js-format
+    au!
+    au FileType javascript map <c-l> :!prettier --write %<cr>
+    au FileType javascript imap <c-l> <esc>:!prettier --write %<cr>
+    "au FileType javascript map <c-k> :AsyncRun eslint %<cr>
+    "au FileType javascript imap <c-k> <esc>:AsyncRun eslint %<cr>
+augroup END
 "}}}

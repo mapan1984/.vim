@@ -12,7 +12,7 @@ elseif has('win16') || has('win32') || has('win64')
     let g:os = 'win'
 endif
 
-" let mapleader=","
+let mapleader=','
 let maplocalleader="\<Space>"
 
 " 定义一个命令用来加载文件
@@ -49,7 +49,7 @@ endif
 
 set formatoptions+=m     " 如遇Unicode值大于255的文本，不必等到空格再折行
 set formatoptions+=B     " 合并两行中文时，不在中间加空格
-set ffs=unix,dos,mac     " 文件换行符，默认使用 unix 换行符
+set fileformats=unix,dos,mac     " 文件换行符，默认使用 unix 换行符
 "}}}
 
 " ===== UI ===== {{{
@@ -166,7 +166,7 @@ autocmd QuickFixCmdPost *grep* cwindow
 " ===== Reaction ===== {{{
 " set mouse=a                     " enable using the mouse if terminal emulator
 set wildmenu                    " vim自身命令行模式智能补全
-set autoread                    " 文件在Vim之外修改过，自动重新读入
+
 set confirm                     " 在处理未保存或只读文件的时候，弹出确认
 set whichwrap=b,s,<,>,[,]       " 让<BS>，<Space>，<Left>, <Right>遇到行首行尾时自动移到下一行
 set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent, eol, start等
@@ -179,6 +179,20 @@ if $TMUX != ''
 elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
     set ttimeoutlen=80
 endif
+"}}}
+
+" 文件在Vim之外修改过，自动重新读入 {{{
+set autoread 
+"au CursorHold,CursorHoldI * checktime " Trigger when cursor stops moving
+"au FocusGained,BufEnter * :checktime  " Trigger on buffer change ot terminal focus
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 "}}}
 
 " 打文件后开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写 {{{

@@ -10,3 +10,8 @@ noremap <localleader>j <c-w>j
 noremap <localleader>h <c-w>h
 noremap <localleader>k <c-w>k
 noremap <localleader>l <c-w>l
+
+noremap <localleader>J 5<c-w>-
+noremap <localleader>H 5<c-w><
+noremap <localleader>K 5<c-w>+
+noremap <localleader>L 5<c-w>>

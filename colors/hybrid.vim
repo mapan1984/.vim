@@ -479,9 +479,15 @@ else
     hi! clear SpellRare
     hi! clear SpellLocal
     hi! SpellBad term=standout ctermfg=1 term=underline cterm=underline
-    hi! SpellCap term=underline cterm=underline
-    hi! SpellRare term=underline cterm=underline
-    hi! SpellLocal term=underline cterm=underline
+    hi! SpellCap term=standout ctermfg=142 term=underline cterm=underline
+    hi! SpellRare ctermfg=magenta term=underline cterm=underline
+    hi! SpellLocal ctermfg=cyan term=underline cterm=underline
+    "highlight ALEErrorSign ctermbg=NONE ctermfg=red
+    "highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+    highlight ALEErrorSign ctermfg=9 ctermbg=NONE guifg=#C30500 guibg=#F5F5F5
+    highlight ALEWarningSign ctermfg=11 ctermbg=NONE guifg=#ED6237 guibg=#F5F5F5
+    "hi link ALEErrorSign ErrorMsg
+    "hi link ALEWarningSign WarningMsg
 endif
 
 " 只高亮第81列的字符
