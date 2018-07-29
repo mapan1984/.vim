@@ -12,7 +12,8 @@ nnoremap <buffer> <localleader>f Vatzf
 "inoremap <buffer> > <ESC>:call RemoveNextDoubleChar('>')<CR>a
 
 " 根据缩进折叠
-:source ~/.vim/.utils/indent-fold.vim
+" :source ~/.vim/.utils/indent-fold.vim
+LoadScript .utils/indent-fold.vim
 
 " 自动插入html模板
 nnoremap <buffer> !<tab> :call format#AutoInsertTemplate()<cr>

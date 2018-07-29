@@ -30,5 +30,5 @@ nnoremap <leader>w :setlocal wrap! wrap?<cr>
 nnoremap <leader>s :call toggle#SyntaxToggle()<cr>
 
 " ===== 切换LocationList =====
-command -bang -nargs=? LT call toggle#LocalListToggle(<bang>0)
-nnoremap <leader>l :LT<cr>
+command -bang -nargs=? Llt call toggle#LocalListToggle(<bang>0)
+nnoremap <leader>l :Llt<cr>

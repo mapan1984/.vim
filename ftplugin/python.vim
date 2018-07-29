@@ -2,7 +2,8 @@
 setlocal nosmartindent
 setlocal cindent
 " 根据缩进进行折叠
-:source ~/.vim/.utils/indent-fold.vim
+" :source ~/.vim/.utils/indent-fold.vim
+LoadScript .utils/indent-fold.vim
 
 " 帮助文档
 nnoremap <buffer> K :<c-u>AsyncRun! pydoc3 <cword><cr>

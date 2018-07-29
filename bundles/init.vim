@@ -1,7 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-call plug#begin('~/.vim/bundle')
+call plug#begin(g:home . '/' . 'bundles')
 
 " ===== vim-airline ===== {{{
 Plug 'vim-airline/vim-airline'
@@ -145,6 +145,14 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
  " nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 "}}}
 
+" ===== vim-easymotion ===== {{{
+Plug 'easymotion/vim-easymotion'
+"}}}
+
+" ===== vim-surround ===== {{{
+Plug 'tpope/vim-surround'
+"}}}
+
 " ===== ultisnips ===== {{{
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -177,16 +185,22 @@ function! BuildYCM(info)
     !./install.py --clang-completer --go-completer --js-completer
   endif
 endfunction
-Plug 'Valloric/YouCompleteMe', {
+if g:os ==? 'win'
+    set runtimepath+=C:/Users/mapan/.vim/.utils/ycm
+    let g:ycm_server_python_interpreter = 'C:\Program Files (x86)\Python27\python.exe'
+    " let g:ycm_python_binary_path = 'C:\Program Files\Python36\python.exe'
+else
+    Plug 'Valloric/YouCompleteMe', {
             \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
             \'do': function('BuildYCM') }
+endif
  "let g:ycm_key_invoke_completion = '<c-z>'
  nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
  ""nnoremap <S-F12> :YcmCompleter GoToReferences<CR>
 
  " Python config
  let g:ycm_python_binary_path = 'python3'
- let g:ycm_global_ycm_extra_conf='~/.vim/.utils/config/.ycm_extra_conf.py'
+ let g:ycm_global_ycm_extra_conf = g:home .'/.utils/config/.ycm_extra_conf.py'
  " 屏蔽诊断信息
  let g:ycm_show_diagnostics_ui = 0
  " 不弹出函数原型的预览窗口
@@ -237,6 +251,7 @@ Plug 'w0rp/ale'
  \   'cpp': ['gcc'],
  \   'go': ['go build', 'gofmt'],
  \   'vim': ['vint'],
+ \   'sh': ['shellcheck'],
  \   'text': ['textlint', 'write-good', 'languagetool']
  \}
  " 如果没有 gcc 只有 clang 时（FreeBSD）

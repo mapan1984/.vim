@@ -25,13 +25,13 @@ function error() {
 
 function debug() {
   if [ "$debug_mode" -eq '1' ] && [ "$ret" -gt '1' ]; then
-    msg "An error occurred in function \"${FUNCNAME[$i+1]}\" on line ${BASH_LINENO[$i+1]}, we're sorry for that."
+      msg "An error occurred in function \"${FUNCNAME[$i+1]}\" on line ${BASH_LINENO[$i+1]}, we're sorry for that."
   fi
 }
 
 function program_exists() {
   local ret='0'
-  command -v $1 >/dev/null 2>&1 || { local ret='1'; }
+  command -v "$1" >/dev/null 2>&1 || { local ret='1'; }
 
   # fail on non-zero return value
   if [ "$ret" -ne 0 ]; then
@@ -57,7 +57,7 @@ function lnif() {
 
 function check_must_program() {
   local program="$1"
-  program_exists ${program}
+  program_exists "${program}"
   if [[ "$?" -ne 0 ]]; then
     error "You must have ${program} installed to continue."
   else
@@ -67,7 +67,7 @@ function check_must_program() {
 
 function check_option_program() {
   local program="$1"
-  program_exists ${program}
+  program_exists "${program}"
   if [[ "$?" -ne 0 ]]; then
     waring "Install ${program} to get a better experience."
   else

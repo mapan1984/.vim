@@ -1,7 +1,7 @@
 " ========= \t 将tab替换为空格 ========== {{{
 function format#RemoveTabs()
     let l:winview = winsaveview()
-    silent! %s/\t/\=repeat(" ", &tabstop)/
+    silent! %s/\t/\=repeat(" ", &tabstop)/g
     call winrestview(l:winview)
 endfunction
 "}}}
@@ -10,7 +10,7 @@ endfunction
 " http://vim.wikia.com/wiki/remove_unwanted_spaces
 function format#StripTrailingBlank()
     let l:winview = winsaveview()
-    silent! %s/\s\+$//
+    silent! %s/\s\+$//g
     call winrestview(l:winview)
 endfunction
 

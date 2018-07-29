@@ -1,6 +1,6 @@
 " ===== 提前的全局配置 ===== {{{
 " 取得本文件所在的目录
-let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let g:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
 " 项目根目录标志
 let g:project_root_markers = ['.root', '.vscode', '.git', '.hg', 'Makefile', '.venv', 'package.json', 'requirements.txt']
@@ -16,13 +16,15 @@ let mapleader=','
 let maplocalleader="\<Space>"
 
 " 定义一个命令用来加载文件
-command! -nargs=1 LoadScript exec 'source '.s:home.'/'.'<args>'
+if !exists(':LoadScript')
+    command! -nargs=1 LoadScript exec 'source '.g:home.'/'.'<args>'
+endif
 
 " 修正alt键映射
 LoadScript .utils/fix-alt-map.vim
 
 " Load Plugin
-LoadScript bundle/init.vim
+LoadScript bundles/init.vim
 
 " 文件搜索和补全时忽略下面扩展名
 LoadScript .utils/ignore-file.vim
@@ -104,49 +106,6 @@ set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m   " 错误格式
 set list listchars=tab:→\ ,trail:•,extends:>,precedes:< " 设置分隔符可视
 "}}}
 
-" ===== 临时文件 ===== {{{
-" 临时文件文件夹
-if g:os == 'linux'
-    let g:tmp_dir = $HOME.'/.vim/.tmp'
-elseif g:os == 'win'
-    let g:tmp_dir = $HOME.'/vimfiles/.tmp'
-endif
-
-" 如果文件夹不存在，则新建文件夹
-if !isdirectory(g:tmp_dir) && exists('*mkdir')
-  call mkdir(g:tmp_dir.'')
-  call mkdir(g:tmp_dir.'/backup')
-  call mkdir(g:tmp_dir.'/swap')
-  call mkdir(g:tmp_dir.'/undo')
-  call mkdir(g:tmp_dir.'/info')
-endif
-
-" 备份文件 {{{
-set backup
-set writebackup              " 保存时备份
-set backupdir   =$HOME/.vim/.tmp/backup/
-set backupext   =-vimbackup
-set backupskip  =
-"}}}
-
-" 交换文件 {{{
-set directory   =$HOME/.vim/.tmp/swap/
-set updatecount =100
-set updatetime  =500
-"}}}
-
-" 撤销文件 {{{
-set undolevels  =1000             " use many much levels of undo
-set undofile
-set undodir     =$HOME/.vim/.tmp/undo/
-"}}}
-
-" viminfo 文件{{{
-set history  =500                " 历史记录数
-set viminfo  ='100,n$HOME/.vim/.tmp/info/viminfo
-"}}}
-"}}}
-
 " ===== Searching ===== {{{
 set hlsearch                    " highlight the words match the search pattern
 set incsearch                   " show the pattern as it was typed so far
@@ -181,8 +140,15 @@ elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
 endif
 "}}}
 
+" 定义一个 DiffOrig 命令用于查看文件改动 {{{
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+          \ | wincmd p | diffthis
+endif
+"}}}
+
 " 文件在Vim之外修改过，自动重新读入 {{{
-set autoread 
+set autoread
 "au CursorHold,CursorHoldI * checktime " Trigger when cursor stops moving
 "au FocusGained,BufEnter * :checktime  " Trigger on buffer change ot terminal focus
 " Triger `autoread` when files changes on disk
@@ -205,4 +171,14 @@ autocmd BufReadPost *
 " 修改.vimrc后自动载入配置文件不需要重启
 " autocmd! bufwritepost $MYVIMRC source $MYVIMRC
 "}}}
+
+" 水平切割窗口时，默认在右边显示新窗口，并移动鼠标到新窗口
+set splitright
+
+" quickfix 设置，隐藏行号
+"----------------------------------------------------------------------
+augroup VimInitStyle
+    au!
+    au FileType qf setlocal nonumber
+augroup END
 
