@@ -448,6 +448,10 @@ Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 Plug 'Matt-Deacalion/vim-systemd-syntax'
 "}}}
 
+" ===== leafgarland/typescript-vim ===== {{{
+Plug 'leafgarland/typescript-vim'
+"}}}
+
 call plug#end()
 
 " 载入文件类型插件,为特定文件类型载入相关缩进文件

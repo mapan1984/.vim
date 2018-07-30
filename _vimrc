@@ -1,20 +1,39 @@
-"  Gvim中文菜单乱码解决方案
-
 " 设置文件编码格式
-set encoding=utf-8
-set fileencodings=utf-8,chinese,latin-1,gbk,gb18030,gk2312
-if has("win32")
- set fileencoding=chinese
+if has("multi_byte")
+    set encoding=utf-8
+    set termencoding=utf-8
+    set formatoptions+=mM
+    set fileencodings=utf-8,chinese,latin-1,gbk,gb18030,gk2312
+    if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)'
+        set ambiwidth=double
+    endif
+    if has("win32")
+        set fileencoding=chinese
+    else
+        set fileencoding=utf-8
+    endif
+    if has("win32")
+        source $VIMRUNTIME/delmenu.vim
+        source $VIMRUNTIME/menu.vim
+        language messages zh_CN.utf-8
+    endif
 else
- set fileencoding=utf-8
+    echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
 
-"解决菜单乱码
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+if has("gui_running")
+    "au GUIEnter * simalt ~x    " 窗口启动时自动最大化
+    "set guioptions-=m          " 隐藏菜单栏
+    set guioptions-=T           " 隐藏工具栏
+    set guioptions-=L          " 隐藏左侧滚动条
+    set guioptions-=r          " 隐藏右侧滚动条
+    set guioptions-=b          " 隐藏底部滚动条
+    "set showtabline=0          " 隐藏Tab栏
+    set guioptions-=e           " 使用内置 tab 样式而不是 gui
 
-"解决consle提示信息输出乱码
-language messages zh_CN.utf-8
+    set lines=48 columns=148    " 初始界面大小
+    set guifont=Fira\ Code:h10
+endif
 
 " 使用windowns下的配置
 set runtimepath^=~/.vim
