@@ -64,7 +64,7 @@ inoremap <c-a> <home>
 inoremap <c-e> <end>
 inoremap <c-f> <right>
 inoremap <c-b> <left>
-inoremap <c-k> <up>
+" inoremap <c-k> <up>
 " inoremap <c-j> <down>
 inoremap <m-f> <c-o>w
 inoremap <m-b> <c-o>b
@@ -84,12 +84,13 @@ cnoremap <c-e> <end>
 cnoremap <c-f> <right>
 cnoremap <c-b> <left>
 " cnoremap <c-j> <down>
-cnoremap <c-k> <up>
+" cnoremap <c-k> <up>
 "}}}
 
 " ===== 使用用系统剪切板 ===== {{{
 if isdirectory('/mnt/c/Windows')
     " Copy (write) highlighted text to .vimbuffer
+    " FIXME: 路径兼容
     vnoremap <silent> <leader>y y:new ~/.vim/.tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
     " Paste from buffer
     "noremap <silent> <leader>p :r ~/.vim/.clipbuffer<CR>

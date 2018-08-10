@@ -27,6 +27,10 @@ let s:esc_comment = {
 
 " 单行注释 {{{
 function! comment#Comment()
+    if !has_key(s:comment, &ft)
+        echom "Not define comment for " . &ft
+        return
+    endif
     let l:winview = winsaveview()
     let l:line = getline(line("."))
     let l:comment = s:comment[&ft]
@@ -44,6 +48,10 @@ endfunction
 
 " 多行注释 {{{
 function! comment#MultiLineComment()
+    if !has_key(s:comment, &ft)
+        echom "Not define comment for " . &ft
+        return
+    endif
     let l:winview = winsaveview()
     let l:start = line("'<")
     let l:end = line("'>")

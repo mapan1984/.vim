@@ -80,6 +80,7 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
  set tags=./tags,./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
  "command! MakeTags !ctags -o .tags -R .
  nnoremap <silent> tl :TagbarToggle<cr>
+ let g:tagbar_sort = 0     " 默认按位置排序
 "}}}
 
 " ===== vim-gutentags ===== {{{
@@ -251,6 +252,7 @@ Plug 'w0rp/ale'
  \   'cpp': ['gcc'],
  \   'go': ['go build', 'gofmt'],
  \   'vim': ['vint'],
+ \   'php': ['php -l'],
  \   'sh': ['shellcheck'],
  \   'text': ['textlint', 'write-good', 'languagetool']
  \}
@@ -449,7 +451,7 @@ Plug 'Matt-Deacalion/vim-systemd-syntax'
 "}}}
 
 " ===== leafgarland/typescript-vim ===== {{{
-Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 "}}}
 
 call plug#end()
