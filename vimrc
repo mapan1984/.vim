@@ -133,7 +133,7 @@ set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent,
 
 " ttimeoutlen {{{
 " 根据时间间隔区分<m-x>和<esc><x>键
-if $TMUX != ''
+if $TMUX !=? ''
     set ttimeoutlen=30
 elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
     set ttimeoutlen=80
@@ -141,7 +141,7 @@ endif
 "}}}
 
 " 定义一个 DiffOrig 命令用于查看文件改动 {{{
-if !exists(":DiffOrig")
+if !exists(':DiffOrig')
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
           \ | wincmd p | diffthis
 endif

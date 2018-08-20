@@ -37,7 +37,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  " Open NERDTree automatically when vim starts up if no files were specified
  autocmd StdinReadPre * let s:std_in=1
  autocmd VimEnter *
-             \ if argc() == 0 && !exists("s:std_in")
+             \ if argc() == 0 && !exists("s:std_in") && exists(':NERDTreeToggle')
              \     | execute 'NERDTreeToggle'
              \ | endif
  " Close vim if the only window left open in a NERDTree
@@ -157,17 +157,17 @@ Plug 'tpope/vim-surround'
 " ===== ultisnips ===== {{{
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
- let g:UltiSnipsExpandTrigger="<c-j>"
- let g:UltiSnipsJumpForwardTrigger="<c-j>"
- let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+ let g:UltiSnipsExpandTrigger='<c-j>'
+ let g:UltiSnipsJumpForwardTrigger='<c-j>'
+ let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
- let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+ let g:UltiSnipsSnippetDirectories=['UltiSnips']
 
- let g:UltiSnipsEditSplit="vertical"
+ let g:UltiSnipsEditSplit='vertical'
 
  let g:UltiSnipsUsePythonVersion = 3
 
- let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+ let g:UltiSnipsSnippetsDir = g:home . '/UltiSnips'
 
  let g:ultisnips_javascript = {
       \ 'keyword-spacing': 'always',
@@ -182,7 +182,7 @@ Plug 'ervandew/supertab'
 
 " ===== YouCompleteMe ===== {{{
 function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
+  if a:info.status ==? 'installed' || a:info.force
     !./install.py --clang-completer --go-completer --js-completer
   endif
 endfunction
@@ -220,15 +220,15 @@ endif
         \ 'cs,lua,javascript,javascript.jsx,vim': ['re!\w{2}'],
         \ }
  let g:ycm_filetype_whitelist = {
-             \ "c": 1,
-             \ "go": 1,
-             \ "sh": 1,
-             \ "cpp": 1,
-             \ "vim": 1,
-             \ "java": 1,
-             \ "python": 1,
-             \ "javascript": 1,
-             \ "javascript.jsx": 1,
+             \ 'c': 1,
+             \ 'go': 1,
+             \ 'sh': 1,
+             \ 'cpp': 1,
+             \ 'vim': 1,
+             \ 'java': 1,
+             \ 'python': 1,
+             \ 'javascript': 1,
+             \ 'javascript.jsx': 1,
              \ }
 "}}}
 
@@ -349,12 +349,12 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
  let g:Lf_PreviewResult = {'Function': 0, 'Colorscheme':1}
 
  let g:Lf_NormalMap = {
-    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+    \ 'File':           [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+    \ 'Buffer':         [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+    \ 'Mru':            [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+    \ 'Tag':            [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+    \ 'Function':       [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+    \ 'Colorscheme':    [['<ESC>', ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
     \ }
 
  let s:vim_cache_lf = expand('~/.vim/.cache')
@@ -388,9 +388,9 @@ if executable('ag')
     Plug 'rking/ag.vim', {'on': 'Ag'}
      " Use ag over grep
      set grepprg=ag\ --nogroup\ --nocolor
-     let g:ag_prg="ag --vimgrep --smart-case"
+     let g:ag_prg='ag --vimgrep --smart-case'
      let g:ag_highlight=1
-     let g:ag_working_path_mode="r"
+     let g:ag_working_path_mode='r'
      " Bind `K` to grep word under cursor
      "nnoremap K :grep! "\b<C-R><C-W>\b" <CR>:cw<CR>
 endif

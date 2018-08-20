@@ -1,3 +1,8 @@
+" vim 8.1 以下不支持
+if v:version < 800
+    finish
+endif
+
 "noremap <f3> :belowright term python<cr>
 tnoremap <m-q> <c-\><c-n>
 
