@@ -7,9 +7,14 @@ call plug#begin(g:home . '/' . 'bundles')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
  let g:airline_theme='hybrid'
+ " let g:airline_theme='gruvbox'
  let g:airline#extensions#ale#enabled = 1
  let g:airline#extensions#tagbar#enabled = 1
  let g:airline#extensions#ycm#enabled = 1
+"}}}
+
+" ===== vim color shcemes ===== {{{
+" Plug 'morhetz/gruvbox'
 "}}}
 
 " ===== vim-indent-guides ===== {{{
@@ -183,7 +188,7 @@ Plug 'ervandew/supertab'
 " ===== YouCompleteMe ===== {{{
 function! BuildYCM(info)
   if a:info.status ==? 'installed' || a:info.force
-    !./install.py --clang-completer --go-completer --js-completer
+    !./install.py --clang-completer --go-completer --js-completer --java-completer
   endif
 endfunction
 if g:os ==? 'win'
@@ -191,9 +196,10 @@ if g:os ==? 'win'
     let g:ycm_server_python_interpreter = 'C:\Program Files (x86)\Python27\python.exe'
     " let g:ycm_python_binary_path = 'C:\Program Files\Python36\python.exe'
 else
-    Plug 'Valloric/YouCompleteMe', {
-            \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
-            \'do': function('BuildYCM') }
+   " Plug 'Valloric/YouCompleteMe'
+   Plug 'Valloric/YouCompleteMe', {
+           \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
+           \'do': function('BuildYCM') }
 endif
  "let g:ycm_key_invoke_completion = '<c-z>'
  nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -230,6 +236,10 @@ endif
              \ 'javascript': 1,
              \ 'javascript.jsx': 1,
              \ }
+
+ " gopath
+ let g:ycm_gocode_binary_path = split($GOPATH, ":")[0] . "/bin/gocode"
+ let g:ycm_godef_binary_path = split($GOPATH, ":")[0] . "/bin/godef"
 "}}}
 
 " ===== vim-snipmate ===== {{{
@@ -417,6 +427,10 @@ Plug 'junegunn/gv.vim', {'on': 'GV'}
 
 " ===== Ci ===== {{{
 Plug 'mapan1984/Ci', {'branch': 'forme'}
+"}}}
+
+" ===== pangu.vim ===== {{{
+Plug 'hotoo/pangu.vim'
 "}}}
 
 " ===== vim-markdown ===== {{{

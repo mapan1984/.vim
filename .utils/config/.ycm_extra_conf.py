@@ -44,10 +44,9 @@ flags = [
     '-isystem',
     '/usr/include',
     '-isystem',
-    '/usr/include/c++/5.4.0',
+    '/usr/include/c++/5.5.0',
     '-isystem',
     '/usr/local/include',
-    
     #'-isystem',
     #'/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/c++/v1',
     #'-isystem',
@@ -67,6 +66,7 @@ if os.path.exists(compilation_database_folder):
     database = ycm_core.CompilationDatabase(compilation_database_folder)
 else:
     database = None
+
 
 SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm']
 

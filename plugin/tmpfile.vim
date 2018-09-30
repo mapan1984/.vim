@@ -47,7 +47,11 @@ if g:os == 'linux'
     set backupdir =$HOME/.vim/.tmp/backup
     set directory =$HOME/.vim/.tmp/swap
     set undodir   =$HOME/.vim/.tmp/undo
-    set viminfo   ='100,n$HOME/.vim/.tmp/info/viminfo
+    if has('nvim')
+        set viminfo   ='100,n$HOME/.vim/.tmp/info/nviminfo
+    else
+        set viminfo   ='100,n$HOME/.vim/.tmp/info/viminfo
+    endif
 elseif g:os == 'win'
     if has('nvim')
         let g:tmp_dir = $HOME . '\nvim\.tmp'
