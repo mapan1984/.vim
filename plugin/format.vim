@@ -55,3 +55,41 @@ augroup END
 "endfunction
 "xnoremap <c-l> :call Prettier()<cr>
 "}}}
+
+" py-format {{{
+augroup py-format
+    au!
+    au FileType python nnoremap <c-l> :!yapf -i %<cr>
+    au FileType python inoremap <c-l> <esc>:!yapf -i %<cr>
+    "au FileType javascript map <c-k> :AsyncRun eslint %<cr>
+    "au FileType javascript imap <c-k> <esc>:AsyncRun eslint %<cr>
+augroup END
+"}}}
+
+" js-beautify-format html,css,json {{{
+function! s:JsBeautify()
+    let cmd = [
+        \ '!js-beautify',
+        \ '-r'
+        \ ]
+
+    let l:ft = "js"
+    if &filetype == "html"
+        let l:ft = "html"
+    elseif &filetype == "css"
+        let l:ft = "css"
+    endif
+
+    let cmd = add(cmd, '--type ' . l:ft . ' %')
+
+    " echo join(cmd)
+    execute join(cmd)
+endfunction
+
+
+augroup jsbeautify
+    autocmd!
+    autocmd FileType html,css,js,javascript,json
+        \ command! -bar -nargs=0 -buffer JsBeautify call s:JsBeautify()
+augroup END
+"}}}

@@ -90,8 +90,8 @@ cnoremap <c-b> <left>
 " ===== 使用用系统剪切板 ===== {{{
 if isdirectory('/mnt/c/Windows')
     " Copy (write) highlighted text to .vimbuffer
-    " vnoremap <silent> <leader>y y \| :new ~/.vim/.tmp/.clipbuffer<cr> \| VGp \| :x<cr> \| :!cat ~/.vim/.tmp/.clipbuffer clip.exe <cr><cr>
-    vnoremap <silent> <leader>y y \| :new /tmp/.clipbuffer<cr> \| VGp \| :x<cr> \| :!cat /tmp/.clipbuffer clip.exe <cr><cr>
+    " vnoremap <silent> <leader>y y:new ~/.vim/.tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
+    vnoremap <silent> <leader>y y:new /tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
     " Paste from buffer
     "noremap <silent> <leader>p :r ~/.vim/.clipbuffer<CR>
 else
