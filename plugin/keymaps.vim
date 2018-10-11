@@ -91,7 +91,7 @@ cnoremap <c-b> <left>
 if isdirectory('/mnt/c/Windows')
     " Copy (write) highlighted text to .vimbuffer
     " vnoremap <silent> <leader>y y:new ~/.vim/.tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
-    vnoremap <silent> <leader>y y:new /tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat ~/.vim/.tmp/.clipbuffer \| clip.exe <CR><CR>
+    vnoremap <silent> <leader>y y:new /tmp/.clipbuffer<CR>VGp:x<CR> \| :!cat /tmp/.clipbuffer \| clip.exe <CR><CR>
     " Paste from buffer
     "noremap <silent> <leader>p :r ~/.vim/.clipbuffer<CR>
 else
