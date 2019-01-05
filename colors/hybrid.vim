@@ -501,6 +501,9 @@ hi! SignColumn ctermbg=0 guibg=#000000
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE 
     \ gui=NONE guifg=DarkGrey guibg=NONE
 
+" 显示背景图
+hi Normal guibg=NONE ctermbg=NONE
+hi NonText guibg=NONE ctermbg=NONE
 
 " vim-indent-guides 自定义高亮
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3

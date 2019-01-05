@@ -39,6 +39,18 @@ noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 cmap w!! w !sudo tee % > /dev/null
 "}}}
 
+" ===== vimgrep ===== {{{
+" 在当前文件下寻找光标下的词，在quickfix中显示
+nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
+" 在当前文件搜索选择的部分
+vnoremap <silent> <localleader>g "gy:vimgrep /<C-R>g/ % \|copen<cr>
+" 在当前文件搜索
+nnoremap <localleader>g :vimgrep // % \|copen<left><left><left><left><left><left><left><left><left><left>
+
+" Open quickfix window after any grep invocation
+autocmd QuickFixCmdPost *grep* cwindow
+"}}}
+
 " ===== Brackets ===== {{{
 " ( = i(
 onoremap ( i(

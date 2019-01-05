@@ -11,6 +11,80 @@ Plug 'vim-airline/vim-airline-themes'
  let g:airline#extensions#ale#enabled = 1
  let g:airline#extensions#tagbar#enabled = 1
  let g:airline#extensions#ycm#enabled = 1
+
+ let g:airline_powerline_fonts = 1
+
+ if !exists('g:airline_symbols')
+   let g:airline_symbols = {}
+ endif
+ "" unicode symbols
+ let g:airline_left_sep = '»'
+ let g:airline_left_sep = '▶'
+ let g:airline_right_sep = '«'
+ let g:airline_right_sep = '◀'
+ "let g:airline_symbols.crypt = '🔒'
+ "let g:airline_symbols.linenr = '☰'
+ "let g:airline_symbols.linenr = '␊'
+ "let g:airline_symbols.linenr = '␤'
+ let g:airline_symbols.linenr = '¶'
+ "let g:airline_symbols.maxlinenr = ''
+ let g:airline_symbols.maxlinenr = '㏑'
+ "let g:airline_symbols.branch = '⎇'
+ let g:airline_symbols.paste = 'ρ'
+ let g:airline_symbols.paste = 'Þ'
+ "let g:airline_symbols.paste = '∥'
+ let g:airline_symbols.spell = 'Ꞩ'
+ let g:airline_symbols.notexists = 'Ɇ'
+ let g:airline_symbols.whitespace = 'Ξ'
+"}}}
+
+" ===== lightline ===== {{{
+"Plug 'itchyny/lightline.vim'
+" let g:lightline = {
+"   \   'colorscheme': 'wombat',
+"   \   'active': {
+"   \     'left':[ 
+"   \       [ 'mode', 'paste' ],
+"   \       [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+"   \     ]
+"   \   },
+"   \   'component': {
+"   \     'lineinfo': ' %3l:%-2v',
+"   \     'readonly': '%{&readonly?"":""}',
+"   \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+"   \   },
+"   \   'component_function': {
+"   \     'gitbranch': 'fugitive#head',
+"   \   }
+"   \ }
+" let g:lightline.separator = {
+"   \   'left': '', 'right': ''
+"   \}
+" let g:lightline.subseparator = {
+"   \   'left': '', 'right': ''
+"   \}
+" let g:lightline.tabline = {
+"   \   'left': [ ['tabs'] ],
+"   \   'right': [ ['close'] ]
+"   \ }
+"}}}
+
+" ===== vim-buggerline ===== {{{
+" Plug 'bling/vim-bufferline'
+"}}}
+
+" ===== undotree ===== {{{
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+ " if has("persistent_undo")
+ "     set undodir=~/.undodir/
+ "     set undofile
+ " endif
+"}}}
+
+" ===== indentLine ===== {{{
+Plug 'yggdroot/indentline'
+ " {'on': 'IndentLinesToggle'}
+ " let g:indentLine_enabled = 0
 "}}}
 
 " ===== vim color shcemes ===== {{{
@@ -67,6 +141,19 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  let g:NERDTreeWinPos=0
  " For mouse click in NERDTree
  let g:NERDTreeMouseMode=3
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "*",
+    \ "Staged"    : "^",
+    \ "Untracked" : "λ",
+    \ "Renamed"   : ">",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "x",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "√",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
 "}}}
 
 " ======= Tags ======= {{{
@@ -238,8 +325,13 @@ endif
              \ }
 
  " gopath
- let g:ycm_gocode_binary_path = split($GOPATH, ":")[0] . "/bin/gocode"
- let g:ycm_godef_binary_path = split($GOPATH, ":")[0] . "/bin/godef"
+ if !empty($GOPATH) && len(split($GOPATH, ":")) > 1
+    let g:ycm_gocode_binary_path = split($GOPATH, ":")[0] . "/bin/gocode"
+    let g:ycm_godef_binary_path = split($GOPATH, ":")[0] . "/bin/godef"
+ elseif !empty($GOPATH) && len(split($GOPATH, ":")) == 1
+    let g:ycm_gocode_binary_path = $GOPATH . "/bin/gocode"
+    let g:ycm_godef_binary_path = $GOPATH . "/bin/godef"
+ endif
 "}}}
 
 " ===== vim-snipmate ===== {{{
@@ -263,9 +355,9 @@ Plug 'w0rp/ale'
  \   'go': ['go build', 'gofmt'],
  \   'vim': ['vint'],
  \   'php': ['php -l'],
- \   'sh': ['shellcheck'],
  \   'text': ['textlint', 'write-good', 'languagetool']
  \}
+ "\   'sh': ['shellcheck'],
  " 如果没有 gcc 只有 clang 时（FreeBSD）
  if executable('gcc') == 0 && executable('clang')
      let g:ale_linters.c += ['clang']
@@ -323,12 +415,12 @@ Plug 'w0rp/ale'
  "let g:ale_list_window_size = 5
 
  " Change the signs ALE uses
- "let g:ale_sign_error = 'x>'
- "let g:ale_sign_warning = '!>'
- "let g:ale_sign_error = "◉"
- "let g:ale_sign_warning = "•"
- let g:ale_sign_error = '✘'
- let g:ale_sign_warning = '⚠'
+ let g:ale_sign_error = 'x>'
+ let g:ale_sign_warning = '!>'
+ " let g:ale_sign_error = "◉"
+ " let g:ale_sign_warning = "•"
+ " let g:ale_sign_error = '✘'
+ " let g:ale_sign_warning = '⚠'
 "}}}
 
 " ===== Emmet-vim ===== {{{
@@ -430,7 +522,7 @@ Plug 'mapan1984/Ci', {'branch': 'forme'}
 "}}}
 
 " ===== pangu.vim ===== {{{
-Plug 'hotoo/pangu.vim'
+Plug 'hotoo/pangu.vim', {'for': 'markdown'}
 "}}}
 
 " ===== vim-markdown ===== {{{
@@ -454,6 +546,12 @@ Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
  let g:jsx_ext_required = 1
+"}}}
+
+" ===== vim-json ===== {{{
+"Plug 'elzr/vim-json', {'for': 'json'}
+" let g:vim_json_syntax_conceal = 0
+" let g:vim_json_warnings=0
 "}}}
 
 " ===== vim-python-pep8-indent ===== {{{

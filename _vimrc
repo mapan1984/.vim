@@ -1,3 +1,5 @@
+""" c:\Users\mapan\vimfiles\vimrc
+
 " 设置文件编码格式
 if has("multi_byte")
     set encoding=utf-8
@@ -32,7 +34,6 @@ if has("gui_running")
     set guioptions-=e           " 使用内置 tab 样式而不是 gui
 
     set lines=48 columns=148    " 初始界面大小
-    set guifont=Fira\ Code:h10
 endif
 
 " 使用windowns下的配置
@@ -40,3 +41,24 @@ set runtimepath^=~/.vim
 set runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vim/vimrc
+
+" 字体
+set guifont=Fira\ Code:h10
+
+" 使用内置 tab 样式而不是 gui
+set guioptions-=e
+set nolist
+
+" colorscheme murphy
+colorscheme NeoSolarized
+
+" 用闪烁替代错误 bell
+set noerrorbells
+" set visualbell
+set vb t_vb=
+
+" 输入法自动切换中英文（不适用于外挂输入法）
+set noimcmdline
+set iminsert=2
+set imsearch=2
+

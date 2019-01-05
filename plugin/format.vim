@@ -93,3 +93,6 @@ augroup jsbeautify
         \ command! -bar -nargs=0 -buffer JsBeautify call s:JsBeautify()
 augroup END
 "}}}
+"
+"set fileformats=dos
+"set fileformats=unix

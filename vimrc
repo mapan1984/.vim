@@ -24,7 +24,8 @@ endif
 LoadScript .utils/fix-alt-map.vim
 
 " Load Plugin
-LoadScript bundles/init.vim
+" LoadScript bundles/init.vim
+LoadScript bundles.vim
 
 " 文件搜索和补全时忽略下面扩展名
 LoadScript .utils/ignore-file.vim
@@ -80,7 +81,9 @@ let &t_ZR="\e[23m"
 " set t_ZR=^[[23m
 
 colorscheme hybrid
+" colorscheme NeoSolarized
 " colorscheme gruvbox
+
 set background=dark             " 可选light/dark
 " highlight Normal guibg=NONE ctermbg=None
 set number                      " 显示行号
@@ -106,7 +109,14 @@ set matchtime=2                 " time of show the matching bracket
 set display=lastline            " 显示最后一行
 set lazyredraw                  " 延迟绘制（提升性能）
 set errorformat+=[%f:%l]\ ->\ %m,[%f:%l]:%m   " 错误格式
+" set list listchars=tab:→\ ,trail:•,extends:>,precedes:<,eol:$ " 设置分隔符可视
 set list listchars=tab:→\ ,trail:•,extends:>,precedes:< " 设置分隔符可视
+
+" set showtabline=2  " Show tabline
+" set guioptions-=e  " Don't use GUI tabline
+if !has('gui_running')
+  set t_Co=256
+endif
 "}}}
 
 " ===== Searching ===== {{{
@@ -117,12 +127,6 @@ set smartcase
 " <backspace>取消搜索高亮
 noremap <bs> :nohl<cr>
 " noremap <c-h> :nohl<cr>
-
-" 在当前文件下寻找光标下的词，在quickfix中显示
-"nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " %"<cr>:copen<cr>
-
-" Open quickfix window after any grep invocation
-autocmd QuickFixCmdPost *grep* cwindow
 "}}}
 
 " ===== Reaction ===== {{{
@@ -136,6 +140,7 @@ set backspace=indent,eol,start  " 使回格键（backspace）正常处理indent,
 
 " ttimeoutlen {{{
 " 根据时间间隔区分<m-x>和<esc><x>键
+" tmux 配置：set-option -g escape-time 50
 if $TMUX !=? ''
     set ttimeoutlen=30
 elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
