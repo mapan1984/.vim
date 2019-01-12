@@ -1,7 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-call plug#begin(g:home . '/' . 'bundles')
+call plug#begin(g:home . '/.bundles')
 
 " ===== vim-airline ===== {{{
 Plug 'vim-airline/vim-airline'
@@ -142,18 +142,18 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
  " For mouse click in NERDTree
  let g:NERDTreeMouseMode=3
 
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "*",
-    \ "Staged"    : "^",
-    \ "Untracked" : "λ",
-    \ "Renamed"   : ">",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "x",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "√",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+ let g:NERDTreeIndicatorMapCustom = {
+     \ "Modified"  : "*",
+     \ "Staged"    : "^",
+     \ "Untracked" : "λ",
+     \ "Renamed"   : ">",
+     \ "Unmerged"  : "═",
+     \ "Deleted"   : "x",
+     \ "Dirty"     : "✗",
+     \ "Clean"     : "√",
+     \ 'Ignored'   : '☒',
+     \ "Unknown"   : "?"
+     \ }
 "}}}
 
 " ======= Tags ======= {{{
@@ -169,7 +169,8 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " ===== tagbar ===== {{{
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
- set tags=./tags,./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
+ " set tags=./tags,./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
+ set tags=./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
  "command! MakeTags !ctags -o .tags -R .
  nnoremap <silent> tl :TagbarToggle<cr>
  let g:tagbar_sort = 0     " 默认按位置排序
@@ -178,8 +179,8 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " ===== vim-gutentags ===== {{{
 Plug 'ludovicchabant/vim-gutentags'
 "Plug 'skywind3000/gutentags_plus'
- " 调试
- "let g:gutentags_trace = 1
+ " 调试 gutentags
+ " let g:gutentags_trace = 1
  " 碰到这些文件/目录名之前不断向上一级目录递归
  " (如果想避免生成ctags，在目录中加`.notags`文件)
  let g:gutentags_project_root = g:project_root_markers
@@ -187,12 +188,12 @@ Plug 'ludovicchabant/vim-gutentags'
  " 所生成的数据文件的名称
  let g:gutentags_ctags_tagfile = '.tags'
  " 将自动生成的 tags 文件全部放入 ~/.vim/.cache/tags 目录中，避免污染工程目录
- "let s:vim_cache_tags = expand('~/.vim/.cache/tags')
- "let g:gutentags_cache_dir = s:vim_cache_tags
+ let s:vim_cache_tags = expand('~/.vim/.cache/tags')
+ let g:gutentags_cache_dir = s:vim_cache_tags
  " 检测 ~/.cache/tags 不存在就新建
- "if !isdirectory(s:vim_cache_tags)
- "   silent! call mkdir(s:vim_cache_tags, 'p')
- "endif
+ if !isdirectory(s:vim_cache_tags)
+    silent! call mkdir(s:vim_cache_tags, 'p')
+ endif
 
  " 默认禁用自动生成
  let g:gutentags_modules = []
@@ -200,7 +201,11 @@ Plug 'ludovicchabant/vim-gutentags'
  if executable('ctags')
      let g:gutentags_modules += ['ctags']
  endif
- " 如果有 gtags 可执行就允许动态生成 gtags 数据库
+
+ " gtags 指定分析器和配置
+ "let $GTAGSLABEL = 'native-pygments'
+ "let $GTAGSCONF = g:home . '/.utils/config/gtags.conf'
+ "" 如果有 gtags 可执行就允许动态生成 gtags 数据库
  "if executable('gtags') && executable('gtags-cscope')
  "    let g:gutentags_modules += ['gtags_cscope']
  "endif
@@ -213,9 +218,10 @@ Plug 'ludovicchabant/vim-gutentags'
          \ '.hg': 'hg files',
          \ },
      \ }
+ let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundles/*"]
 
  " 配置 ctags 的参数
- let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
  let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
  let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
  " 如果使用 universal ctags 需要增加下面一行
@@ -275,7 +281,8 @@ Plug 'ervandew/supertab'
 " ===== YouCompleteMe ===== {{{
 function! BuildYCM(info)
   if a:info.status ==? 'installed' || a:info.force
-    !./install.py --clang-completer --go-completer --js-completer --java-completer
+    "!./install.py --clang-completer --go-completer --js-completer --java-completer
+    !./install.py --clang-completer --go-completer --ts-completer  --java-completer
   endif
 endfunction
 if g:os ==? 'win'
@@ -288,13 +295,14 @@ else
            \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
            \'do': function('BuildYCM') }
 endif
+
  "let g:ycm_key_invoke_completion = '<c-z>'
  nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
  ""nnoremap <S-F12> :YcmCompleter GoToReferences<CR>
 
  " Python config
  let g:ycm_python_binary_path = 'python3'
- let g:ycm_global_ycm_extra_conf = g:home .'/.utils/config/.ycm_extra_conf.py'
+ let g:ycm_global_ycm_extra_conf = g:home . '/.utils/config/.ycm_extra_conf.py'
  " 屏蔽诊断信息
  let g:ycm_show_diagnostics_ui = 0
  " 不弹出函数原型的预览窗口
@@ -549,9 +557,9 @@ Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
 "}}}
 
 " ===== vim-json ===== {{{
-"Plug 'elzr/vim-json', {'for': 'json'}
-" let g:vim_json_syntax_conceal = 0
-" let g:vim_json_warnings=0
+Plug 'elzr/vim-json', {'for': 'json'}
+ let g:vim_json_syntax_conceal = 0
+ let g:vim_json_warnings=0
 "}}}
 
 " ===== vim-python-pep8-indent ===== {{{

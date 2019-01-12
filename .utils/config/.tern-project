@@ -1,10 +1,19 @@
 {
-  "libs": [
-    "browser",
-    "jquery",
-    "ecma6"
-  ],
-  "plugins": {
-      "node": {}
-  }
+    "libs": [
+        "browser",
+        "chai",
+        "jquery",
+        "ecma6",
+        "underscore"
+    ],
+    "plugins": {
+        "node": {},
+        "requirejs": {
+            "baseUrl": "./src",
+            "paths": {
+                "zrender": "bower_components/zrender/src"
+            }
+        }
+    }
 }
+

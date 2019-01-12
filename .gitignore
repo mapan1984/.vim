@@ -5,6 +5,6 @@
 .tags
 *.un~
 *.swp
-bundles
+.bundles
 !bundles/init.vim
 .utils/ycm
