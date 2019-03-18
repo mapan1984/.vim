@@ -12,6 +12,13 @@ elseif has('win16') || has('win32') || has('win64')
     let g:os = 'win'
 endif
 
+let s:is_win = has('win32')
+if has('nvim-0.2') || (has('nvim') && exists('*jobwait') && !s:is_win)
+    let g:editor = 'nvim'
+else
+    let g:editor = 'vim'
+endif
+
 let mapleader=','
 let maplocalleader="\<Space>"
 

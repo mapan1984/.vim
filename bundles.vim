@@ -1,76 +1,47 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" Make sure Vim-Plug is installed
+if empty(glob(g:home . "/autoload/plug.vim"))
+    execute '!curl -fLo ' . g:home . '/autoload/plug.vim'
+    \ 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+" function Rand()
+"     return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
+" endfunction
+
+function! GetRAND()
+    if g:os == 'linux'
+        return system("echo $RANDOM")
+    elseif g:os == 'win'
+        return system("echo %RANDOM%")
+    endif
+endfunction
+
 call plug#begin(g:home . '/.bundles')
 
-" ===== vim-airline ===== {{{
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
- let g:airline_theme='hybrid'
- " let g:airline_theme='gruvbox'
- let g:airline#extensions#ale#enabled = 1
- let g:airline#extensions#tagbar#enabled = 1
- let g:airline#extensions#ycm#enabled = 1
-
- let g:airline_powerline_fonts = 1
-
- if !exists('g:airline_symbols')
-   let g:airline_symbols = {}
- endif
- "" unicode symbols
- let g:airline_left_sep = '»'
- let g:airline_left_sep = '▶'
- let g:airline_right_sep = '«'
- let g:airline_right_sep = '◀'
- "let g:airline_symbols.crypt = '🔒'
- "let g:airline_symbols.linenr = '☰'
- "let g:airline_symbols.linenr = '␊'
- "let g:airline_symbols.linenr = '␤'
- let g:airline_symbols.linenr = '¶'
- "let g:airline_symbols.maxlinenr = ''
- let g:airline_symbols.maxlinenr = '㏑'
- "let g:airline_symbols.branch = '⎇'
- let g:airline_symbols.paste = 'ρ'
- let g:airline_symbols.paste = 'Þ'
- "let g:airline_symbols.paste = '∥'
- let g:airline_symbols.spell = 'Ꞩ'
- let g:airline_symbols.notexists = 'Ɇ'
- let g:airline_symbols.whitespace = 'Ξ'
-"}}}
-
-" ===== lightline ===== {{{
-"Plug 'itchyny/lightline.vim'
-" let g:lightline = {
-"   \   'colorscheme': 'wombat',
-"   \   'active': {
-"   \     'left':[ 
-"   \       [ 'mode', 'paste' ],
-"   \       [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-"   \     ]
-"   \   },
-"   \   'component': {
-"   \     'lineinfo': ' %3l:%-2v',
-"   \     'readonly': '%{&readonly?"":""}',
-"   \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
-"   \   },
-"   \   'component_function': {
-"   \     'gitbranch': 'fugitive#head',
-"   \   }
-"   \ }
-" let g:lightline.separator = {
-"   \   'left': '', 'right': ''
-"   \}
-" let g:lightline.subseparator = {
-"   \   'left': '', 'right': ''
-"   \}
-" let g:lightline.tabline = {
-"   \   'left': [ ['tabs'] ],
-"   \   'right': [ ['close'] ]
-"   \ }
-"}}}
+if GetRAND() % 2 == 0
+    " ===== vim-airline ===== {{{
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    LoadScript settings/AirLine.vim
+    "}}}
+else
+    " ===== lightline ===== {{{
+    Plug 'itchyny/lightline.vim'
+    Plug 'maximbaz/lightline-ale'
+    LoadScript settings/LightLine.vim
+    "}}}
+endif
 
 " ===== vim-buggerline ===== {{{
 " Plug 'bling/vim-bufferline'
+"}}}
+
+" ===== vim-which-key ===== {{{
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+LoadScript settings/WhichKey.vim
 "}}}
 
 " ===== undotree ===== {{{
@@ -82,9 +53,10 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 "}}}
 
 " ===== indentLine ===== {{{
-Plug 'yggdroot/indentline'
- " {'on': 'IndentLinesToggle'}
- " let g:indentLine_enabled = 0
+Plug 'yggdroot/indentline', {
+           \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
+           \'on': 'IndentLinesToggle'}
+ let g:indentLine_enabled = 0
 "}}}
 
 " ===== vim color shcemes ===== {{{
@@ -110,50 +82,7 @@ Plug 'nathanaelkane/vim-indent-guides', {'on': 'IndentGuidesToggle'}
 " ===== nerdtree ===== {{{
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
- nnoremap <c-b> :NERDTreeToggle<cr>
- " 设置相对行号
- "nnoremap <leader>nt :NERDTree<cr>:set rnu<cr>
- " Open NERDTree automatically when vim starts up if no files were specified
- autocmd StdinReadPre * let s:std_in=1
- autocmd VimEnter *
-             \ if argc() == 0 && !exists("s:std_in") && exists(':NERDTreeToggle')
-             \     | execute 'NERDTreeToggle'
-             \ | endif
- " Close vim if the only window left open in a NERDTree
- autocmd bufenter *
-             \ if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
-             \     | q
-             \ | endif
- " Store the bookmarks file
- "let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
- "let NERDTreeShowBookmarks=1
- let g:NERDTreeShowFiles=1
- let g:NERDTreeShowHidden=1
- let g:NERDTreeIgnore=['\.git$', '\.gitignore$', '\.tags', '\.vscode$', '\.idea$', '.root',
-                     \ '^__pycache__$', '\.pyc$', '\.venv$', '\.wenv',
-                     \ '\.aux$', '\.log$', '\.out$', '\.pdf$', '\.gz$',
-                     \ '^node_modules$', '\.tern-project$','^package-lock.json$',
-                     \ '\.ycm_extra_conf.py$',
-                     \ '^\.undo$','^\.tmp$', '^\.netrwhist$', '^\.cache$',
-                     \ '\.sass-cache$',
-                     \ '.eslintrc.js', '.prettierrc.js', '.flake8', '.tern-project']
- "let NERDTreeShowLineNumbers=1
- let g:NERDTreeWinPos=0
- " For mouse click in NERDTree
- let g:NERDTreeMouseMode=3
-
- let g:NERDTreeIndicatorMapCustom = {
-     \ "Modified"  : "*",
-     \ "Staged"    : "^",
-     \ "Untracked" : "λ",
-     \ "Renamed"   : ">",
-     \ "Unmerged"  : "═",
-     \ "Deleted"   : "x",
-     \ "Dirty"     : "✗",
-     \ "Clean"     : "√",
-     \ 'Ignored'   : '☒',
-     \ "Unknown"   : "?"
-     \ }
+LoadScript settings/NERDTree.vim
 "}}}
 
 " ======= Tags ======= {{{
@@ -244,6 +173,8 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
  " nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 "}}}
 
+" Plug 'mboughaba/vim-lessmess'
+
 " ===== vim-easymotion ===== {{{
 Plug 'easymotion/vim-easymotion'
 "}}}
@@ -275,72 +206,37 @@ Plug 'honza/vim-snippets'
 "}}}
 
 " ===== supertab ===== {{{
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 "}}}
 
-" ===== YouCompleteMe ===== {{{
-function! BuildYCM(info)
-  if a:info.status ==? 'installed' || a:info.force
-    "!./install.py --clang-completer --go-completer --js-completer --java-completer
-    !./install.py --clang-completer --go-completer --ts-completer  --java-completer
-  endif
-endfunction
-if g:os ==? 'win'
-    set runtimepath+=C:/Users/mapan/.vim/.utils/ycm
-    let g:ycm_server_python_interpreter = 'C:\Program Files (x86)\Python27\python.exe'
-    " let g:ycm_python_binary_path = 'C:\Program Files\Python36\python.exe'
+if g:editor ==? 'nvim'
+" ===== coc.nvim ===== {{{
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    LoadScript settings/coc.vim
+"}}}
 else
-   " Plug 'Valloric/YouCompleteMe'
-   Plug 'Valloric/YouCompleteMe', {
-           \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
-           \'do': function('BuildYCM') }
-endif
+" ===== YouCompleteMe ===== {{{
+    if g:os ==? 'win'
+        set runtimepath+=C:/Users/mapan/.vim/.utils/ycm
+        let g:ycm_server_python_interpreter = 'C:\Program Files (x86)\Python27\python.exe'
+        " let g:ycm_python_binary_path = 'C:\Program Files\Python36\python.exe'
+    else
+        function! BuildYCM(info)
+          if a:info.status ==? 'installed' || a:info.force
+            "!./install.py --clang-completer --go-completer --js-completer --java-completer
+            !./install.py --clang-completer --go-completer --ts-completer  --java-completer
+          endif
+        endfunction
 
- "let g:ycm_key_invoke_completion = '<c-z>'
- nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
- ""nnoremap <S-F12> :YcmCompleter GoToReferences<CR>
-
- " Python config
- let g:ycm_python_binary_path = 'python3'
- let g:ycm_global_ycm_extra_conf = g:home . '/.utils/config/.ycm_extra_conf.py'
- " 屏蔽诊断信息
- let g:ycm_show_diagnostics_ui = 0
- " 不弹出函数原型的预览窗口
- set completeopt=menu,menuone
- let g:ycm_add_preview_to_completeopt = 0
- " Close preview window when the offered completion is accepted
- let g:ycm_autoclose_preview_window_after_completion=1
-
- let g:ycm_server_log_level = 'info'
- let g:ycm_min_num_identifier_candidate_chars = 2
- let g:ycm_collect_identifiers_from_comments_and_strings = 1
- let g:ycm_complete_in_strings=1
- " 输入两个字符后即进行语义补全
- let g:ycm_semantic_triggers =  {
-        \ 'c,cpp,java,python,java,go,erlang,perl': ['re!\w{2}'],
-        \ 'cs,lua,javascript,javascript.jsx,vim': ['re!\w{2}'],
-        \ }
- let g:ycm_filetype_whitelist = {
-             \ 'c': 1,
-             \ 'go': 1,
-             \ 'sh': 1,
-             \ 'cpp': 1,
-             \ 'vim': 1,
-             \ 'java': 1,
-             \ 'python': 1,
-             \ 'javascript': 1,
-             \ 'javascript.jsx': 1,
-             \ }
-
- " gopath
- if !empty($GOPATH) && len(split($GOPATH, ":")) > 1
-    let g:ycm_gocode_binary_path = split($GOPATH, ":")[0] . "/bin/gocode"
-    let g:ycm_godef_binary_path = split($GOPATH, ":")[0] . "/bin/godef"
- elseif !empty($GOPATH) && len(split($GOPATH, ":")) == 1
-    let g:ycm_gocode_binary_path = $GOPATH . "/bin/gocode"
-    let g:ycm_godef_binary_path = $GOPATH . "/bin/godef"
- endif
+        " Plug 'Valloric/YouCompleteMe'
+        Plug 'Valloric/YouCompleteMe', {
+               \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
+               \'do': function('BuildYCM')
+               \}
+    endif
+    LoadScript settings/YCM.vim
 "}}}
+endif
 
 " ===== vim-snipmate ===== {{{
 "Plug 'marcweber/vim-addon-mw-utils'
@@ -352,91 +248,28 @@ endif
 "}}}
 
 " ===== ale ===== {{{
-Plug 'w0rp/ale'
- " 编辑不同文件类型需要的语法检查器
- let g:ale_linters_explicit = 1
- let g:ale_linters = {
- \   'javascript': ['eslint', 'prettier'],
- \   'python': ['flake8'],
- \   'c': ['gcc'],
- \   'cpp': ['gcc'],
- \   'go': ['go build', 'gofmt'],
- \   'vim': ['vint'],
- \   'php': ['php -l'],
- \   'text': ['textlint', 'write-good', 'languagetool']
- \}
- "\   'sh': ['shellcheck'],
- " 如果没有 gcc 只有 clang 时（FreeBSD）
- if executable('gcc') == 0 && executable('clang')
-     let g:ale_linters.c += ['clang']
-     let g:ale_linters.cpp += ['clang']
- endif
-
- " Set this variable to 1 to fix files when you save them
- " let g:ale_fix_on_save = 1
- let g:ale_fixers = {
- \   'javascript': ['prettier'],
- \   'python': ['flake8'],
- \   'c': ['gcc'],
- \   'cpp': ['gcc'],
- \   'go': ['go build', 'gofmt'],
- \}
-
- " Enable completion where available
- "let g:ale_completion_enabled = 1
-
- " 设定延迟和提示信息
- let g:ale_completion_delay = 200
- let g:ale_echo_delay = 20
- let g:ale_lint_delay = 200
- "let g:ale_echo_msg_error_str = 'E'
- "let g:ale_echo_msg_warning_str = 'W'
- " let g:ale_echo_msg_format = '[%linter%] [%severity%] %code: %%s'
- let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-
- " 设定检测的时机：normal模式文字改变，或者离开insert模式
- "                 禁用默认INSERT模式下改变文字也触发的设置
- let g:ale_lint_on_text_changed = 'normal'
- let g:ale_lint_on_insert_leave = 1
-
- " 跳转到错误
- nmap <silent> [e <Plug>(ale_previous_wrap)
- nmap <silent> ]e <Plug>(ale_next_wrap)
-
- " Keep a sign gutter open
- " let g:ale_sign_column_always = 1
-
- let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
- let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-
- " Use quickfix list instead of the loclist
- " let g:ale_set_loclist = 0
- " let g:ale_set_quickfix = 1
-
- " Show when code contains warnings or errors"
- "let g:ale_open_list = 1
- " let g:ale_keep_list_window_open = 1
- " 如果只剩下LocationList则关闭LocationList
- autocmd QuitPre * if empty(&bt) | lclose | endif
-
- " Show 5 lines of errors (default: 10)
- "let g:ale_list_window_size = 5
-
- " Change the signs ALE uses
- let g:ale_sign_error = 'x>'
- let g:ale_sign_warning = '!>'
- " let g:ale_sign_error = "◉"
- " let g:ale_sign_warning = "•"
- " let g:ale_sign_error = '✘'
- " let g:ale_sign_warning = '⚠'
+Plug 'w0rp/ale', {
+\   'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx']
+\ }
+LoadScript settings/ALE.vim
 "}}}
 
 " ===== Emmet-vim ===== {{{
 Plug 'mattn/emmet-vim'
- " Enable just for html/css
+ " Enable just for html/css/jsx
  let g:user_emmet_install_global = 0
- autocmd FileType html,htmljinja,css EmmetInstall
- autocmd FileType html,htmljinja,css imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+ autocmd FileType html,htmljinja,css,javascript EmmetInstall
+
+ "autocmd FileType html,htmljinja,css,javascript imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
+ " Note that the trailing , still needs to be entered, so the new keymap would be <C-e>,.
+ let g:user_emmet_leader_key='<c-e>'
+
+ let g:user_emmet_settings = {
+ \  'javascript' : {
+ \      'extends' : 'jsx',
+ \  },
+ \}
 "}}}
 
 " ===== LeaderF  ===== {{{
@@ -544,6 +377,7 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
  let g:vim_markdown_conceal = 0
  let g:vim_markdown_frontmatter = 1
  let g:vim_markdown_new_list_item_indent = 2
+ let g:vim_markdown_conceal = 0
 "}}}
 
 " ===== vim-jinja ===== {{{

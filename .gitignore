@@ -8,3 +8,4 @@
 .bundles
 !bundles/init.vim
 .utils/ycm
+autoload/plug.vim.old
