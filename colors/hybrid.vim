@@ -453,13 +453,15 @@ let &background = s:style
 " }}}
 
 
-" 自定义设置
+""" 自定义设置
 hi! Visual ctermfg=234 ctermbg=110  guifg=#1daf21 guibg=#81a2be
 exe "hi! VertSplit"           .s:fg_comment     .s:bg_background  .s:fmt_revr
 
+" Python 装饰器
 exe "hi! pythonDecorator"     .s:fg_red         .s:bg_none        .s:fmt_none
 exe "hi! pythonDecoratorName" .s:fg_orange      .s:bg_none        .s:fmt_none
 
+" 过长的行
 exe "hi! OverLength"          .s:fg_foreground  .s:bg_red        .s:fmt_none
 
 " 更清晰的错误标注：默认一片红色背景，语法高亮都被搞没了

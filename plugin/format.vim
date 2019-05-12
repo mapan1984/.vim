@@ -59,8 +59,8 @@ augroup END
 " py-format {{{
 augroup py-format
     au!
-    au FileType python nnoremap <c-l> :!yapf -i %<cr>
-    au FileType python inoremap <c-l> <esc>:!yapf -i %<cr>
+    au FileType python nnoremap <c-l> :!yapf --style=pep8 -i %<cr>
+    au FileType python inoremap <c-l> <esc>:!yapf  --style=pep8 -i %<cr>
     "au FileType javascript map <c-k> :AsyncRun eslint %<cr>
     "au FileType javascript imap <c-k> <esc>:AsyncRun eslint %<cr>
 augroup END
@@ -86,6 +86,8 @@ function! s:JsBeautify()
     execute join(cmd)
 endfunction
 
+" json 格式化
+com! FormatJSONPy2Utf8 %!python -c "import json, sys, collections; print json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), ensure_ascii=False, indent=2)"
 
 augroup jsbeautify
     autocmd!
@@ -93,6 +95,6 @@ augroup jsbeautify
         \ command! -bar -nargs=0 -buffer JsBeautify call s:JsBeautify()
 augroup END
 "}}}
-"
+
 "set fileformats=dos
 "set fileformats=unix

@@ -63,17 +63,17 @@ Plug 'yggdroot/indentline', {
 " Plug 'morhetz/gruvbox'
 "}}}
 
-" ===== vim-indent-guides ===== {{{
-Plug 'nathanaelkane/vim-indent-guides', {'on': 'IndentGuidesToggle'}
- " let g:indent_guides_enable_on_vim_startup=1
- let g:indent_guides_auto_colors=0
- let g:indent_guides_start_level=2
- let g:indent_guides_guide_size=1
- let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vim',
-                                        \ 'markdown', 'tex', ' ']
- " 快捷键i开/关缩进可视化
- " nnoremap <silent> <c-i> :IndentGuidesToggle<cr>
-"}}}
+"" ===== vim-indent-guides ===== {{{
+"Plug 'nathanaelkane/vim-indent-guides', {'on': 'IndentGuidesToggle'}
+" " let g:indent_guides_enable_on_vim_startup=1
+" let g:indent_guides_auto_colors=0
+" let g:indent_guides_start_level=2
+" let g:indent_guides_guide_size=1
+" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vim',
+"                                        \ 'markdown', 'tex', ' ']
+" " 快捷键i开/关缩进可视化
+" " nnoremap <silent> <c-i> :IndentGuidesToggle<cr>
+""}}}
 
 " ===== vim-startify ===== {{{
 "Plug 'mhinz/vim-startify'
@@ -85,7 +85,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 LoadScript settings/NERDTree.vim
 "}}}
 
-" ======= Tags ======= {{{
 " ===== taglist ===== {{{
 "Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
 " set tags=./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
@@ -106,59 +105,12 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 "}}}
 
 " ===== vim-gutentags ===== {{{
-Plug 'ludovicchabant/vim-gutentags'
-"Plug 'skywind3000/gutentags_plus'
- " 调试 gutentags
- " let g:gutentags_trace = 1
- " 碰到这些文件/目录名之前不断向上一级目录递归
- " (如果想避免生成ctags，在目录中加`.notags`文件)
- let g:gutentags_project_root = g:project_root_markers
-
- " 所生成的数据文件的名称
- let g:gutentags_ctags_tagfile = '.tags'
- " 将自动生成的 tags 文件全部放入 ~/.vim/.cache/tags 目录中，避免污染工程目录
- let s:vim_cache_tags = expand('~/.vim/.cache/tags')
- let g:gutentags_cache_dir = s:vim_cache_tags
- " 检测 ~/.cache/tags 不存在就新建
- if !isdirectory(s:vim_cache_tags)
-    silent! call mkdir(s:vim_cache_tags, 'p')
- endif
-
- " 默认禁用自动生成
- let g:gutentags_modules = []
- " 如果有 ctags 可执行就允许动态生成 ctags 文件
- if executable('ctags')
-     let g:gutentags_modules += ['ctags']
- endif
-
- " gtags 指定分析器和配置
- "let $GTAGSLABEL = 'native-pygments'
- "let $GTAGSCONF = g:home . '/.utils/config/gtags.conf'
- "" 如果有 gtags 可执行就允许动态生成 gtags 数据库
- "if executable('gtags') && executable('gtags-cscope')
- "    let g:gutentags_modules += ['gtags_cscope']
- "endif
-
- " 忽略未进入版本控制的文件
- "let g:gutentags_file_list_command = 'rg --files'
- let g:gutentags_file_list_command = {
-     \ 'markers': {
-         \ '.git': 'git ls-files',
-         \ '.hg': 'hg files',
-         \ },
-     \ }
- let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundles/*"]
-
- " 配置 ctags 的参数
- let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
- let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
- let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
- " 如果使用 universal ctags 需要增加下面一行
- let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-
- " 禁止 gutentags 自动链接 gtags 数据库
- "let g:gutentags_auto_add_gtags_cscope = 0
-"}}}
+if (has('job') || (has('nvim') && exists('*jobwait')))
+    Plug 'ludovicchabant/vim-gutentags', {
+                   \ 'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
+                   \ }
+    LoadScript settings/gutentags.vim
+endif
 "}}}
 
 " ===== asyncrun.vim ===== {{{
@@ -184,25 +136,20 @@ Plug 'tpope/vim-surround'
 "}}}
 
 " ===== ultisnips ===== {{{
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
- let g:UltiSnipsExpandTrigger='<c-j>'
- let g:UltiSnipsJumpForwardTrigger='<c-j>'
- let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+if has('python3')
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    LoadScript settings/snippets.vim
+endif
+"}}}
 
- let g:UltiSnipsSnippetDirectories=['UltiSnips']
-
- let g:UltiSnipsEditSplit='vertical'
-
- let g:UltiSnipsUsePythonVersion = 3
-
- let g:UltiSnipsSnippetsDir = g:home . '/UltiSnips'
-
- let g:ultisnips_javascript = {
-      \ 'keyword-spacing': 'always',
-      \ 'semi': 'never',
-      \ 'space-before-function-paren': 'always',
-      \ }
+" ===== vim-snipmate ===== {{{
+"Plug 'marcweber/vim-addon-mw-utils'
+"Plug 'tomtom/tlib_vim'
+"Plug 'garbas/vim-snipmate'
+"Plug 'honza/vim-snippets'
+" imap <c-j> <Plug>snipMateNextOrTrigger
+" smap <c-j> <Plug>snipMateNextOrTrigger
 "}}}
 
 " ===== supertab ===== {{{
@@ -211,16 +158,13 @@ Plug 'honza/vim-snippets'
 
 if g:editor ==? 'nvim'
 " ===== coc.nvim ===== {{{
+    " Plug 'neoclide/coc.nvim'
     Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
     LoadScript settings/coc.vim
 "}}}
 else
 " ===== YouCompleteMe ===== {{{
-    if g:os ==? 'win'
-        set runtimepath+=C:/Users/mapan/.vim/.utils/ycm
-        let g:ycm_server_python_interpreter = 'C:\Program Files (x86)\Python27\python.exe'
-        " let g:ycm_python_binary_path = 'C:\Program Files\Python36\python.exe'
-    else
+    if g:os ==? 'linux'
         function! BuildYCM(info)
           if a:info.status ==? 'installed' || a:info.force
             "!./install.py --clang-completer --go-completer --js-completer --java-completer
@@ -233,18 +177,19 @@ else
                \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
                \'do': function('BuildYCM')
                \}
+        LoadScript settings/YCM.vim
     endif
-    LoadScript settings/YCM.vim
 "}}}
 endif
 
-" ===== vim-snipmate ===== {{{
-"Plug 'marcweber/vim-addon-mw-utils'
-"Plug 'tomtom/tlib_vim'
-"Plug 'garbas/vim-snipmate'
-"Plug 'honza/vim-snippets'
-" imap <c-j> <Plug>snipMateNextOrTrigger
-" smap <c-j> <Plug>snipMateNextOrTrigger
+" ===== joom/latex-unicoder.vim ===== {{{
+" Plug 'joom/latex-unicoder.vim'
+"  let g:unicoder_cancel_normal = 1
+"  let g:unicoder_cancel_insert = 1
+"  let g:unicoder_cancel_visual = 1
+"  nnoremap <C-i> :call unicoder#start(0)<CR>
+"  inoremap <C-i> <Esc>:call unicoder#start(1)<CR>
+"  vnoremap <C-i> :<C-u>call unicoder#selection()<CR>
 "}}}
 
 " ===== ale ===== {{{
@@ -256,90 +201,28 @@ LoadScript settings/ALE.vim
 
 " ===== Emmet-vim ===== {{{
 Plug 'mattn/emmet-vim'
- " Enable just for html/css/jsx
- let g:user_emmet_install_global = 0
- autocmd FileType html,htmljinja,css,javascript EmmetInstall
-
- "autocmd FileType html,htmljinja,css,javascript imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-
- " Note that the trailing , still needs to be entered, so the new keymap would be <C-e>,.
- let g:user_emmet_leader_key='<c-e>'
-
- let g:user_emmet_settings = {
- \  'javascript' : {
- \      'extends' : 'jsx',
- \  },
- \}
+LoadScript settings/emmet.vim
 "}}}
 
 " ===== LeaderF  ===== {{{
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
- let g:Lf_ShortcutF = '<c-p>'
- let g:Lf_ShortcutB = '<m-b>'
- noremap <m-m> :LeaderfMru<cr>
- noremap <m-f> :LeaderfFunction<cr>
- noremap <m-b> :LeaderfBuffer<cr>
- noremap <m-t> :LeaderfTag<cr>
-
- let g:Lf_StlColorscheme = 'powerline'
- let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
- let g:Lf_RootMarkers = g:project_root_markers
- let g:Lf_WorkingDirectoryMode = 'Ac'
- let g:Lf_WindowHeight = 0.30
- let g:Lf_ShowRelativePath = 0
- let g:Lf_HideHelp = 1
- let g:Lf_PreviewResult = {'Function': 0, 'Colorscheme':1}
-
- let g:Lf_NormalMap = {
-    \ 'File':           [['<ESC>', ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-    \ 'Buffer':         [['<ESC>', ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-    \ 'Mru':            [['<ESC>', ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-    \ 'Tag':            [['<ESC>', ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-    \ 'Function':       [['<ESC>', ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-    \ 'Colorscheme':    [['<ESC>', ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
-    \ }
-
- let s:vim_cache_lf = expand('~/.vim/.cache')
- let g:Lf_CacheDirectory = s:vim_cache_lf
- if !isdirectory(s:vim_cache_lf)
-    silent! call mkdir(s:vim_cache_lf, 'p')
- endif
+if has('python3')
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    LoadScript settings/LeaderF.vim
+endif
 "}}}
 
 " ===== ctrlp ===== {{{
-""Plug 'ctrlpvim/ctrlp.vim'
- "let g:ctrlp_map = '<c-p>'
- "let g:ctrlp_cmd = 'CtrlP'
- "" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore"
- "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
- "" Ag is fast enough that CtrlP doesn't need to cache
- "let g:ctrlp_use_caching = 0
-
- "let g:ctrlp_working_path_mode = 'ra'
-
- "Because use `ctrlp_user_command`，ignore config are not used by CtrlP
- " let g:ctrlp_custom_ignore = {
- "   \ 'dir':  '\v[\/](node_modules|log|tmp)|(\.(git|svn|vscode))$',
- "   \ 'file': '\v\.(exe|so|dll|dat)$',
- "   \ }
- " set wildignore+=*/tmp/*,*\\tmp\\*,*.so,*.swp,*.zip,*.exe,*/.sass-cache/*,*/node_modules/*
+" Plug 'ctrlpvim/ctrlp.vim'
+" LoadScript settings/ctrlp.vim
 "}}}
 
 " ===== ag.vim ===== {{{
 if executable('ag')
     Plug 'rking/ag.vim', {'on': 'Ag'}
-     " Use ag over grep
-     set grepprg=ag\ --nogroup\ --nocolor
-     let g:ag_prg='ag --vimgrep --smart-case'
-     let g:ag_highlight=1
-     let g:ag_working_path_mode='r'
-     " Bind `K` to grep word under cursor
-     "nnoremap K :grep! "\b<C-R><C-W>\b" <CR>:cw<CR>
+    LoadScript settings/ag.vim
 endif
 "}}}
 
-" ======= Git ======= {{{
 " ===== vim-fugitve ===== {{{
 Plug 'tpope/vim-fugitive'
 "}}}
@@ -355,7 +238,6 @@ Plug 'junegunn/gv.vim', {'on': 'GV'}
 
 " ===== vim-signify ===== {{{
 ""Plug 'mhinz/vim-signify'
-"}}}
 "}}}
 
 " ===== Ci ===== {{{

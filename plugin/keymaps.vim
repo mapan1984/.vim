@@ -36,7 +36,10 @@ nnoremap <silent> g, g,zz
 noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " 没有写权限时使用w!!
-cmap w!! w !sudo tee % > /dev/null
+cnoremap w!! w !sudo tee % > /dev/null
+
+" 进入块选择模式的快捷键
+xnoremap v <C-V>
 "}}}
 
 " ===== vimgrep ===== {{{

@@ -1,8 +1,8 @@
 set statusline=
 set statusline+=%{lessmess#statusline()}
 
-set showtabline=2  " Show tabline
-set guioptions-=e  " Don't use GUI tabline
+" set showtabline=2  " Show tabline
+" set guioptions-=e  " Don't use GUI tabline
 
 function! Lessmess()
     if exists('*lessmess#statusline')

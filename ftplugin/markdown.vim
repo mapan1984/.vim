@@ -1,5 +1,6 @@
 setlocal wrap                 " 开启折叠
 setlocal colorcolumn=0        " 消除.vimrc中的默认彩色显示第81列
+setlocal conceallevel=0       " 正常显示隐藏文本
 
 " 跳到下一个标题
 nnoremap <buffer> <localleader>nh /^##\+<cr>:nohlsearch<cr>
@@ -16,5 +17,4 @@ nnoremap <buffer> <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
 iabbrev <buffer> \$ \\(\\)<left><left><left><space><left>
 
 " Plugin vim-markdown
-setlocal conceallevel=2
 noremap <buffer> <silent> to :Toc<cr>

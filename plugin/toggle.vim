@@ -1,6 +1,9 @@
 " ===== 切换Colum =====
 nnoremap <leader>c :call toggle#FoldColumToggle()<cr>
 
+" ===== 按F2 进入粘贴模式 =====
+set pastetoggle=<leader>p
+
 " ===== 切换Quickfix =====
 nnoremap <leader>q :call toggle#QuickfixToggle()<cr>
 "command -bang -nargs=? QFix call QFixToggle(<bang>0)

@@ -31,7 +31,6 @@ endif
 LoadScript .utils/fix-alt-map.vim
 
 " Load Plugin
-" LoadScript bundles/init.vim
 LoadScript bundles.vim
 
 " 文件搜索和补全时忽略下面扩展名
@@ -87,11 +86,15 @@ let &t_ZR="\e[23m"
 " set t_ZH=^[[3m
 " set t_ZR=^[[23m
 
-colorscheme hybrid
-" colorscheme NeoSolarized
+
+if has('gui_running')
+  colorscheme NeoSolarized
+else
+  colorscheme hybrid
+endif
+set background=dark             " 可选light/dark
 " colorscheme gruvbox
 
-set background=dark             " 可选light/dark
 " highlight Normal guibg=NONE ctermbg=None
 set number                      " 显示行号
 set numberwidth=3               " 行号栏的宽度
