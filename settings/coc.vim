@@ -1,27 +1,29 @@
 " if hidden is not set, TextEdit might fail.
 set hidden
 
+" Some servers have issues with backup files, see #649
+" set nobackup
+" set nowritebackup
+
+" Better display for messages
+" set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+" set updatetime=300
+
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" :CocInstall coc-snippets
-" Use <C-l> to trigger snippet expand.
-" imap <localleader>l <Plug>(coc-snippets-expand)
-" Use <C-j> to select text for visual text of snippet.
-" vmap <localleader>j <Plug>(coc-snippets-select)
-" Use <C-j> to jump to forward placeholder, which is default
-let g:coc_snippet_next = '<c-j>'
-" Use <C-k> to jump to backward placeholder, which is default
-let g:coc_snippet_prev = '<c-k>'
-
+" always show signcolumns
+" set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -33,28 +35,37 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use <tab> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<tab>"
-inoremap <expr> <cr> "\<C-g>u\<CR>"
+" Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> <leader>td <Plug>(coc-definition)
-nmap <silent> <leader>ty <Plug>(coc-type-definition)
-nmap <silent> <leader>ti <Plug>(coc-implementation)
-nmap <silent> <leader>tr <Plug>(coc-references)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-let g:coc_snippet_next = '<TAB>'
-let g:coc_snippet_prev = '<S-TAB>'
 
 function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)

@@ -88,6 +88,7 @@ endfunction
 
 " json 格式化
 com! FormatJSONPy2Utf8 %!python -c "import json, sys, collections; print json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), ensure_ascii=False, indent=2)"
+com! FormatJSON %!python -m json.tool
 
 augroup jsbeautify
     autocmd!

@@ -1,4 +1,4 @@
-if exists("b:my_current_syntax")
+if exists("b:my_current_python_syntax")
   finish
 endif
 
@@ -12,4 +12,4 @@ syntax match OverLength "\v^.{80,}$"
 highlight default link OverLength Comment
 highlight default link PythonKeyword Keyword
 
-let b:my_current_syntax = "python"
+let b:my_current_python_syntax = "python"

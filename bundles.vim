@@ -7,21 +7,10 @@ if empty(glob(g:home . "/autoload/plug.vim"))
     \ 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 
-" function Rand()
-"     return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
-" endfunction
-
-function! GetRAND()
-    if g:os == 'linux'
-        return system("echo $RANDOM")
-    elseif g:os == 'win'
-        return system("echo %RANDOM%")
-    endif
-endfunction
-
 call plug#begin(g:home . '/.bundles')
 
-if GetRAND() % 2 == 0
+" if utils#GetRAND() % 2 == 0
+if utils#Rand() % 2 == 0
     " ===== vim-airline ===== {{{
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -98,13 +87,15 @@ LoadScript settings/NERDTree.vim
 " ===== tagbar ===== {{{
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
  " set tags=./tags,./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
- set tags=./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
- "command! MakeTags !ctags -o .tags -R .
+ set tags=./.tags;,.tags  " 从(`./.tags;`)当前文件目录递归到根目录，或(`.tags`)vim的当前目录(`:pwd`)
+ " command! MakeTags !ctags -o .tags -R .
  nnoremap <silent> tl :TagbarToggle<cr>
  let g:tagbar_sort = 0     " 默认按位置排序
 "}}}
 
 " ===== vim-gutentags ===== {{{
+" 1. 确定文件所在的工程目录（从当前文件向上递归查找`.git`, `.project`等标志）
+" 2. 同一个工程下所有的文件改动，自动增量更新对应工程的.tags文件
 if (has('job') || (has('nvim') && exists('*jobwait')))
     Plug 'ludovicchabant/vim-gutentags', {
                    \ 'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
@@ -158,8 +149,7 @@ endif
 
 if g:editor ==? 'nvim'
 " ===== coc.nvim ===== {{{
-    " Plug 'neoclide/coc.nvim'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     LoadScript settings/coc.vim
 "}}}
 else
@@ -174,13 +164,19 @@ else
 
         " Plug 'Valloric/YouCompleteMe'
         Plug 'Valloric/YouCompleteMe', {
-               \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
+               \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'scala', 'python', 'go', 'json','javascript', 'javascript.jsx'],
                \'do': function('BuildYCM')
                \}
         LoadScript settings/YCM.vim
     endif
 "}}}
 endif
+
+" ===== vim-lsp ===== {{{
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/vim-lsp'
+" LoadScript settings/vim-lsp.vim
+" }}}
 
 " ===== joom/latex-unicoder.vim ===== {{{
 " Plug 'joom/latex-unicoder.vim'
@@ -230,6 +226,7 @@ Plug 'tpope/vim-fugitive'
 " ===== vim-gitgutter ===== {{{
 Plug 'airblade/vim-gitgutter'
  set updatetime=200
+ let g:gitgutter_max_signs = 1000
 "}}}
 
 " ===== gv.vim ===== {{{

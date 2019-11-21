@@ -1,6 +1,6 @@
 "let g:ycm_key_invoke_completion = '<c-z>'
-nnoremap <F12> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"nnoremap <S-F12> :YcmCompleter GoToReferences<CR>
+nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap gr :YcmCompleter GoToReferences<CR>
 
 " Python config
 let g:ycm_python_binary_path = 'python3'

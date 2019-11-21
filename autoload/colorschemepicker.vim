@@ -76,15 +76,6 @@ endfor
 let s:total_colorschemes = len(s:colorscheme_file_paths)
 
 
-function! GetRAND()
-    if g:os == 'linux'
-        return system("echo $RANDOM")
-    elseif g:os == 'win'
-        return system("echo %RANDOM%")
-    endif
-endfunction
-
-
 function! ApplyCS(colorscheme)
     let cmd = 'colorscheme '.a:colorscheme
     execute cmd
@@ -115,7 +106,7 @@ function! colorschemepicker#RandomPick()
 
     " Randomly get a colorscheme that not in hate file
     while 1
-        let rand = GetRAND() % s:total_colorschemes
+        let rand = utils#GetRAND() % s:total_colorschemes
         let s:colorscheme_file_path = s:colorscheme_file_paths[rand]
         if index(hates, s:colorscheme_file_path) == -1
             break
