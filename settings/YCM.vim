@@ -4,7 +4,9 @@ nnoremap gr :YcmCompleter GoToReferences<CR>
 
 " Python config
 let g:ycm_python_binary_path = 'python3'
+
 let g:ycm_global_ycm_extra_conf = g:home . '/.utils/config/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
 
 " 屏蔽诊断信息
 let g:ycm_show_diagnostics_ui = 0
