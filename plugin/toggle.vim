@@ -1,8 +1,9 @@
 " ===== 切换Colum =====
 nnoremap <leader>c :call toggle#FoldColumToggle()<cr>
 
-" ===== 按F2 进入粘贴模式 =====
-set pastetoggle=<leader>p
+" ===== 切换粘贴模式 =====
+nnoremap <leader>p :set invpaste<cr>
+" set pastetoggle=<leader>p
 
 " ===== 切换Quickfix =====
 nnoremap <leader>q :call toggle#QuickfixToggle()<cr>
