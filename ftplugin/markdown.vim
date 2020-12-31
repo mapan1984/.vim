@@ -17,4 +17,4 @@ nnoremap <buffer> <leader>` viw<esc>a</kbd><esc>6hbi<kbd><esc>lelel
 iabbrev <buffer> \$ \\(\\)<left><left><left><space><left>
 
 " Plugin vim-markdown
-noremap <buffer> <silent> to :Toc<cr>
+nnoremap <buffer> <silent> to :Toc<cr>

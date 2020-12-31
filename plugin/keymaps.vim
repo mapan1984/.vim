@@ -2,11 +2,11 @@
 inoremap jk <ESC>
 
 " Treat long lines as break lines (useful when moving around in them)
-noremap j gj
-noremap k gk
+nnoremap j gj
+nnoremap k gk
 
 " Jump the middle postion
-inoremap zz <c-o>zz
+" inoremap zz <c-o>zz
 
 " First you need add 'stty -ixon' to .bashrc to forbid <c-s> suspend stty
 nnoremap <c-s> :w<CR>
@@ -25,15 +25,15 @@ nnoremap ]b :bnext<cr>
 "nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
 
 " 将当前光标下的词变为大写
-inoremap <m-u> <esc>viwUea
-nnoremap <m-u> viwUe
+" inoremap <m-u> <esc>viwUea
+" nnoremap <m-u> viwUe
 
-" Format Jump
+" Format changelist Jump
 nnoremap <silent> g; g;zz
 nnoremap <silent> g, g,zz
 
 " Switch CWD to the directory of the open buffer:
-noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " 没有写权限时使用w!!
 cnoremap w!! w !sudo tee % > /dev/null
@@ -42,7 +42,7 @@ cnoremap w!! w !sudo tee % > /dev/null
 xnoremap v <C-V>
 "}}}
 
-" ===== Brackets ===== {{{
+" ===== operator-pending mapping pairs ===== {{{
 " ( = i(
 onoremap ( i(
 onoremap { i{
@@ -53,13 +53,13 @@ onoremap ' i'
 onoremap ` i`
 
 " 下一个括号的内容
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap in{ :<c-u>normal! f{vi{<cr>
-onoremap in[ :<c-u>normal! f[vi(<cr>
-onoremap in< :<c-u>normal! f<vi<<cr>
-onoremap in" :<c-u>normal! f"vi"<cr>
-onoremap in' :<c-u>normal! f'vi'<cr>
-onoremap in` :<c-u>normal! f`vi`<cr>
+" onoremap in( :<c-u>normal! f(vi(<cr>
+" onoremap in{ :<c-u>normal! f{vi{<cr>
+" onoremap in[ :<c-u>normal! f[vi(<cr>
+" onoremap in< :<c-u>normal! f<vi<<cr>
+" onoremap in" :<c-u>normal! f"vi"<cr>
+" onoremap in' :<c-u>normal! f'vi'<cr>
+" onoremap in` :<c-u>normal! f`vi`<cr>
 "}}}
 
 " ===== 插入模式下移动 ===== {{{

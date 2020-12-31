@@ -6,12 +6,12 @@ nnoremap <localleader>c <c-w>c
 nnoremap <localleader>w <c-w>w
 
 " 窗口移动
-noremap <localleader>j <c-w>j
-noremap <localleader>h <c-w>h
-noremap <localleader>k <c-w>k
-noremap <localleader>l <c-w>l
+nnoremap <localleader>j <c-w>j
+nnoremap <localleader>h <c-w>h
+nnoremap <localleader>k <c-w>k
+nnoremap <localleader>l <c-w>l
 
-noremap <localleader>J 5<c-w>-
-noremap <localleader>H 5<c-w><
-noremap <localleader>K 5<c-w>+
-noremap <localleader>L 5<c-w>>
+nnoremap <localleader>J 5<c-w>-
+nnoremap <localleader>H 5<c-w><
+nnoremap <localleader>K 5<c-w>+
+nnoremap <localleader>L 5<c-w>>

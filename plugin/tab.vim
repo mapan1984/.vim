@@ -3,25 +3,25 @@ nnoremap <tab>x :Texplore<cr>
 " open file in new tab
 " noremap <c-o> :tabedit <c-r>=expand("%:p:h")<cr>/
 " create new file in new tab
-noremap <c-n> :tabnew <c-r>=expand("%:p:h")<cr>/
+nnoremap <c-n> :tabnew <c-r>=expand("%:p:h")<cr>/
 
 " 关闭当前标签页
-noremap <tab>c :tabclose<cr>
+nnoremap <tab>c :tabclose<cr>
 " 关闭所有其它的标签页
-noremap <tab>o :tabonly<cr>
+nnoremap <tab>o :tabonly<cr>
 " 当前标签页成为最后一个
-noremap <tab>m :tabmove<cr>
+nnoremap <tab>m :tabmove<cr>
 
 " ===== tab切换 =====
-noremap <tab>f :tabfirst<cr>
-noremap <tab>l :tablast<cr>
-noremap <tab>n :tabnext<cr>
-noremap <tab>p :tabprev<cr>
-noremap <tab>1 :tabn 1<cr>
-noremap <tab>2 :tabn 2<cr>
-noremap <tab>3 :tabn 3<cr>
-noremap <tab>4 :tabn 4<cr>
-noremap <tab>5 :tabn 5<cr>
+nnoremap <tab>f :tabfirst<cr>
+nnoremap <tab>l :tablast<cr>
+nnoremap <tab>n :tabnext<cr>
+nnoremap <tab>p :tabprev<cr>
+nnoremap <tab>1 :tabn 1<cr>
+nnoremap <tab>2 :tabn 2<cr>
+nnoremap <tab>3 :tabn 3<cr>
+nnoremap <tab>4 :tabn 4<cr>
+nnoremap <tab>5 :tabn 5<cr>
 
 """ make tabline in terminal mode
 ""function! Vim_NeatTabLine()
