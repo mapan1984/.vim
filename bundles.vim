@@ -24,21 +24,15 @@ else
     "}}}
 endif
 
-" ===== vim-buggerline ===== {{{
-" Plug 'bling/vim-bufferline'
-"}}}
-
 " ===== vim-which-key ===== {{{
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-LoadScript settings/WhichKey.vim
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" LoadScript settings/WhichKey.vim
 "}}}
 
 " ===== undotree ===== {{{
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
- " if has("persistent_undo")
- "     set undodir=~/.undodir/
- "     set undofile
- " endif
+if has("persistent_undo")
+  Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+endif
 "}}}
 
 " ===== indentLine ===== {{{
@@ -51,18 +45,6 @@ Plug 'yggdroot/indentline', {
 " ===== vim color shcemes ===== {{{
 " Plug 'morhetz/gruvbox'
 "}}}
-
-"" ===== vim-indent-guides ===== {{{
-"Plug 'nathanaelkane/vim-indent-guides', {'on': 'IndentGuidesToggle'}
-" " let g:indent_guides_enable_on_vim_startup=1
-" let g:indent_guides_auto_colors=0
-" let g:indent_guides_start_level=2
-" let g:indent_guides_guide_size=1
-" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'vim',
-"                                        \ 'markdown', 'tex', ' ']
-" " 快捷键i开/关缩进可视化
-" " nnoremap <silent> <c-i> :IndentGuidesToggle<cr>
-""}}}
 
 " ===== vim-startify ===== {{{
 "Plug 'mhinz/vim-startify'
@@ -97,9 +79,7 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " 1. 确定文件所在的工程目录（从当前文件向上递归查找`.git`, `.project`等标志）
 " 2. 同一个工程下所有的文件改动，自动增量更新对应工程的.tags文件
 if (has('job') || (has('nvim') && exists('*jobwait')))
-    Plug 'ludovicchabant/vim-gutentags', {
-                   \ 'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
-                   \ }
+    Plug 'ludovicchabant/vim-gutentags'
     LoadScript settings/gutentags.vim
 endif
 "}}}
@@ -116,10 +96,8 @@ Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
  " nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 "}}}
 
-" Plug 'mboughaba/vim-lessmess'
-
 " ===== vim-easymotion ===== {{{
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 "}}}
 
 " ===== vim-surround ===== {{{
@@ -242,7 +220,7 @@ Plug 'mapan1984/Ci', {'branch': 'forme'}
 "}}}
 
 " ===== pangu.vim ===== {{{
-Plug 'hotoo/pangu.vim', {'for': 'markdown'}
+" Plug 'hotoo/pangu.vim', {'for': 'markdown'}
 "}}}
 
 " ===== vim-markdown ===== {{{

@@ -3,7 +3,14 @@
 let g:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
 " 项目根目录标志
-let g:project_root_markers = ['.root', '.vscode', '.git', '.hg', 'Makefile', '.venv', 'package.json', 'requirements.txt']
+let g:project_root_markers = [
+    \ '.root', '.project',
+    \ '.vscode', '.idea', '.settings',
+    \ '.git', '.hg', '.svn',
+    \ 'Makefile',
+    \ '.venv', 'requirements.txt',
+    \ 'node_modules', 'package.json',
+    \ ]
 
 " 运行的操作系统
 if has('unix')

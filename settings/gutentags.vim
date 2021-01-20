@@ -1,5 +1,5 @@
 " 调试 gutentags
-"let g:gutentags_trace = 1
+" let g:gutentags_trace = 1
 
 " 碰到这些文件/目录名之前不断向上一级目录递归
 " (如果想避免生成ctags，在目录中加`.notags`文件)
@@ -34,7 +34,6 @@ endif
 
 
 " 忽略未进入版本控制的文件
-"let g:gutentags_file_list_command = 'rg --files'
 let g:gutentags_file_list_command = {
     \ 'markers': {
         \ '.git': 'git ls-files',
@@ -42,17 +41,19 @@ let g:gutentags_file_list_command = {
         \ },
     \ }
 let g:gutentags_ctags_exclude = [
-    \ "*.min.js",
-    \ "*.min.css",
-    \ "build",
-    \ "vendor",
-    \ ".git",
-    \ "node_modules",
-    \ "*.vim/.bundles/*"
+    \ "*.git", "*.svg", "*.hg",
+    \ "*.min.js", "*.min.css", "*bundle*.js", "*build*.js", "*.map",
+    \ "*.pyc", "*.class",
+    \ "build", "dist", "target",
+    \ ".venv", "vendor", "node_modules",
+    \ '.vscode', '.idea', '.settings',
+    \ "*.vim/.bundles/*",
     \ ]
 
 " 配置 ctags 的参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extras=+q']
+let g:gutentags_ctags_extra_args = ['--fields=+nilmazS']
+let g:gutentags_ctags_extra_args += ['--extras=+q']
+let g:gutentags_ctags_extra_args += ['--tag-relative=yes']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 " 如果使用 universal ctags 需要增加下面一行
