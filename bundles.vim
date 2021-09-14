@@ -24,106 +24,19 @@ else
     "}}}
 endif
 
-" ===== vim-which-key ===== {{{
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-" LoadScript settings/WhichKey.vim
-"}}}
-
-" ===== undotree ===== {{{
-if has("persistent_undo")
-  Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-endif
-"}}}
-
-" ===== indentLine ===== {{{
-Plug 'yggdroot/indentline', {
-           \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx'],
-           \'on': 'IndentLinesToggle'}
- let g:indentLine_enabled = 0
-"}}}
-
-" ===== vim color shcemes ===== {{{
-" Plug 'morhetz/gruvbox'
-"}}}
-
-" ===== vim-startify ===== {{{
-"Plug 'mhinz/vim-startify'
-"}}}
-
 " ===== nerdtree ===== {{{
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 LoadScript settings/NERDTree.vim
 "}}}
 
-" ===== taglist ===== {{{
-"Plug 'vim-scripts/taglist.vim', {'on': 'TlistToggle'}
-" set tags=./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
-" "command! MakeTags !ctags -o .tags -R .
-" nnoremap <silent> tl :TlistToggle<cr>
-" let g:Tlist_Show_One_File = 1            "不同时显示多个文件的tag，只显示当前文件的
-" let g:Tlist_Exit_OnlyWindow = 1          "如果taglist窗口是最后一个窗口，则退出vim
-" let g:Tlist_Use_Right_Window = 1         "在右侧窗口中显示taglist窗口
-"}}}
-
-" ===== tagbar ===== {{{
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
- " set tags=./tags,./.tags;,.tags  " 从当前文件目录递归到根目录，或vim的当前目录(`:pwd`)
- set tags=./.tags;,.tags  " 从(`./.tags;`)当前文件目录递归到根目录，或(`.tags`)vim的当前目录(`:pwd`)
- " command! MakeTags !ctags -o .tags -R .
- nnoremap <silent> tl :TagbarToggle<cr>
- let g:tagbar_sort = 0     " 默认按位置排序
-"}}}
-
 " ===== vim-gutentags ===== {{{
 " 1. 确定文件所在的工程目录（从当前文件向上递归查找`.git`, `.project`等标志）
 " 2. 同一个工程下所有的文件改动，自动增量更新对应工程的.tags文件
-if (has('job') || (has('nvim') && exists('*jobwait')))
-    Plug 'ludovicchabant/vim-gutentags'
-    LoadScript settings/gutentags.vim
-endif
+Plug 'ludovicchabant/vim-gutentags'
+LoadScript settings/gutentags.vim
 "}}}
 
-" ===== asyncrun.vim ===== {{{
-Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
- " 自动打开 quickfix window ，高度为 6
- let g:asyncrun_open = 6
- " 任务结束时候响铃提醒
- let g:asyncrun_bell = 1
- " 工程目录的标志
- let g:asyncrun_rootmarks = g:project_root_markers
- " 设置 F10 打开/关闭 Quickfix 窗口
- " nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
-"}}}
-
-" ===== vim-easymotion ===== {{{
-" Plug 'easymotion/vim-easymotion'
-"}}}
-
-" ===== vim-surround ===== {{{
-Plug 'tpope/vim-surround'
-"}}}
-
-" ===== ultisnips ===== {{{
-if has('python3')
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
-    LoadScript settings/snippets.vim
-endif
-"}}}
-
-" ===== vim-snipmate ===== {{{
-"Plug 'marcweber/vim-addon-mw-utils'
-"Plug 'tomtom/tlib_vim'
-"Plug 'garbas/vim-snipmate'
-"Plug 'honza/vim-snippets'
-" imap <c-j> <Plug>snipMateNextOrTrigger
-" smap <c-j> <Plug>snipMateNextOrTrigger
-"}}}
-
-" ===== supertab ===== {{{
-" Plug 'ervandew/supertab'
-"}}}
 
 if g:editor ==? 'nvim'
 " ===== coc.nvim ===== {{{
@@ -150,22 +63,6 @@ else
 "}}}
 endif
 
-" ===== vim-lsp ===== {{{
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" LoadScript settings/vim-lsp.vim
-" }}}
-
-" ===== joom/latex-unicoder.vim ===== {{{
-" Plug 'joom/latex-unicoder.vim'
-"  let g:unicoder_cancel_normal = 1
-"  let g:unicoder_cancel_insert = 1
-"  let g:unicoder_cancel_visual = 1
-"  nnoremap <C-i> :call unicoder#start(0)<CR>
-"  inoremap <C-i> <Esc>:call unicoder#start(1)<CR>
-"  vnoremap <C-i> :<C-u>call unicoder#selection()<CR>
-"}}}
-
 " ===== ale ===== {{{
 Plug 'w0rp/ale', {
 \   'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx']
@@ -173,21 +70,11 @@ Plug 'w0rp/ale', {
 LoadScript settings/ALE.vim
 "}}}
 
-" ===== Emmet-vim ===== {{{
-Plug 'mattn/emmet-vim'
-LoadScript settings/emmet.vim
-"}}}
-
 " ===== LeaderF  ===== {{{
 if has('python3')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     LoadScript settings/LeaderF.vim
 endif
-"}}}
-
-" ===== ctrlp ===== {{{
-" Plug 'ctrlpvim/ctrlp.vim'
-" LoadScript settings/ctrlp.vim
 "}}}
 
 " ===== ag.vim ===== {{{
@@ -207,20 +94,8 @@ Plug 'airblade/vim-gitgutter'
  let g:gitgutter_max_signs = 1000
 "}}}
 
-" ===== gv.vim ===== {{{
-Plug 'junegunn/gv.vim', {'on': 'GV'}
-"}}}
-
-" ===== vim-signify ===== {{{
-""Plug 'mhinz/vim-signify'
-"}}}
-
 " ===== Ci ===== {{{
 Plug 'mapan1984/Ci', {'branch': 'forme'}
-"}}}
-
-" ===== pangu.vim ===== {{{
-" Plug 'hotoo/pangu.vim', {'for': 'markdown'}
 "}}}
 
 " ===== vim-markdown ===== {{{
@@ -237,32 +112,8 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
  let g:vim_markdown_conceal = 0
 "}}}
 
-" ===== vim-jinja ===== {{{
-Plug 'Glench/Vim-Jinja2-Syntax', {'for': ['html', 'jinja']}
-"}}}
-
-" ===== vim-javascript ===== {{{
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
- let g:jsx_ext_required = 1
-"}}}
-
-" ===== vim-json ===== {{{
-Plug 'elzr/vim-json', {'for': 'json'}
- let g:vim_json_syntax_conceal = 0
- let g:vim_json_warnings=0
-"}}}
-
-" ===== vim-python-pep8-indent ===== {{{
-Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
-"}}}
-
 " ===== vim-systemd-syntax ===== {{{
 Plug 'Matt-Deacalion/vim-systemd-syntax'
-"}}}
-
-" ===== leafgarland/typescript-vim ===== {{{
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 "}}}
 
 call plug#end()
