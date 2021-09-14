@@ -1,47 +1,48 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" https://www.reddit.com/r/vim/comments/49n1ay/are_set_nocompatible_and_filetype_off_still/
+" set nocompatible              " be iMproved, required
+" filetype off                  " required
 
 " Make sure Vim-Plug is installed
 if empty(glob(g:home . "/autoload/plug.vim"))
-    execute '!curl -fLo ' . g:home . '/autoload/plug.vim'
-    \ 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+    execute '!curl -fLo ' . g:home . '/autoload/plug.vim --create-dirs'
+    \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
 
-call plug#begin(g:home . '/.bundles')
+call plug#begin(g:home . '/.plugins')
 
 " if utils#GetRAND() % 2 == 0
 if utils#Rand() % 2 == 0
     " ===== vim-airline ===== {{{
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    LoadScript settings/AirLine.vim
+    LoadScript plugins/settings/AirLine.vim
     "}}}
 else
     " ===== lightline ===== {{{
     Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
-    LoadScript settings/LightLine.vim
+    LoadScript plugins/settings/LightLine.vim
     "}}}
 endif
 
 " ===== nerdtree ===== {{{
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-LoadScript settings/NERDTree.vim
+LoadScript plugins/settings/NERDTree.vim
 "}}}
 
 " ===== vim-gutentags ===== {{{
 " 1. 确定文件所在的工程目录（从当前文件向上递归查找`.git`, `.project`等标志）
 " 2. 同一个工程下所有的文件改动，自动增量更新对应工程的.tags文件
 Plug 'ludovicchabant/vim-gutentags'
-LoadScript settings/gutentags.vim
+LoadScript plugins/settings/gutentags.vim
 "}}}
 
 
 if g:editor ==? 'nvim'
 " ===== coc.nvim ===== {{{
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    LoadScript settings/coc.vim
+    LoadScript plugins/settings/coc.vim
 "}}}
 else
 " ===== YouCompleteMe ===== {{{
@@ -58,7 +59,7 @@ else
                \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'scala', 'python', 'go', 'json','javascript', 'javascript.jsx'],
                \'do': function('BuildYCM')
                \}
-        LoadScript settings/YCM.vim
+        LoadScript plugins/settings/YCM.vim
     endif
 "}}}
 endif
@@ -67,20 +68,20 @@ endif
 Plug 'w0rp/ale', {
 \   'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx']
 \ }
-LoadScript settings/ALE.vim
+LoadScript plugins/settings/ALE.vim
 "}}}
 
 " ===== LeaderF  ===== {{{
 if has('python3')
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-    LoadScript settings/LeaderF.vim
+    LoadScript plugins/settings/LeaderF.vim
 endif
 "}}}
 
 " ===== ag.vim ===== {{{
 if executable('ag')
     Plug 'rking/ag.vim', {'on': 'Ag'}
-    LoadScript settings/ag.vim
+    LoadScript plugins/settings/ag.vim
 endif
 "}}}
 
@@ -119,6 +120,6 @@ Plug 'Matt-Deacalion/vim-systemd-syntax'
 call plug#end()
 
 " 载入文件类型插件,为特定文件类型载入相关缩进文件
-filetype on                  " enable filetype detection
-filetype plugin on           " enable plugin (load ftplugin)
-filetype indent on           " enable indent (load indent)
+" filetype on                  " enable filetype detection (load ftdetect)
+" filetype plugin on           " enable plugin (load ftplugin)
+" filetype indent on           " enable indent (load indent)

@@ -40,6 +40,7 @@ let g:ycm_filetype_whitelist = {
             \ 'javascript': 1,
             \ 'javascript.jsx': 1,
             \ }
+" let g:ycm_filetype_blacklist = {'text':1, 'markdown':1}
 
 " gopath
 if !empty($GOPATH) && len(split($GOPATH, ":")) > 1

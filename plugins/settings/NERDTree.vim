@@ -40,7 +40,8 @@ let g:NERDTreeWinPos=0
 " For mouse click in NERDTree
 let g:NERDTreeMouseMode=3
 
-let g:NERDTreeIndicatorMapCustom = {
+" let g:NERDTreeIndicatorMapCustom = {
+let NERDTreeGitStatusIndicatorMapCustom = {
 \     "Modified"  : "*",
 \     "Staged"    : "^",
 \     "Untracked" : "λ",
