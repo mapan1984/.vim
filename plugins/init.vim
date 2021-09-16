@@ -10,20 +10,11 @@ endif
 
 call plug#begin(g:home . '/.plugins')
 
-" if utils#GetRAND() % 2 == 0
-if utils#Rand() % 2 == 0
-    " ===== vim-airline ===== {{{
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    LoadScript plugins/settings/AirLine.vim
-    "}}}
-else
-    " ===== lightline ===== {{{
-    Plug 'itchyny/lightline.vim'
-    Plug 'maximbaz/lightline-ale'
-    LoadScript plugins/settings/LightLine.vim
-    "}}}
-endif
+" ===== vim-airline ===== {{{
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+LoadScript plugins/settings/vim-airline.vim
+"}}}
 
 " ===== nerdtree ===== {{{
 Plug 'scrooloose/nerdtree'
