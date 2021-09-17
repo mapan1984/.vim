@@ -1,7 +1,7 @@
 function! utils#GetRAND()
-    if g:os == 'linux'
+    if g:os_is_linux
         return system("echo $RANDOM")
-    elseif g:os == 'win'
+    elseif g:os_is_windows
         return system("echo %RANDOM%")
     endif
 endfunction

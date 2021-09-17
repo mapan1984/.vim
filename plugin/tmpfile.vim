@@ -1,20 +1,51 @@
 " 临时文件文件夹
-if g:os ==? 'linux'
-    let g:tmp_dir = $HOME . '/.vim/.tmp'
-elseif g:os ==? 'win'
+if g:os_is_linux
     if has('nvim')
-        let g:tmp_dir = $HOME . '\nvim\.tmp'
+        " stdpath('data')
+        let s:tmp_dir = $HOME . '/.local/share/nvim/.tmp'
+        set viminfo   ='100,n$HOME/.local/share/nvim/.tmp/info/nviminfo
     else
-        let g:tmp_dir = $HOME . '\vimfiles\.tmp'
+        let s:tmp_dir = $HOME . '/.vim/.tmp'
+        set viminfo   ='100,n$HOME/.vim/.tmp/info/viminfo
     endif
+    let s:path_sep = '/'
+elseif s:os_is_windows
+    if has('nvim')
+        let s:tmp_dir = $HOME . '\nvim\.tmp'
+        set viminfo=%,<800,'10,/50,:100,h,f0,n~/nvim/.tmp/info/.viminfo
+        "           | |    |   |   |    | |  + viminfo file path
+        "           | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
+        "           | |    |   |   |    + disable 'hlsearch' loading viminfo
+        "           | |    |   |   + command-line history saved
+        "           | |    |   + search history saved
+        "           | |    + files marks saved
+        "           | + lines saved each register (old name for <, vi6.2)
+        "           + save/restore buffer list
+    else
+        let s:tmp_dir = $HOME . '\vimfiles\.tmp'
+        set viminfo=%,<800,'10,/50,:100,h,f0,n~/vimfiles/.tmp/info/.viminfo
+        "           | |    |   |   |    | |  + viminfo file path
+        "           | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
+        "           | |    |   |   |    + disable 'hlsearch' loading viminfo
+        "           | |    |   |   + command-line history saved
+        "           | |    |   + search history saved
+        "           | |    + files marks saved
+        "           | + lines saved each register (old name for <, vi6.2)
+        "           + save/restore buffer list
+    endif
+    let s:path_sep = '\'
 endif
 
+let &backupdir=s:tmp_dir . s:path_sep . 'backup'
+let &directory=s:tmp_dir . s:path_sep . 'swap'
+let &undodir=s:tmp_dir . s:path_sep . 'undo'
+
 " 如果文件夹不存在，则新建文件夹
-if !isdirectory(g:tmp_dir) && exists('*mkdir')
-  call mkdir(g:tmp_dir.'/backup', 'p')
-  call mkdir(g:tmp_dir.'/swap', 'p')
-  call mkdir(g:tmp_dir.'/undo', 'p')
-  call mkdir(g:tmp_dir.'/info', 'p')
+if !isdirectory(s:tmp_dir) && exists('*mkdir')
+  call mkdir(s:tmp_dir.'/backup', 'p')
+  call mkdir(s:tmp_dir.'/swap', 'p')
+  call mkdir(s:tmp_dir.'/undo', 'p')
+  call mkdir(s:tmp_dir.'/info', 'p')
 endif
 
 " 备份文件 {{{
@@ -40,49 +71,3 @@ set undofile
 " viminfo 文件{{{
 set history  =500                " 历史记录数
 "}}}
-
-" 临时文件文件夹
-if g:os == 'linux'
-    let g:tmp_dir = $HOME.'/.vim/.tmp'
-    set backupdir =$HOME/.vim/.tmp/backup
-    set directory =$HOME/.vim/.tmp/swap
-    set undodir   =$HOME/.vim/.tmp/undo
-    if has('nvim')
-        set viminfo   ='100,n$HOME/.vim/.tmp/info/nviminfo
-    else
-        set viminfo   ='100,n$HOME/.vim/.tmp/info/viminfo
-    endif
-elseif g:os == 'win'
-    if has('nvim')
-        let g:tmp_dir = $HOME . '\nvim\.tmp'
-        set backupdir =$HOME\nvim\.tmp\backup
-        set directory =$HOME\nvim\.tmp\swap
-        set undodir   =$HOME\nvim\.tmp\undo
-        "set viminfo   ='100,n$HOME\nvim\.tmp\info\viminfo
-
-        set viminfo=%,<800,'10,/50,:100,h,f0,n~/nvim/.tmp/info/.viminfo
-        "           | |    |   |   |    | |  + viminfo file path
-        "           | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
-        "           | |    |   |   |    + disable 'hlsearch' loading viminfo
-        "           | |    |   |   + command-line history saved
-        "           | |    |   + search history saved
-        "           | |    + files marks saved
-        "           | + lines saved each register (old name for <, vi6.2)
-        "           + save/restore buffer list
-    else
-        let g:tmp_dir = $HOME.'\vimfiles\.tmp'
-        set backupdir =$HOME\vimfiles\.tmp\backup
-        set directory =$HOME\vimfiles\.tmp\swap
-        set undodir   =$HOME\vimfiles\.tmp\undo
-        set viminfo=%,<800,'10,/50,:100,h,f0,n~/vimfiles/.tmp/info/.viminfo
-        "           | |    |   |   |    | |  + viminfo file path
-        "           | |    |   |   |    | + file marks 0-9,A-Z 0=NOT stored
-        "           | |    |   |   |    + disable 'hlsearch' loading viminfo
-        "           | |    |   |   + command-line history saved
-        "           | |    |   + search history saved
-        "           | |    + files marks saved
-        "           | + lines saved each register (old name for <, vi6.2)
-        "           + save/restore buffer list
-    endif
-endif
-

@@ -14,9 +14,9 @@ let g:project_root_markers = [
 
 " 运行的操作系统
 if has('unix')
-    let g:os = 'linux'
+    let g:os_is_linux = v:true
 elseif has('win16') || has('win32') || has('win64')
-    let g:os = 'win'
+    let g:os_is_windows = v:true
 endif
 
 let s:is_win = has('win32')

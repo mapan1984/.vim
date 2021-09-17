@@ -37,7 +37,7 @@ if g:editor ==? 'nvim'
 "}}}
 else
 " ===== YouCompleteMe ===== {{{
-    if g:os ==? 'linux'
+    if g:os_is_linux
         function! BuildYCM(info)
           if a:info.status ==? 'installed' || a:info.force
             "!./install.py --clang-completer --go-completer --js-completer --java-completer
