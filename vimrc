@@ -37,11 +37,11 @@ endif
 " 修正alt键映射
 LoadScript .utils/fix-alt-map.vim
 
-" Load Plugin
-LoadScript bundles.vim
-
 " 文件搜索和补全时忽略下面扩展名
 LoadScript .utils/ignore-file.vim
+
+" Load Plugin
+LoadScript plugins/init.vim
 "}}}
 
 " ===== Syntax ===== {{{
@@ -123,6 +123,19 @@ set list listchars=tab:→\ ,trail:•,extends:>,precedes:< " 设置分隔符可
 
 " set showtabline=2  " Show tabline
 " set guioptions-=e  " Don't use GUI tabline
+"}}}
+
+" ===== Complete ===== {{{
+" 不要加 preview，否则在补全列表中选择时会弹出 preview window 显示当前项的信息，会打乱当前窗口布局
+" 增加 noselect，不要选择第一个选项，ctrl-n 之后才会跳到第一项，否则会到第二项
+set completeopt=menu,menuone,noselect,noinsert
+" 使用 popup，在补全列表中选择时会弹出 popup window 显示当前项的信息(vim8.2 之后支持)
+if has('popupwin')
+    set completeopt+=popup
+endif
+
+" don't give |ins-completion-menu| messages.
+" set shortmess+=c
 "}}}
 
 " ===== Searching ===== {{{

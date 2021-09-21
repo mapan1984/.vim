@@ -12,7 +12,6 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_show_diagnostics_ui = 0
 
 " 不弹出函数原型的预览窗口
-set completeopt=menu,menuone
 let g:ycm_add_preview_to_completeopt = 0
 
 " Close preview window when the offered completion is accepted
