@@ -82,7 +82,8 @@ Plug 'tpope/vim-fugitive'
 
 " ===== vim-gitgutter ===== {{{
 Plug 'airblade/vim-gitgutter'
- set updatetime=200
+ " has been set in `tmpfile.vim`
+ " set updatetime=200
  let g:gitgutter_max_signs = 1000
 "}}}
 

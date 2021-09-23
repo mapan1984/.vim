@@ -59,7 +59,7 @@ set backupskip  =
 " 交换文件 {{{
 "set noswapfile  " 禁用交换文件
 set updatecount =100
-set updatetime  =500
+set updatetime  =200  " 如果 200 milliseconds 中没有输入字符，swap file 将会被写入磁盘
 "}}}
 
 " 撤销文件 {{{
