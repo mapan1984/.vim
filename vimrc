@@ -45,10 +45,18 @@ LoadScript plugins/init.vim
 "}}}
 
 " ===== Syntax ===== {{{
-if has('syntax')
-    syntax enable                   " 开启语法高亮功能
-    syntax on                       " 允许用指定语法高亮配色方案替换默认方案
-endif
+"if has('syntax')
+"    " https://www.reddit.com/r/vim/comments/choowl/vimpolyglot_syntax_on_or_syntax_enable/
+"    syntax enable                   " 开启语法高亮功能
+"    syntax on                       " 允许用指定语法高亮配色方案替换默认方案
+"
+"    " 语法高亮在大文件跳转中失效：https://github.com/vim/vim/issues/2790
+"    " https://vim.fandom.com/wiki/Fix_syntax_highlighting
+"    " https://groups.google.com/g/vim_use/c/92m8ZEZniz0/m/e1T9CWNs7JIJ
+"    " syntax sync minlines=10000
+"    " syntax sync fromstart
+"    " autocmd BufEnter * :syntax sync fromstart
+"endif
 "}}}
 
 " ===== Lang & Encode ===== {{{
