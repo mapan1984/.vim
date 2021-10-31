@@ -19,12 +19,6 @@ elseif has('win16') || has('win32') || has('win64')
     let g:os_is_windows = v:true
 endif
 
-let s:is_win = has('win32')
-if has('nvim-0.2') || (has('nvim') && exists('*jobwait') && !s:is_win)
-    let g:editor = 'nvim'
-else
-    let g:editor = 'vim'
-endif
 
 let mapleader=','
 let maplocalleader="\<Space>"
@@ -32,6 +26,11 @@ let maplocalleader="\<Space>"
 " 定义一个命令用来加载文件
 if !exists(':LoadScript')
     command! -nargs=1 LoadScript exec 'source '.g:home.'/'.'<args>'
+endif
+
+" 定义一个命令用来加载 lua 文件
+if has('nvim') && !exists(':LoadLuaScript')
+    command! -nargs=1 LoadLuaScript exec 'luafile '.g:home.'/'.'<args>'
 endif
 
 " 修正alt键映射

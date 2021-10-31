@@ -5,7 +5,5 @@
 .tags
 *.un~
 *.swp
-.bundles
-!bundles/init.vim
-.utils/ycm
+.plugins
 autoload/plug.vim.old

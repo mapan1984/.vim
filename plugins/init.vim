@@ -29,35 +29,50 @@ Plug 'ludovicchabant/vim-gutentags'
 LoadScript plugins/settings/gutentags.vim
 "}}}
 
+if has('nvim')
+"" ===== coc.nvim ===== {{{
+"    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"    LoadScript plugins/settings/coc.vim
+""}}}
+" ===== nvim-lsp ===== {{{
+    Plug 'neovim/nvim-lspconfig'    " Collection of configurations for built-in LSP client
+    Plug 'hrsh7th/cmp-nvim-lsp'     " LSP source for nvim-cmp
+    Plug 'hrsh7th/nvim-cmp'         " Autocompletion plugin
 
-if g:editor ==? 'nvim'
-" ===== coc.nvim ===== {{{
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    LoadScript plugins/settings/coc.vim
+    " For luasnip user
+    Plug 'L3MON4D3/LuaSnip'         " Snippets plugin
+    Plug 'saadparwaiz1/cmp_luasnip' " Snippets source for nvim-cmp
+
+    " For vsnip user
+    " Plug 'hrsh7th/cmp-vsnip'
+    " Plug 'hrsh7th/vim-vsnip'
+
+    " For ultisnips user.
+    " Plug 'SirVer/ultisnips'
+    " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+    Plug 'hrsh7th/cmp-buffer'
 "}}}
 else
 " ===== YouCompleteMe ===== {{{
     if g:os_is_linux
-        function! BuildYCM(info)
-          if a:info.status ==? 'installed' || a:info.force
-            "!./install.py --clang-completer --go-completer --js-completer --java-completer
-            !./install.py --clang-completer --go-completer --ts-completer  --java-completer
-          endif
-        endfunction
-
-        " Plug 'Valloric/YouCompleteMe'
         Plug 'Valloric/YouCompleteMe', {
-               \'for': ['c', 'sh', 'cpp', 'vim', 'java', 'scala', 'python', 'go', 'json','javascript', 'javascript.jsx'],
-               \'do': function('BuildYCM')
+               \    'for': ['c', 'sh', 'cpp', 'vim', 'java', 'scala', 'python', 'go', 'json', 'javascript']
                \}
         LoadScript plugins/settings/YCM.vim
     endif
 "}}}
 endif
 
+" ===== nvim-treesitter ===== {{{
+if has('nvim')
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+endif
+"}}}
+
 " ===== ale ===== {{{
 Plug 'w0rp/ale', {
-\   'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json','javascript', 'javascript.jsx']
+\   'for': ['c', 'sh', 'cpp', 'vim', 'java', 'python', 'go', 'json', 'javascript']
 \ }
 LoadScript plugins/settings/ALE.vim
 "}}}
@@ -110,6 +125,16 @@ Plug 'Matt-Deacalion/vim-systemd-syntax'
 "}}}
 
 call plug#end()
+
+if has('nvim')
+" ===== nvim-lsp ===== {{{
+    LoadLuaScript plugins/settings/nvim-lspconfig.lua
+    LoadLuaScript plugins/settings/nvim-cmp.lua
+"}}}
+" ===== nvim-treesitter ===== {{{
+    LoadLuaScript plugins/settings/nvim-treesitter.lua
+"}}}
+endif
 
 " 载入文件类型插件,为特定文件类型载入相关缩进文件
 " filetype on                  " enable filetype detection (load ftdetect)
