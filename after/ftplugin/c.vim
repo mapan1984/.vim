@@ -5,4 +5,4 @@ iabbrev <buffer> mian main
 " iabbrev <buffer> while while ) {}<left><cr><up><end><left><left><left>
 
 " 帮助文档
-nnoremap <buffer> K :<c-u>AsyncRun! man -S 3:2:1 <cword><cr>
+nnoremap <buffer> K :<c-u>! man -S 3:2:1 <cword><cr>
